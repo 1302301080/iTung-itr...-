@@ -1,0 +1,91 @@
+<div id="fund-trade-panel" class="panel panel-default panel-ticket msclear" style="height: 382px;">
+	<div class="panel-heading">
+		<span data-i18n="ticket_title"></span>
+	</div>
+	<div class="panel-body panel-first-row">
+		<div class="row">
+			<div class="col-lg-12 col-md-12">
+				<div class="panel-group accordion" id="fund-accordion">
+					<ul class="nav nav-tabs fund-ticketUl">
+						<li class="active" id="tab-fund-s">
+							<a href="#tab-fund-subscribe" data-toggle="tab" data-i18n="fund_subscribe"></a>
+						</li>
+						<li class="" id="tab-fund-r">
+							<a href="#tab-fund-redeem" data-toggle="tab" data-i18n="fund_redeem"></a>
+						</li>
+						<li class="" id="tab-fund-sw">
+							<a href="#tab-fund-switch" data-toggle="tab" data-i18n="fund_switch"></a>
+						</li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="tab-fund-subscribe">
+							<div class="well well-sm col-sm-12">
+								<div class="fund-info">
+								</div>
+								<form class="form-inline form-ticket" role="form" id="fund-subscribe-form">
+									<div class="form-group form-group-sm">
+										<label data-i18n="fund_symbol_code"></label>
+										<div class="input-group input-group-sm">
+											<input type="text" name="symbol" id="ticket-input-symbol-code" class="form-control symbol-code fund-input-symbol" data-i18n="fund_symbol_code"
+											 required autocomplete="off">
+											<span class="input-group-addon">
+												<a href="javascript:SearchProduct_Search('FUND','0');" tabindex="-1">
+													<i class="fa fa-search text-muted"></i>
+												</a>
+											</span>
+										</div>
+									</div>
+									<div class="form-group form-group-sm">
+										<label data-i18n="fund_subscription_amount" style="margin-left:10px;"></label>
+										<div class="input-group input-group-sm">
+											<input type="text" class="form-control" id="input-amount" data-format="amount" data-i18n="fund_subscription_amount" required
+											 autocomplete="off">
+										</div>
+									</div>
+									<div class="form-group form-group-sm">
+										<button type="button" class="btn btn-sm btn-success" data-typeSide='0' id="fund-buy-btn" data-i18n="ticket_subscribe"></button>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="tab-pane" id="tab-fund-redeem">
+							<div class="well well-sm col-sm-12">
+								<div class="fund-info">
+								</div>
+								<form class="form-inline" role="form" id="fund-redeem-form">
+									<div class="form-group form-group-sm">
+										<label data-i18n="fund_symbol_code"></label>
+										<div class="input-group input-group-sm">
+											<div class='switch-dropdown' style='position:relative;'>
+												<input type='text' id='fund-reddem-input' name='switchout' class='input-sm symbol-code' autocomplete="off">
+											</div>
+                                                <span class="input-group-addon">
+												<a href="javascript:SearchProduct_Search('FUND','0');" tabindex="-1">
+													<i class="fa fa-search text-muted"></i>
+												</a>
+											</span>
+										</div>
+									</div>
+									<div class="form-group form-group-sm">
+										<label data-i18n="fund_redeem_unit" style="margin-left:10px;"></label>
+										<div class="input-group input-group-sm">
+											<input type="text" id="input-unit" class="input-sm" data-i18n="fund_redeem_unit" required autocomplete="off">
+										</div>
+									</div>
+									<div class="form-group form-group-sm">
+										<button type="button" class="btn btn-sm btn-danger" data-typeSide='1' id="fund-sell-btn" data-i18n="ticket_redeem"></button>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="tab-pane" id="tab-fund-switch">
+							<div class="well well-sm col-lg-12" id="switch-panel">
+								<% include fund_switch.ejs %>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

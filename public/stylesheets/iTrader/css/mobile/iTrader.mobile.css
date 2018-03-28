@@ -1,0 +1,9 @@
+.container-banner img{
+    max-width: 100%;
+    width: 100%;
+}
+
+table {
+    display: block;
+    overflow: auto;
+}

@@ -1,0 +1,257 @@
+option {
+    padding: 0px;
+}
+
+hr {
+    margin: 5px 0 5px 0;
+}
+
+.msclear input::-ms-clear {
+    display:none;
+}
+
+.container-banner {
+    background-image: url('/images/banner_bg.png');
+    background-repeat: repeat;
+}
+
+.text-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+span.pointer:hover {
+    cursor: pointer
+}
+
+.icon-margin {
+    margin-right: 8px;
+}
+
+.icon-refresh {
+    margin-right: 3px;
+}
+
+.navbar {
+    font-size: 15px;
+}
+
+td.copyprice {
+    cursor: pointer;
+}
+
+td.pointer {
+    cursor: pointer;
+}
+
+.panel-ticket .form-group {
+    margin-bottom: 10px;
+}
+
+.panel-ticket .btn-clear {
+    margin-top: 8px;
+}
+
+.panel-ticket .ticket-text {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: -10px;
+}
+
+.panel-ticket .help-block {
+    margin-top: -5px;
+    margin-bottom: 5px;
+}
+
+.input-group-addon.hint {
+    color: #ccc;
+    border-left: none;
+    background-color: #fff;
+}
+
+.input-hint {
+    float: right;
+    top: -25px;
+    right: 8px;
+    position: relative;
+    z-index: 1000;
+    color: #AEA79F;
+    height: 0px;
+}
+
+.btn-print {
+    margin-top: 5px;
+    margin-left: 5px;
+    padding: 1px 5px 1px 5px !important;
+}
+
+.search-box {
+    font-weight: normal;
+    margin-bottom: 5px;
+    margin-top: -5px;
+    margin-left: 10px;
+}
+
+.pagination-input {
+    padding: 0px;
+    margin-left: -5px;
+    margin-right: 5px;
+    margin-bottom: -1px;
+    height: 18px;
+    width: 30px !important;
+    text-align: center;
+    font-size: 11px;
+    /* compatible with IE */
+    border-style: solid;
+    border-width: 1px;
+    border-color: inherit;
+}
+
+
+/* ticket */
+
+.ticket-hint {
+    right: 40px;
+}
+
+.ticket-fund-radio-group {
+    margin-top: -10px;
+}
+.ticket-fund-radio-group label {
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+.ticket-bond-radio-group {
+    margin-top: -10px;
+}
+.ticket-bond-radio-group label {
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+/*tooltip*/
+
+.tooltip-inner {
+    max-width: 1000px;
+}
+
+.tooltip-inner table td {
+    text-align: left;
+    word-break: keep-all;
+    white-space: nowrap;
+}
+
+.trading-password-label {
+    margin-top: 5px;
+}
+
+.filter-group {
+    margin-top: 8px;
+}
+
+.alert-condensed {
+    padding: 2px;
+}
+
+.filter-input {
+    width: 100px;
+    height: 20px;
+    border-color: #5bc0de;
+    border: 0px;
+    background-color: #5bc0de;
+    color: #fff;
+    padding: 0 0 0 5px;
+    margin-top: 1px;
+}
+
+/* both fund & bond trade page */
+.table-green th {
+    background-color: #E5EECC;
+    color: #000;
+}
+
+.table-red th {
+    background-color: #F2DEDE;
+    color: #000;
+}
+
+th.th-green {
+    background-color: #E5EECC;
+    color: #000;
+}
+
+th.th-red{
+    background-color: #F2DEDE;
+    color: #000;
+}
+
+/* fund trade */
+.fund-item {
+    float: left;
+    height:74px;
+    width: 205px;
+    padding: 4px;
+    border: 1px solid #1c1e22;
+    margin: 4px;
+    border-collapse: collapse;
+}
+
+.fund-item:hover {
+    border: 1px solid #3879D9;
+}
+
+table.fund-item {
+    table-layout:fixed;
+    word-wrap:break-word;
+}
+
+.fund-item .fund-item-nav-label {
+    width: 35px;
+}
+
+.fund-item .fund-item-nav {
+    width: 135px;
+}
+
+.fund-checked {
+     border:1px solid #3879D9;
+}
+
+/* bond trade */
+.bond-item {
+    float: left;
+    height:74px;
+    width: 205px;
+    padding: 4px;
+    border: 1px solid #1c1e22;
+    margin: 4px;
+    border-collapse: collapse;
+}
+
+.bond-item:hover {
+    border: 1px solid #3879D9;
+}
+
+table.bond-item {
+    table-layout:fixed;
+    word-wrap:break-word;
+}
+
+.bond-item .bond-item-nav-label {
+    width: 95px;
+}
+
+.bond-item .bond-item-nav {
+    width: 135px;
+}
+
+.bond-checked {
+     border:1px solid #3879D9;
+}
+
+th.account-balance-header {
+    background-color:#3A3F44; 
+    color:#c8c8c8
+}

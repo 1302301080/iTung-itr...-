@@ -1,0 +1,18 @@
+<div class="container-fluid">
+    <footer>
+        <% for(var i = 0; i < config.views.footer.rows.length; i++) { %>
+            <div class="row text-center">
+                <ul class="list-inline">
+                    <% for(var j = 0; j < config.views.footer.rows[i].length; j++) { %>
+                        <% var item = config.views.footer.rows[i][j] %>
+                            <% if(item.href) { %>
+                                <li><a href="<%= item.href %>"><span class="text-muted" data-i18n="footer_<%= item.name %>"><%= item.name %></span></a></li>
+                                <% } else { %>
+                                    <span class="text-muted" data-i18n="footer_<%= item.name %>"><%= item.text %></span>
+                                    <% } %>
+                                        <% } %>
+                </ul>
+            </div>
+            <% } %>
+    </footer>
+</div>

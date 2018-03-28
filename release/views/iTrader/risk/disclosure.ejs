@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="<%= userOptions.lang %>">
+
+<head>
+    <% include ../../control/header.ejs %>
+    <link rel="stylesheet" href="/stylesheets/bootswatch/<%= userOptions.theme %>/bootstrap.min.css" />
+    <link rel="stylesheet" href="/stylesheets/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/stylesheets/iTrader/css/<%= userOptions.theme %>/iTrader.style.css" />
+</head>
+
+<body>
+    <input type="hidden" id="risk-disclosure-url" value="<%= config.views.login.riskDisclosureUrl || '' %>">
+    <% include ../../control/banner.ejs %>
+        <div class="container">
+
+            <div class="disclaimer">
+                <div class="container disclaimer-header">
+                    <h2 class="text-center" data-i18n="risk_disclosure_title"></h2>
+                </div>
+                <div id="disclosure-content-div" class="container disclaimer-content">
+
+                </div>
+                <div class="container disclaimer-options">
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox" name="cc" id="disclaimer-options">
+                        <small><span data-i18n="risk_disclosure_options"></span></small>
+                    </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <form>
+                        <div class="col-md-offset-5 col-md-1 col-xs-6">
+                            <a type="button" class="col-xm-12 btn btn-outline btn-success btn-block btn-disclosure" id="disclosure-accept-btn" href="/iTrader/risk/disclosure/?action=accept">
+                                <span data-i18n="btn_accept"></span>
+                            </a>
+                        </div>
+                        <div class="col-md-1 col-xs-6">
+                            <a type="button" class="col-xm-12 btn btn-outline btn-danger btn-block btn-disclosure" href="/iTrader/risk/disclosure/?action=reject">
+                                <span data-i18n="btn_reject"></span>
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <% include ../footer.ejs %>
+            </div>
+        </div>
+
+
+        <script type="text/javascript" src="/iTrader/initialize/messages"></script>
+        <script type="text/javascript" src="/javascripts/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="/javascripts/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/javascripts/seajs/sea.js"></script>
+        <script type="text/javascript" src="/javascripts/shared/iTrader.shared.js"></script>
+        <script type="text/javascript" src="/javascripts/iTrader/iTrader.risk.js"></script>
+</body>
+
+</html>

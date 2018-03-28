@@ -1,0 +1,44 @@
+<input type="hidden" name="_csrf" value="<%= csrfToken %>">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-condensed">
+                <tr>
+                    <td data-i18n="column-application-id"></td>
+                    <td id="ipo-orderNo">
+                        <%= order['6'] %>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-i18n="column-symbol"></td>
+                    <td>
+                        <%= order['0'] %>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-i18n="column-account"></td>
+                    <td>
+                        <%= order['10'] %>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-i18n="column-apply-qty"></td>
+                    <td data-format="-<%= format.decimal %>">
+                        <%= order['4'] %>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-i18n="column-apply-date"></td>
+                    <td data-format="date">
+                        <%= order['1600'] %>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-i18n="column-status"></td>
+                    <td data-i18n="status_<%= order['5'] %>">
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,152 @@
+<% var params = (location || '').split(','); if(params.length > 1) { %>
+    <% var sClass = params[1] === 's' ? 'active' : '' %>
+        <% var rClass = params[1] === 's' ? 'active' : '' %>
+            <% var swClass = params[1] === 'sw' ? 'active' : '' %>
+                <% } %>
+                    <% if(!rClass && !swClass) {sClass = 'active'} %>
+                        <div class="col-xs-12 hidden" data-spy="scroll" data-target="#sidebar-nav" id="bond-trade-panel">
+                            <div class="row">
+                                <div class="col-sm-12">
+
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="panel-group accordion">
+                                                <ul class="nav nav-tabs">
+                                                    <li class="<%= sClass %>" id='tab-bond-b'>
+                                                        <a href="#tab-bond-buy" data-toggle="tab" data-i18n="bond_buy"></a>
+                                                    </li>
+                                                    <li class="<%= rClass %>" id='tab-bond-s'>
+                                                        <a href="#tab-bond-sell" data-toggle="tab" data-i18n="bond_sell"></a>
+                                                    </li>
+                                                    <button type="button" class="btn btn-sm btn-success pull-right" id="bond-select-submit" data-i18n="bond_submit"></button>
+
+                                                </ul>
+                                                <div class="tab-content">
+                                                    <div class="tab-pane <%= sClass %>" id="tab-bond-buy">
+                                                        <div class="well well-sm">
+                                                            <div class="bond-info col-sm-12"></div>
+                                                            <form class="form-inline" role="form" id="bond-buy-form">
+                                                                <input type="hidden" name="side" value="0">
+                                                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                                                <div class="form-group form-group-sm">
+                                                                    <label data-i18n="bond_symbol_code"></label>
+                                                                    <div class="input-group input-group-sm">
+                                                                        <input type="text" name="symbol" id="ticket-input-symbol-code" class="form-control bond-input-symbol symbol-code" data-i18n="bond_symbol_code"
+                                                                            required>
+                                                                        <span class="input-group-addon">
+                                                                            <a href="javascript:SearchProduct_Search('BOND','0');" tabindex="-1">
+                                                                                <i class="fa fa-search text-muted"></i>
+                                                                            </a>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group form-group-sm">
+                                                                    <label data-i18n="bond_priceRate" style="margin-left:5px;"></label>
+                                                                    <input type="text" name="bondPrice" class="form-control bond-input-price" data-i18n="bond_priceRate" required>
+                                                                </div>
+                                                                <div class="form-group form-group-sm">
+                                                                    <label data-i18n="bond_PAR" style="margin-left:5px;"></label>
+                                                                    <div class="form-group form-group-sm">
+                                                                        <input type="text" name="bondPAR" class="form-control bond-input-quantity" data-i18n="bond_PAR" required>
+                                                                    </div>
+                                                                </div>
+                                                                <button type="button" class="btn btn-sm btn-success btn-submit" data-i18n="bond_add" style="margin-left:5px;"></button>
+                                                            </form>
+                                                            <div style="margin-top: 10px;">
+                                                                <b>
+                                                                    <span class="hidden pend-title" data-i18n="bond_pend_buy_title"></span>
+                                                                </b>
+                                                            </div>
+                                                            <div>
+                                                                <small>
+                                                                    <table class="table table-bordered table-condensed table-green pending-submit-table"
+                                                                        id="bond-buy-table" side="0"></table>
+                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tab-pane <%= rClass %>" id="tab-bond-sell">
+                                                        <div class="well well-sm bond-sell-well">
+                                                            <div class="bond-info col-sm-12"></div>
+                                                            <form class="form-inline" role="form" id="bond-sell-form">
+                                                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                                                <input type="hidden" name="side" value="1">
+                                                                <div class="form-group form-group-sm">
+                                                                    <label data-i18n="bond_symbol_code"></label>
+                                                                    <div class="input-group input-group-sm">
+                                                                        <input type="text" name="symbol" class="form-control bond-input-symbol symbol-code" data-i18n="bond_symbol_code" required>
+                                                                        <span class="input-group-addon">
+                                                                            <a href="javascript:SearchProduct_Search('BOND','0');" tabindex="-1">
+                                                                                <i class="fa fa-search text-muted"></i>
+                                                                                </i>
+                                                                            </a>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group form-group-sm">
+                                                                    <label data-i18n="bond_priceRate"></label>
+                                                                    <input type="text" name="bondPrice" style="margin-left:5px;" class="form-control bond-input-price" data-i18n="bond_priceRate"
+                                                                        required>
+                                                                </div>
+                                                                <div class="form-group form-group-sm">
+                                                                    <label data-i18n="bond_PAR"></label>
+                                                                    <div class="form-group form-group-sm">
+                                                                        <input type="text" name="bondPAR" style="margin-left:5px;" class="form-control bond-input-quantity bond-input-quantity-sell"
+                                                                            data-i18n="bond_PAR" required>
+                                                                    </div>
+                                                                    <button type="button" class="btn btn-sm btn-danger btn-submit" data-i18n="bond_add" style="margin-left:5px;"></button>
+
+                                                                </div>
+                                                            </form>
+                                                            <div class="pend-sell-title" style="margin-top: 10px;">
+                                                                <b>
+                                                                    <span class="hidden pend-title" data-i18n="bond_pend_sell_title"></span>
+                                                                </b>
+                                                            </div>
+                                                            <div>
+                                                                <small>
+                                                                    <table class="table table-bordered table-condensed table-red pending-submit-table"
+                                                                        id="bond-sell-table" side="1"></table>
+                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel panel-default">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active">
+                                                <a href="#tab-bond-book" data-toggle="tab" class="tab-notice-num">
+                                                    <span data-i18n="tabs_price_quote_book"></span>
+                                                    <span class="tab-notice-num" id="tab-price_quote_book"></span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#tab-bond-position" data-toggle="tab" data-i18n="bond_position"></a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="tab-bond-book">
+                                                <div id="bond-book-panel">
+                                                    <div id="pricequote-filter" class="filter-group">
+                                                        <div class="btn-group btn-group-xs" id="pricequote-status-dropdown-group">
+                                                        </div>
+                                                    </div>
+                                                    <div class="history-table-wrapper">
+                                                        <table id="price-quote-table" class="table table-hover table-bordered table-condensed table-striped">
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="tab-bond-position">
+                                                <table id="bond-position-table" class="table table-bordered table-hover table-condensed">
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>

@@ -1,0 +1,25 @@
+<% var pieChart = config.views.assets.position.pieChart === false ? false: true %>
+<div id="position-summary-panel" class="panel panel-default">
+    <div class="panel-heading">
+        <a href="javascript:void(0);" data-update="position"><i class="text-muted fa fa-refresh icon-refresh"></i></a>
+        <span data-i18n="assets_position_summary_title"></span>
+    </div>
+
+    <div class="panel-body">
+        <div class="row">
+            <div class="<%= pieChart ? 'col-md-8' : 'col-md-12' %>">
+                <table id="position-summary-table" class="table table-bordered table-hover table-condensed table-striped">
+                    <thead id="position-summary-thead">
+                    </thead>
+                    <tbody id="position-summary-tbody">
+                    </tbody>
+                </table>
+            </div>
+            <% if(pieChart) { %>
+            <div class="col-md-4">
+                <div id="assets-distribution-chart" style="width: 350px;height:300px;"></div>
+            </div>
+            <% } %>
+        </div>
+    </div>
+</div>

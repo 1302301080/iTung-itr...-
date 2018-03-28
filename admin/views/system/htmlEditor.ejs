@@ -1,0 +1,44 @@
+<head>
+    <!-- <% include ../components/base.ejs %> -->
+    <script type="text/javascript" src="/javascripts/h-ui/lib/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/javascripts/H-ui/lib/ueditor/1.4.3/ueditor.config.js"></script>
+    <script type="text/javascript" src="/javascripts/H-ui/lib/ueditor/1.4.3/ueditor.all.js"></script>
+
+
+
+</head>
+
+<body>
+    <input id="html-file-url" type="hidden" value="<%= url %>">
+    <div class="page-container">
+        <script id="container" name="content" type="text/plain">
+        </script>
+    </div>
+
+
+    <script type="text/javascript">
+        var ue = UE.getEditor('container', {
+            initialFrameHeight: 350,
+        });
+        ue.ready(function () {
+            var url = $('#html-file-url').val()
+            if (url) {
+                $.get('/html/' + url, function (html) {
+                    ue.setContent(html)
+                })
+            }
+
+            var btn = window.parent.$('.btn-save')
+            btn.click(function () {
+                var html = ue.getContent();
+                $.post('/admin/html/edit', { filename: url, content: html }, function (data) {
+                    if (data) {
+                        alert(data)
+                    }
+                })
+            })
+            var txt = ue.getContentTxt();
+        });
+
+    </script>
+</body>

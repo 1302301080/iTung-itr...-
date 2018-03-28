@@ -1,0 +1,48 @@
+<% for(var i = 0; i < config.views.trade.rows.length; i++) { %>
+    <% var row = config.views.trade.rows[i] %>
+        <div class="row index-row index-row-<%= i %>">
+            <% if(row.type === 'panel') { %>
+                <% for(var j = 0; j < row.columns.length; j++) { %>
+                    <% if(row.columns[j].entitlement && user.entitlement.indexOf(row.columns[j].entitlement) < 0) {continue}%>
+                    <% if(userOptions.isMobile && row.columns[j].mobile === false) {continue} %>
+                        <div class="<%= row.columns[j].class %>">
+                            <%- include('', { realPath: row.columns[j].path }) %>
+                        </div>
+                        <% } %>
+                            <% } else if(row.type === 'tab') { %>
+                                <div class="<%= row.class %>">
+                                    <div class="nav-tabs-custom">
+                                        <ul class="nav nav-tabs">
+                                            <% for(var k = 0; k < row.columns.length; k++) { %>
+                                            <% if(row.columns[k].entitlement && user.entitlement.indexOf(row.columns[k].entitlement) < 0) {continue}%>
+                                            <% if(userOptions.isMobile && row.columns[k].mobile === false) {continue} %>
+                                                <% if(k === 0) { %>
+                                                    <li class="active">
+                                                        <% } else { %>
+                                                            <li>
+                                                                <% } %>
+                                                                    <a href="#tab_<%= k %>" data-toggle="tab">
+                                                                        <span data-i18n="<%= row.columns[k].i18n || ('tabs_' + row.columns[k].name) %>"></span>
+                                                                        <span class="tab-notice-num" id="tab-<%= row.columns[k].id || row.columns[k].name%>"></span>
+                                                                    </a>
+                                                            </li>
+                                                            <% } %>
+                                                                <div id="print-buttons-container" class="pull-right"></div>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <% for(var n = 0; n < row.columns.length; n++) { %>
+                                            <% if(row.columns[n].entitlement && user.entitlement.indexOf(row.columns[n].entitlement) < 0) {continue}%>
+                                            <% if(userOptions.isMobile && row.columns[n].mobile === false) {continue} %>
+                                                <% if(n === 0) { %>
+                                                    <div class="tab-pane active" id="tab_<%= n %>">
+                                                        <% } else { %>
+                                                            <div class="tab-pane" id="tab_<%= n %>">
+                                                                <% } %>
+                                                                    <%- include('', { realPath: row.columns[n].path }) %>
+                                                            </div>
+                                                            <% } %>
+                                                    </div>
+                                        </div>
+                                        <% } %>
+                                    </div>
+                                    <% } %>

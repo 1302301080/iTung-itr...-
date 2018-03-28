@@ -1,0 +1,49 @@
+<% productType = order['22'] %>
+<% OTCFlag = order['1508'] %>
+
+<% symbolI18n = "order_confirmation_symbol"; %>
+<% symbolNameI18n = "order_confirmation_symbol_name"; %>
+<% priceI18n = "order_confirmation_price"; %>
+<% quantityI18n = "order_confirmation_quantity"; %>
+<% sideI18n = "order_confirmation_order_side"; %>
+
+<% baseColor = order['11'] == '1' ? 'text-danger' : 'text-success' %>
+
+<% symbolCode = order['0'] %>
+<% price = order['3']%>
+<% quantity = order['4'] %>
+<% side = order['11']; %>
+<% symbolName = order['21'] %>
+<% quantityFormat = 'quantity' %>
+<% priceFormat = 'price' %>
+<% quantityFormat = 'quantity' %>
+
+<% if(productType == 10 && OTCFlag == 1) { %>
+    <% if(order[30]) {symbolCode = symbolCode + '(' + order[30] + ')'} %>
+    <% symbolI18n = "order_confirmation_bond_symbol" %>
+    <% symbolNameI18n = "order_confirmation_fund_name"; %>
+    <% priceI18n = "order_confirmation_subscription_amount" %>
+    <% quantityI18n = "order_confirmation_redemption_unit" %>
+    <% sideI18n = "order_confirmation_fund_side" %>
+    <% price = order['3']%>
+
+    <% side = order['11'] == 0 ? 4 : 5 %>
+    <% if (order.switchID) { side = 6} %>
+    <% priceFormat = 'amount' %>
+    <% quantityFormat = '-' + settingformat.fund_unit %>
+<% } %>
+
+<% if(productType == 6 && OTCFlag == 1) { %>
+    <% if(order[30]) {symbolCode = symbolCode + '(' + order[30] + ')'} %>
+    <% symbolI18n = "order_confirmation_bond_symbol" %>
+    <% symbolNameI18n = "order_confirmation_bond_name"; %>
+    <% priceI18n = "order_confirmation_bond_price_rate"; %>
+    <% quantityI18n = "order_confirmation_bond_par_value"; %>
+    
+    <% priceFormat = '-#,##0.00######' %>
+    <% quantityFormat = '-' + settingformat.bond_unit %>
+<% } %>
+
+<% if(order[1504]) { %>
+    <% price *= order[1504]; %>
+<% } %>

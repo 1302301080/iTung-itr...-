@@ -1,0 +1,93 @@
+<head>
+    <% include ../components/base.ejs %>
+    <link rel="stylesheet" href="/javascripts/H-ui/lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+
+    <script type="text/javascript" src="/javascripts/h-ui/lib/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/javascripts/h-ui/static/h-ui/js/h-ui.js"></script>
+    <script type="text/javascript" src="/javascripts/H-ui/lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
+
+</head>
+
+<body>
+    <nav class="breadcrumb">
+        <i class="Hui-iconfont"></i> Home
+        <span class="c-gray en">&gt;</span>
+        System
+        <span class="c-gray en">&gt;</span>
+        Html File
+        <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px;margin-left:5px;" href="javascript:location.replace(location.href);"
+            title="Refresh">
+            <i class="Hui-iconfont"></i>
+        </a>
+        <a class="radius r" style="line-height:1.6em;margin-top:3px">
+            <input class="btn btn-primary size-M radius btn-save" type="button" value="Save">
+        </a>
+    </nav>
+    <table class="table">
+        <tr>
+            <td width="200" class="va-t">
+                <ul id="treeDemo" class="ztree"></ul>
+            </td>
+            <td class="va-t">
+                <iframe id="testIframe" name="testIframe" frameborder=0 scrolling=auto width=100% height=500px src="/admin/html/edit"></iframe>
+            </td>
+        </tr>
+    </table>
+    <script type="text/javascript">
+        var setting = {
+            view: {
+                dblClickExpand: false,
+                showLine: false,
+                selectedMulti: false
+            },
+            data: {
+                simpleData: {
+                    enable: true,
+                    idKey: "id",
+                    pIdKey: "pId",
+                    rootPId: ""
+                }
+            },
+            callback: {
+                beforeClick: function (treeId, treeNode) {
+                    var zTree = $.fn.zTree.getZTreeObj("tree")
+                    if (treeNode.isParent) {
+                        zTree.expandNode(treeNode)
+                        return false;
+                    } else {
+                        demoIframe.attr("src", '/admin/html/edit?filename=' + treeNode.name)
+                        return true;
+                    }
+                }
+            }
+        };
+        var code;
+        function showCode(str) {
+            if (!code) code = $("#code");
+            code.empty();
+            code.append("<li>" + str + "</li>");
+        }
+        $(document).ready(function () {
+            $.get('/admin/html/data', {}, function (data) {
+                var htmlList = []
+                if (data) {
+                    htmlList.push({ id: 1, pId: 0, name: "Html File", open: true })
+                    for (var i = 0; i < data.length; i++) {
+                        var obj = {}
+                        var id = 11
+                        obj.name = data[i]
+                        obj.pId = 01
+                        obj.id = id + i
+                        htmlList.push(obj)
+                    }
+                }
+                var t = $("#treeDemo");
+                t = $.fn.zTree.init(t, setting, htmlList);
+                demoIframe = $("#testIframe");
+                var zTree = $.fn.zTree.getZTreeObj("tree");
+            })
+        });
+    </script>
+</body>
+
+</html>

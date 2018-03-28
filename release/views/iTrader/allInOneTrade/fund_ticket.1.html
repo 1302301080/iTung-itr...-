@@ -1,0 +1,211 @@
+<div class="tab-content">
+	<div class="tab-pane active" id="tab-fund-subscribe">
+		<div class="well well-sm">
+			<div class="fund-info col-sm-12">
+			</div>
+			<form class="form-inline form-ticket" role="form" id="fund-subscribe-form">
+				<div class="form-group form-group-sm">
+					<label data-i18n="fund_symbol_code" placeholder="Symbol">Symbol</label>
+					<div class="input-group input-group-sm">
+						<input type="text" name="symbol" id="ticket-input-symbol-code" class="form-control symbol-code fund-input-symbol" data-i18n="fund_symbol_code"
+						 required="" placeholder="Symbol">
+						<span class="input-group-addon">
+							<a href="javascript:SearchProduct_Search('FUND','0');" tabindex="-1">
+								<i class="fa fa-search text-muted"></i>
+							</a>
+						</span>
+					</div>
+				</div>
+				<div class="form-group form-group-sm">
+					<label data-i18n="fund_subscription_amount" style="margin-left:10px;" placeholder="Subscription Amount">Subscription Amount</label>
+					<div class="input-group input-group-sm">
+						<input type="text" class="form-control" id="input-amount" data-format="amount" data-i18n="fund_subscription_amount" required=""
+						 placeholder="Subscription Amount">
+					</div>
+				</div>
+				<div class="form-group form-group-sm">
+					<button type="button" class="btn btn-sm btn-success" data-typeside="0" id="fund-buy-btn" data-i18n="ticket_subscribe">Subscribe</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="tab-pane" id="tab-fund-redeem">
+		<div class="well well-sm">
+			<div class="col-sm-12">
+				<div class="fund-info">
+				</div>
+				<form class="form-inline" role="form" id="fund-redeem-form">
+					<div class="form-group form-group-sm">
+						<label data-i18n="fund_symbol_code" placeholder="Symbol">Symbol</label>
+						<div class="input-group input-group-sm">
+							<input type="text" name="symbol" class="form-control fund-input-symbol symbol-code" data-i18n="fund_symbol_code" required=""
+							 placeholder="Symbol">
+							<span class="input-group-addon">
+								<a href="javascript:SearchProduct_Search('FUND','0');" tabindex="-1">
+									<i class="fa fa-search text-muted"></i>
+								</a>
+							</span>
+						</div>
+					</div>
+					<div class="form-group form-group-sm">
+						<label data-i18n="fund_redeem_unit" style="margin-left:10px;" placeholder="Redeem Unit">Redeem Unit</label>
+						<div class="input-group input-group-sm">
+
+							<div class="dropdown">
+								<input type="text" id="input-unit" class="form-control dropdown-input-percentage" data-i18n="fund_redeem_unit" required=""
+								 data-total="0" data-toggle="dropdown" placeholder="Redeem Unit">
+								<ul class="dropdown-menu">
+									<li>
+										<a role="menuitem" href="javascript:void(0)" class="percentage-input" data-percentage="10">10%</a>
+									</li>
+									<li>
+										<a role="menuitem" href="javascript:void(0)" class="percentage-input" data-percentage="20">20%</a>
+									</li>
+									<li>
+										<a role="menuitem" href="javascript:void(0)" class="percentage-input" data-percentage="50">50%</a>
+									</li>
+									<li>
+										<a role="menuitem" href="javascript:void(0)" class="percentage-input" data-percentage="100">100%</a>
+									</li>
+									<li>
+										<input href="javascript:void(0)" class="form-control percentage-input" placeholder="%">
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="form-group form-group-sm">
+						<button type="button" class="btn btn-sm btn-danger" data-typeside="1" id="fund-sell-btn" data-i18n="ticket_redeem">Redeem</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="tab-pane" id="tab-fund-switch">
+			<div class="well well-sm" id="switch-panel" style="height: 250px; overflow-x: hidden;">
+				<div id="fund-switch-panel">
+					<div class="row">
+						<div id="fund-switch-holding-panel" class="col-lg-12"></div>
+					</div>
+					<form id="fund-switch-form">
+						<input type="hidden" name="_csrf" value="WR367HnS-5nlreyFu4GWcbqlXwzIPNBDCTaM">
+						<input type="hidden" name="type" value="switch">
+						<small>
+							<div id="fund-switch-out-table_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+								<div class="row">
+									<div class="col-sm-6"></div>
+									<div class="col-sm-6"></div>
+								</div>
+								<div class="row">
+									<div class="col-sm-12">
+										<table id="fund-switch-out-table" class="table table-condensed prevent-popup-detail table-red dataTable no-footer" role="grid">
+											<thead>
+												<tr role="row">
+													<th class="sorting_disabled" rowspan="1" colspan="1" style="width: 25%;">
+														<span data-i18n="fund_switch_out_symbol" class="">Switch-Out Symbol(s)</span>
+													</th>
+													<th class="sorting_disabled" rowspan="1" colspan="1" style="width: 45%;">
+														<span data-i18n="fund_name" class="">Fund Name</span>
+													</th>
+													<th class="sorting_disabled" rowspan="1" colspan="1" style="width: 25%;">
+														<span data-i18n="fund_redeem_unit" class="" placeholder="Redeem Unit">Redeem Unit</span>
+													</th>
+													<th class="sorting_disabled" rowspan="1" colspan="1" style="width: 5%;">
+														<span data-i18n="undefinedremoveIcon" class=""></span>
+													</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr id="x0" role="row" class="odd">
+													<td>
+														<input type="text" name="switchout" class="form-control input-sm symbol-code">
+													</td>
+													<td class="symbol-name"></td>
+													<td class="redeem-unit overflow-visible">
+														<input type="text" name="switchout" class="form-control input-sm fund-allocation">
+													</td>
+													<td></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-5"></div>
+									<div class="col-sm-7"></div>
+								</div>
+							</div>
+						</small>
+						<small>
+							<div id="fund-switch-in-table_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+								<div class="row">
+									<div class="col-sm-6"></div>
+									<div class="col-sm-6"></div>
+								</div>
+								<div class="row">
+									<div class="col-sm-12">
+										<table id="fund-switch-in-table" class="table table-condensed prevent-popup-detail table-green dataTable no-footer" role="grid">
+											<thead>
+												<tr role="row">
+													<th class="sorting_disabled" rowspan="1" colspan="1" style="width: 25%;">
+														<span data-i18n="fund_switch_in_symbol" class="">Switch-In Symbol(s)</span>
+													</th>
+													<th class="sorting_disabled" rowspan="1" colspan="1" style="width: 45%;">
+														<span data-i18n="fund_name" class="">Fund Name</span>
+													</th>
+													<th class="sorting_disabled" rowspan="1" colspan="1" style="width: 25%;">
+														<span data-i18n="fund_switch_in_allocation" class="bubble-title" title="The sum up allocation percentage must be 100%.">Allocation(%)</span>
+													</th>
+													<th class="sorting_disabled" rowspan="1" colspan="1" style="width: 5%;">
+														<span data-i18n="undefinedremoveIcon" class=""></span>
+													</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr id="x1" role="row" class="odd">
+													<td>
+														<div class="input-group input-group-sm">
+															<input type="text" name="switchin" class="form-control input-sm symbol-code">
+															<span class="input-group-addon">
+																<a href='javascript:SearchProduct_Search("FUND","0")'>
+																	<i class="fa fa-search text-muted"></i>
+																</a>
+															</span>
+														</div>
+													</td>
+													<td class="symbol-name"></td>
+													<td class="subscription-amount">
+														<input type="text" name="switchin" class="form-control input-sm fund-allocation">
+													</td>
+													<td>
+														<a href="javascript:void(0)">
+															<i class="fa fa-lg fa-remove text-danger table-row-remove"></i>
+														</a>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+										<a href="javascript:void(0)">
+											<i class="fa fa-lg fa-plus-circle text-info table-row-add"></i>
+										</a>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-5"></div>
+									<div class="col-sm-7"></div>
+								</div>
+							</div>
+						</small>
+					</form>
+					<div>
+						<button type="button" class="btn btn-sm btn-info pull-right" id="fund-select-submit" data-i18n="fund_submit">Submit</button>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<span id="fund-switch-message" class="text-danger"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

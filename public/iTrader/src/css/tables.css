@@ -1,0 +1,58 @@
+td {
+    text-overflow: ellipsis;
+    white-space:nowrap; 
+    overflow:hidden; 
+}
+
+#orderbook-table td {
+    max-width: 150px;
+}
+
+#portfolio-table td {
+    max-width: 100px;
+}
+
+#account-summary-table td {
+    max-width: 100px;
+}
+
+#position-summary-table td {
+    max-width: 120px;
+}
+
+#search-product-table td {
+    max-width: 250px;
+}
+
+.page-search-product-panel #search-product-table td {
+    max-width: 400px;
+}
+
+.panel-fund-list table td {
+    max-width: 600px;
+}
+
+#fund-switch-panel table td {
+    max-width: 400px;
+}
+
+.fund-item table td {
+    max-width: 200px;
+}
+
+.bond-item table td {
+    max-width: 200px;
+}
+.panel-bond-list table td {
+    max-width: 600px;
+}
+.bond-item table td {
+    max-width: 200px;
+}
+.pending-submit-table td{
+     max-width: 500px;
+}
+
+.dialog-table td {
+    max-width: 170px;
+}

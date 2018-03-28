@@ -1,0 +1,88 @@
+.loing-container {
+    height: 650px;
+    background: url('/images/login_bg.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+.login-fotter {
+    margin-top: 10px;
+}
+
+.login-panel {
+    margin-top: 50px;
+    opacity: 0.95;
+}
+
+.login-link {
+    padding-top: 40px;
+}
+
+.alert-error {
+    opacity: 0.7;
+}
+
+.blue-link {
+    color: #0000EE
+}
+
+ul {
+    margin-bottom: 0px;
+}
+
+#login-pin-group {
+    margin: 0 15px 0 0;   
+}
+
+.pin-input-grount-item {
+    float: left;
+    margin: -15px 10px 25px 0;
+    width: 38px;
+}
+
+.pin-help-text {
+    position: relative;
+    top: 57px;
+    width: 38px;
+    float: left;
+    text-align: center;
+    visibility: hidden;
+}
+
+.pin-input {
+    display: inline-block;
+    width: 38px;
+    height: 38px;
+    margin-right: 6px;
+    border: 1px solid #cccccc;
+    text-align: center;
+    background-color: #eeeeee;
+    font-size: 14px;
+    line-height: 26px;
+    float: left;
+}
+
+.pin-input.active {
+    background-color: #fff;
+}
+
+#login-pin-remark {
+    clear: both;
+    margin-top: 10px;
+}
+
+.resend-link {
+    float: right;
+    top: -40px;
+    right: 8px;
+    position: relative;
+    z-index: 1000;
+    height: 0px;
+}
+
+.resend-link a {
+    border-left: 1px solid #E0E0E0;
+    padding: 5px;
+}

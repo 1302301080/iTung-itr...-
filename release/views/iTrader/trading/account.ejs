@@ -1,0 +1,20 @@
+<div id="account-panel" class="panel panel-default">
+    <div class="panel-heading">
+        <a href="javascript:void(0);" data-update="account"><i class="text-muted fa fa-refresh icon-refresh"></i></a>
+        <span data-i18n="account_balance"></span>
+        <% if(user.accounts.length > 1) { %>
+            - <span class="nav_current_account"></span>
+            <% } %>
+
+    </div>
+
+    <div class="panel-body panel-first-row">
+        <div class="active" id="account-balance-panel">
+            <!--<div class="text-right" id="account-currency-dropdown-group" style="margin:-5px 0 5px 0">
+            </div>
+            <ul id="account-banlance-ul" class="list-group">
+            </ul>-->
+        </div>
+        <p id="account-balance-remark"</p>
+    </div>
+</div>

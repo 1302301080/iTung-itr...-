@@ -1,0 +1,63 @@
+<% include ../../control/orderInfo.ejs %>
+
+
+<% var baseColor = order['11'] == '1' ? 'text-danger' : 'text-success' %>
+<form id="add-order-form" method="POST">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <table class='table table-condensed'>
+        <thead>
+            <th data-i18n="order_confirmation_order_information" class="col-md-3"></th>
+            <th class="col-md-9"></th>
+        </thead>
+        <tbody>
+            <tr>
+                <td data-i18n="<%= symbolI18n %>"></td>
+                <td>
+                    <strong><%= symbolCode %></strong>
+                </td>
+            </tr>
+            <tr>
+                <td data-i18n="<%= symbolNameI18n %>"></td>
+                <td>
+                    <strong title="<%= symbolName %>"><%= symbolName %></strong>
+                </td>
+            </tr>
+            <tr>
+                <td data-i18n="order_confirmation_bond_price_rate"></td>
+                <td>
+                    <strong data-format="<%= priceFormat %>"><%= price %></strong>
+                    <strong>(<%= order.symbol_currency %>)</strong>
+                </td>
+            </tr>
+            <tr>
+                <td data-i18n="order_confirmation_bond_par_value"></td>
+                <td>
+                    <strong data-format="<%= quantityFormat %>"><%= quantity %></strong>
+                </td>
+            </tr>
+            <tr>
+                <td data-i18n="order_confirmation_order_side"></td>
+                <td>
+                    <strong data-format="side" class="<%= baseColor %>"><%= side %></strong>
+                </td>
+            </tr>
+            <% include ../../control/confirmation_transfee.ejs %>
+        </tbody>
+    </table>
+<% include ../../control/commNFees.ejs %>
+    <legend></legend>
+        <p class="help-block text-right">
+            <span data-i18n="order_confirmation_accrued_interest"></span><span data-format="amount"><%= order.accrued_interest%></span>
+        (<%= order.symbol_currency %>)</p>
+        <p class="help-block text-right">
+            <span data-i18n="order_confirmation_gross_amount"></span><span data-format="amount"><%= order.gross_amount%></span>
+        (<%= order.symbol_currency %>)</p>
+        <h4 class="text-right">
+            <span data-i18n="order_confirmation_order_amount"></span><span data-format="amount"><%= order.total_amount%></span>
+        (<%= order.symbol_currency %>)</h4>
+<% include ../../control/confirmation_password.ejs %>
+<% include ../../control/confirmation_bond_disclosure.ejs %>
+    <% if(config.views.trade.order_confirmation.warningMessageConfirmation) { %>
+        <p class="help-block" data-i18n="order_confirmation_warning"></p>
+    <% } %>
+</form>

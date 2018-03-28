@@ -1,0 +1,114 @@
+<div class="settlement_detail hidden" id="settlement_detail_CDE">
+        <div class="row">
+
+            <div class="form-group form-group-sm">
+                <label class="col-sm-3 control-label" data-i18n="settlement_CD_currency"></label>
+                <div class="col-sm-6">
+                    <select class="form-control cd-currency" name="currency">
+                        <% for(var i = 0; i < currency_list.length; i++) { %>
+                            <option value="<%= currency_list[i] %>">
+                                <%= currency_list[i] %>
+                            </option>
+                            <% } %>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group form-group-sm help-block">
+                <small class="col-sm-9 col-sm-offset-3"><span data-i18n="settlement_CD_cash_balance"></span>
+                    <span class="cashBalance"></span></small>
+            </div>
+            <div class="form-group form-group-sm help-block">
+                <small class="col-sm-9 col-sm-offset-3"><span data-i18n="settlement_CD_trading_limit"></span>
+                <span class="pur-stock"></span></small>
+            </div>
+            <div class="form-group form-group-sm help-block">
+                <small class="col-sm-9 col-sm-offset-3"> <span data-i18n="settlement_purchasing_power_fullTrade"></span>
+                <span class="pur-fullTrade"></span></small>
+            </div>
+
+
+            <div class="form-group form-group-sm">
+                <label class="col-sm-3 control-label" data-i18n="settlement_CD_amount"></label>
+                <div class="col-sm-6">
+                    <input type="text" name="amount" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="form-group form-group-sm">
+                <label class="col-sm-3 control-label" data-i18n="settlement_CD_date"></label>
+                <div class="col-sm-6">
+                    <input type="text" name="datetime" class="form-control form-datetime" required>
+                </div>
+            </div>
+
+        <div class="form-group form-group-sm hidden special_detail visible-CD-CQE">
+                <label class="col-sm-3 control-label" data-i18n="settlement_CD_cheque_copy"></label>
+                <div class="col-sm-6">
+                <input type="file" id="fileupload" name="Cheque" class="file" onchange="fileChange(this);" multiple accept="image/*" multiple required>
+                </div>
+            </div>
+
+        <div class="form-group form-group-sm visible-CDE">
+                <label class="col-sm-3 control-label" data-i18n="settlement_CD_bank_slip"></label>
+                <div class="col-sm-6">
+                <input type="file" name="BankSlip" onchange="fileChange(this);" multiple accept="image/*" multiple required>
+                </div>
+            </div>
+
+            <div class="form-group form-group-sm">
+                <label class="col-sm-3 control-label" data-i18n="settlement_instruction_remark"></label>
+                <div class="col-sm-6">
+                    <input type="text" name="remark" class="form-control">
+                </div>
+                <span data-i18n="settlement_instruction_option"><span>      
+            </div>
+
+            <div class="form-group form-group-sm hidden special_detail visible-CD-TF">
+                <label class="col-sm-3 control-label" data-i18n="settlement_CD_transfer_type"></label>
+                <div class="col-sm-6">
+                    <select class="form-control" name="transfer_method">
+                        <option data-i18n="settlement_transfer_type_atm" value="ATM"></option>
+                        <option data-i18n="settlement_transfer_type_internet" value="Internet"></option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group form-group-sm">
+                <label class="col-sm-3 control-label" data-i18n="settlement_CD_bank_ben"></label>
+                <div class="col-sm-6">
+                    <select class="form-control cd-bank-name" name="bank_name" required>
+                    </select>
+                </div>
+            </div>
+        
+            <div class="form-group form-group-sm">
+                    <label class="col-sm-3 control-label" data-i18n="settlement_CD_bank"></label>
+                    <div class="col-sm-9" style="margin-top: 3px;">
+                    <small><span class="cd-alias-name"></span></small>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-3 control-label" data-i18n="settlement_CD_swift"></label>
+            <div class="col-sm-9" style="margin-top: 3px;">
+                <small><span class="cd-swift-code"></span></small>
+            </div>
+            <!--<label class="control-label cd-swift-code"></label>-->
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-3 control-label" data-i18n="settlement_CD_bank_num"></label>
+            <div class="col-sm-9" style="margin-top: 3px;">
+                <small><span class="cd-ac-number"></span></small>
+            </div>
+            <!--<label class="control-label cd-ac-number"></label>-->
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-3 control-label" data-i18n="settlement_CD_bank_name"></label>
+            <div class="col-sm-9" style="margin-top: 3px;">
+                <small><span class="cd-ac-name"></span></small>
+            </div>
+            <!--<label class="control-label cd-ac-name"></label>-->
+        </div>
+
+    </div>
+    </div>

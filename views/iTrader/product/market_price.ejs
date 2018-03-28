@@ -1,0 +1,27 @@
+<html>
+
+<head>
+    <title>Market Data Price</title>
+</head>
+
+<body>
+    <% if(item.method === 'POST') { %>
+        <form id="market-price-form" action="<%= item.url %>" method="POST">
+            <input type="hidden" name="Uname" value="<%= item.username %>" />
+            <input type="hidden" name="Password" value="<%= item.password %>" />
+            <input type="hidden" name="Broker" value="<%= item.broker %>" />
+            <input type="hidden" name="Lang" value="<%= item.language %>" />            
+
+            <input type="hidden" name="u" value="<%= item.username %>" />
+            <input type="hidden" name="p" value="<%= item.password %>" />
+            <input type="hidden" name="b" value="<%= item.broker %>" />
+            <input type="hidden" name="language" value="<%= item.language %>" />            
+        </form>
+        <% } %>
+            <script>
+                this.document.getElementById('market-price-form').submit()
+            </script>
+
+</body>
+
+</html>

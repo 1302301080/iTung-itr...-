@@ -1,0 +1,14 @@
+<% if(typeof requiredDisclosure !== 'undefined' && requiredDisclosure) { %>
+<div id="confirmation-box-disclosure"></div>
+
+<script>
+    $('#confirmation-box-disclosure').html(messages.order_confirmation_fund_disclosure.html)
+    var submitBtn = $('[required-accept-disclosure]').parents('.modal-content').find('#btn-submit')
+    submitBtn.attr('disabled', true)
+    $('[required-accept-disclosure]').click(function () {
+        var isChecked = $(this).get(0).checked
+        submitBtn.attr('disabled', !isChecked)
+    })
+
+</script>
+<% } %>

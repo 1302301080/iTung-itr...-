@@ -1,0 +1,41 @@
+<div class="panel panel-default hidden" id="bond-list-panel">
+    <div class="panel-heading bond-panel-padding" style="overflow:hidden">
+        <form class="form-inline">
+            <span class="panel-title" data-i18n="bond_market_panel_title"></span>
+            <div class="input-group input-group-sm">
+                <input id="bond-search" onkeypress="return SearchProduct_KeyPress(event)" class="form-control input-sm" data-i18n="bond_search_input">
+                <span class="input-group-btn">
+                    <button id="search-bond-btn" class="btn btn-default" type="button" data-i18n="btn_search"></button></span>
+            </div>
+            <div class="radio fullTrade-radio-range">
+                <label>
+            <input type="radio" name="bond-order-action" value="buy" checked="true" >
+           <span data-i18n ="bond_buy"></span>
+          </label>
+            </div>
+            <div class="radio fullTrade-radio-range">
+                <label>
+            <input type="radio" name="bond-order-action" value="sell">
+            <span data-i18n="bond_sell"></span>
+          </label>
+            </div>
+            <div class="pull-right">
+                <button type="button" class="btn btn-sm btn-sm btn-info btn-submit" id="bond-next-btn" data-i18n="bond_next_btn"></button>
+            </div>
+        </form>
+    </div>
+    <div class="panel-collapse collapse in">
+        <div class="panel-body panel-bond-list">
+            <div class='selected-bond-list' style="margin-left: -5px;">
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div id="bond-table-div">
+                        <table id="bond-table" class='table table-bordered table-hover table-condensed table-striped'></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,179 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var path = require('path')
+var fs = require('fs')
+global.__node_modules = path.join(process.cwd(), '..', '/node_modules/')
+global.__root_path = process.cwd()
+global.__views_path = path.join(process.cwd(), '/views/')
+global.__config_path = path.join(process.cwd(), 'config.js')
+
+var config = require(__config_path)
+config.__routes = loadCustomConfig('routes')
+config.__headers = loadCustomConfig('headers')
+config.__layout = loadCustomConfig('layout')
+config.__apiFields = loadCustomConfig('api-fields')
+config.__markets = loadCustomConfig('markets')
+global.configuration = config
+var packageJson = require(path.join(process.cwd(), 'package.json'))
+var log4js = require(__node_modules + 'log4js')
+require('common').Logger.instance({ log4js: config.global.log4js, loggerName: 'elite', name: packageJson.name, version: packageJson.version, message: packageJson.copyright })
+var logger = require('common').Logger.instance().getLogger()
+logger.info('start argv: ' + process.argv)
+global.__logger = logger
+
+/**
+ * Get parameters
+ */
+var entryList = []  // start projects
+var arguments = process.argv.splice(2)
+for (var i = 0; i < arguments.length; i++) {
+    var arg = arguments[i]
+    if (['elite', 'eipo', 'wxa', 'admin'].indexOf(arg) >= 0) {
+        entryList.push(arg)
+    } else {
+        config.global.site[arg] = arguments[i + 1]
+        i++
+    }
+}
+if (entryList.length <= 0) {
+    entryList.push('elite')
+}
+global.EntryList = entryList
+
+var app = require('../app')
+var debug = require(__node_modules + 'debug')('portal:server')
+var http = require('http')
+var https = require('https')
+var fs = require('fs')
+var initialize = require('../initialize')
+
+
+/**
+ * Initialize web site
+ */
+if (entryList.length <= 0) entryList.push('elite')  // default start elite
+initialize.init(entryList)
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || config.global.site.port)
+app.set('port', port)
+app.set('host', config.global.site.host)
+
+/**
+ * Create HTTP server.
+ */
+var server
+if (config.global.site.protocol === 'https') {
+    var options = {
+        key: fs.readFileSync(path.join(__root_path, config.global.site.ssl.key)),
+        cert: fs.readFileSync(path.join(__root_path, config.global.site.ssl.cert))
+    }
+    if (config.global.site.ssl.ca) {
+        options.ca = fs.readFileSync(path.join(__root_path, config.global.site.ssl.ca))
+    }
+    server = https.createServer(options, app)
+} else {
+    server = http.createServer(app)
+}
+
+initialize.initSocketIO(server)
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port)
+server.on('error', onError)
+server.on('listening', onListening)
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+    var port = parseInt(val, 10)
+
+    if (isNaN(port)) {
+        // named pipe
+        return val
+    }
+
+    if (port >= 0) {
+        // port number
+        return port
+    }
+
+    return false
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+    if (error.syscall !== 'listen') {
+        throw error
+    }
+
+    var bind = typeof port === 'string'
+        ? 'Pipe ' + port
+        : 'Port ' + port
+
+    // handle specific listen errors with friendly messages
+    switch (error.code) {
+        case 'EACCES':
+            console.error(bind + ' requires elevated privileges')
+            process.exit(1)
+            break
+        case 'EADDRINUSE':
+            console.error(bind + ' is already in use')
+            process.exit(1)
+            break
+        default:
+            throw error
+    }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+    var addr = server.address()
+    var bind = typeof addr === 'string'
+        ? 'pipe ' + addr
+        : 'port ' + addr.port
+    debug('Listening on ' + bind)
+    console.log('Listening on ' + bind + ' in ' + app.get('env') + ' mode...')
+}
+
+function loadCustomConfig(name) {
+    var filepath = path.join(process.cwd(), '/config/' + name + '.config.js')
+    if (fs.existsSync(filepath)) {
+        return require(filepath)
+    }
+}
+
+
+/**
+ * process handler
+ */
+process.on('exit', (code) => {
+    console.log('program exit.')
+    log4js.shutdown()
+})
+
+process.on('SIGINT', () => {
+    logger.error('catch signal SIGINT.')
+    process.exit(0)
+});
+
+process.on('uncaughtException', (err) => {
+    logger.error(`Caught exception: ${err}`)
+})

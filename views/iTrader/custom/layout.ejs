@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="<%= userOptions.lang %>">
+
+<head>
+    <% include ../../control/header.ejs %>
+
+        <link rel="stylesheet" href="/stylesheets/bootswatch/<%= userOptions.theme %>/bootstrap.min.css" />
+        <link rel="stylesheet" href="/stylesheets/bootstrap3-dialog/css/<%= userOptions.theme %>/bootstrap-dialog.min.css" />
+        <link rel="stylesheet" href="/stylesheets/font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="/stylesheets/datatables/css/dataTables.bootstrap.min.css" />
+        <link rel="stylesheet" href="/stylesheets/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" />
+        <link rel="stylesheet" href="/stylesheets/iTrader/css/<%= userOptions.theme %>/iTrader.style.css" />
+</head>
+
+<body>
+    <% include ../../control/banner.ejs %>
+        <% include ../nav.ejs %>
+
+            <div class="container-fluid">
+                <%-body%>
+            </div>
+
+            <% include ../footer.ejs %>
+                <script type="text/javascript" src="/iTrader/initialize/messages"></script>
+                <script type="text/javascript" src="/javascripts/jquery/jquery.min.js"></script>
+                <script type="text/javascript" src="/javascripts/bootstrap/js/bootstrap.min.js"></script>
+                <script type="text/javascript" src="/javascripts/lodash/lodash.min.js"></script>
+                <script type="text/javascript" src="/javascripts/datatables/js/jquery.dataTables.min.js"></script>
+                <script type="text/javascript" src="/javascripts/datatables/js/dataTables.iTrader.bootstrap.min.js"></script>
+                <script type="text/javascript" src="/javascripts/bootstrap3-dialog/js/bootstrap-dialog.min.js"></script>
+                <script type="text/javascript" src="/javascripts/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+                <script type="text/javascript" src="/javascripts/js-cookie/js.cookie.js"></script>
+                <script type="text/javascript" src="/javascripts/jquery-validation/jquery.validate.min.js"></script>
+                <script type="text/javascript" src="/javascripts/socket.io-client/socket.io.js"></script>
+                <script type="text/javascript" src="/javascripts/jquery-number/jquery.number.min.js"></script>
+                <script type="text/javascript" src="/javascripts/layer/layer.js" merge="true"></script>
+                <script type="text/javascript" src="/javascripts/echarts/echarts.common.min.js"></script>
+                <script type="text/javascript" src="/javascripts/seajs/sea.js"></script>
+                <script type="text/javascript" src="/javascripts/iTrader/iTrader.sea.js"></script>
+                <script type="text/javascript" src="/javascripts/iTrader/iTrader.global.js"></script>
+</body>
+
+</html>

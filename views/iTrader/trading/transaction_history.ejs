@@ -1,0 +1,26 @@
+<form id="transaction-history-form" class="filter-group">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <div class="btn-group btn-group-xs">
+        <button class="btn btn-success btn-sm btn-group-label" type="button"><span data-i18n="transaction_history_start_date"></span></button>
+        <input type="text" id="transaction-history-start-date" name="startDate" class="filter-input" />
+    </div>
+    <div class="btn-group btn-group-xs">
+        <button class="btn btn-success btn-sm btn-group-label" type="button"><span data-i18n="transaction_history_end_date"></span></button>
+        <input type="text" id="transaction-history-end-date" class="filter-input" name="endDate" />
+    </div>
+    <div class="btn-group btn-group-xs" id="transaction-history-action-dropdown-group">
+    </div>
+    <div class="btn-group btn-group-xs ">
+        <button type="button" class="btn btn-info" id="transaction-history-btn">
+            <i class="fa fa-search btn-icon-search"></i>
+            <i class="fa fa-spinner fa-pulse hidden btn-icon-spinner"></i>
+            <span data-i18n="btn_query"></span>
+        </button>
+    </div>
+</form>
+
+
+<div id="transaction-history-panel">
+    <table id="transaction-history-table" class="table table-bordered table-hover table-condensed table-striped">
+    </table>
+</div>

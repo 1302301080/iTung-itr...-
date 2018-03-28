@@ -1,0 +1,202 @@
+<head>
+    <% include ../components/base.ejs %>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.4/css/select.dataTables.min.css" /> -->
+
+
+    <!-- <link rel="stylesheet" href="/javascripts/H-ui/lib/datatables/1.10.0/css/jquery.dataTables.min.css" /> -->
+    <link rel="stylesheet" href="/javascripts/H-ui/lib/datatables/1.10.0/css/buttons.dataTables.min.css" />
+    <link rel="stylesheet" href="/javascripts/H-ui/lib/datatables/1.10.0/css/select.dataTables.min.css" />
+
+    <script src="/javascripts/H-ui/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+    <script src="/javascripts/H-ui/lib/datatables/1.10.0/dataTables.buttons.min.js"></script>
+
+
+    <style>
+        .paginate_button,
+        .current {
+            padding: 0 0.5rem !important;
+        }
+
+        .fund-tabHead-l select {
+            box-sizing: border-box;
+            border: solid 1px #ddd;
+            font-size: 14px;
+            height: 31px;
+            line-height: 1.42857;
+            padding: 4px;
+            font-size: 12px;
+            color: #333;
+        }
+
+        .fund-tabHead-r input {
+            box-sizing: border-box;
+            border: solid 1px #ddd;
+            -webkit-transition: all .2s linear 0s;
+            -moz-transition: all .2s linear 0s;
+            -o-transition: all .2s linear 0s;
+            transition: all .2s linear 0s;
+            font-size: 14px;
+            height: 31px;
+            line-height: 1.42857;
+            padding: 4px;
+            font-size: 12px;
+            color: #333;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .fund-tabHead-r input:hover {
+            border: solid 1px #3bb4f2
+        }
+
+        .fund-tabHead-r input:focus {
+            border: solid 1px #3bb4f2
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="breadcrumb">
+        <i class="Hui-iconfont"></i> Home
+        <span class="c-gray en">&gt;</span> Product
+        <span class="c-gray en">&gt;</span> FUND Manage
+        <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px;margin-left:5px;" href="javascript:location.replace(location.href);"
+            title="Refresh">
+            <i class="Hui-iconfont"></i>
+        </a>
+        <a class="radius r" style="line-height:1.6em;margin-top:3px">
+            <input class="btn btn-primary size-M radius btn-save" type="button" value="Save">
+        </a>
+    </nav>
+    <div class="page-container">
+        <div class="btn-group mb-20">
+            <span class="btn btn-success radius size-S fund-add">Add</span>
+            <span class="btn btn-danger radius size-S fund-delete">Delete</span>
+        </div>
+        <table id="example" class="display" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Symbol</th>
+                    <th width="40%">OfferingDocLink1</th>
+                    <th width="40%">OfferingDocLink2</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+</body>
+<script>
+    $(document).ready(function () {
+        var datatable
+        $.get('/admin/product/fund/data', {}, function (data) {
+            datatable = $('#example').DataTable({
+                order: [[1, 'asc']],
+                data: fundTable(data),
+                "dom": "<'row'<'col-sm-6 fund-tabHead-l'l><'col-sm-6 fund-tabHead-r'f>>" + "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                columns: [
+                    {
+                        data: null,
+                        defaultContent: '',
+                        className: 'select-checkbox',
+                        orderable: false
+                    },
+                    { data: "symbol", className: 'doclink symbol' },
+                    { data: "doclink1", className: 'doclink link1' },
+                    { data: "doclink2", className: 'doclink link2' },
+                ],
+            });
+
+        })
+        function fundTable(data) {
+            var csvData = []
+            if (data) {
+                var obj = {}
+                for (var p in data) {
+                    if (p == 'Product Code') continue
+                    if (data[p].offeringDocLink[1]) {
+                        csvData.push({ 'symbol': p, 'doclink1': data[p].offeringDocLink[0], 'doclink2': data[p].offeringDocLink[1] })
+                    } else {
+                        csvData.push({ 'symbol': p, 'doclink1': data[p].offeringDocLink[0], 'doclink2': '' })
+                    }
+                }
+            }
+            return csvData
+        }
+        $('#example').on('click', 'td.doclink', function (e) {
+            var inp = $(this).find('.table-inp')
+            if (inp.length > 0) {
+                inp.focus()
+                inp.blur(function () {
+                    $(this).html($('.table-inp').val())
+                })
+            } else {
+                var cont = e.target.innerText
+                var td = $(this).html('<input class="table-inp input-text radius size-S" type="text" value=' + cont + '>')
+            }
+        });
+        $('#example').on('click', 'td.select-checkbox', function (e) {
+            $(this).parent().toggleClass('selected');
+        });
+
+        $('.btn-save').click(function () {
+            var td = $('#example td.doclink')
+            td.each(function () {
+                var inp = $(this).find('.table-inp')
+                if (inp.length > 0) {
+                    var value = $(this).find('.table-inp').val()
+                    $(this).parent().attr('class','tdEdit')
+                    $(this).html(value)
+                }
+            })
+            var tr = $('#example tr.tdEdit')
+            var contentEdit = ''
+            tr.each(function () {
+                var symbol = $(this).find('td.symbol').html()
+                var doclink1 = $(this).find('td.doclink.link1').html()
+                var doclink2 = $(this).find('td.doclink.link2').html()
+                if (symbol) {
+                    contentEdit += symbol + ',' + doclink1 + ',' + doclink2 + '\r\n'
+                }
+            })
+            var tableData = datatable.data()
+            var content = ''
+            for (var i = 0; i < tableData.length; i++) {
+                if (tableData[i].symbol) {
+                    content += tableData[i].symbol + ',' + tableData[i].doclink1 + ',' + tableData[i].doclink2 + '\r\n'
+                }
+            }
+            var data = content + contentEdit
+            $.post('/admin/product/fund/data', { content: data }, function (data) {
+                if (data == 'success') {
+                    alert('success!')
+                } else {
+                    alert('failure!')
+                }
+            }.bind(this))
+        })
+
+        $('.fund-add').click(function () {
+            console.log('add')
+            var rowNode = datatable.row.add({
+                "": "",
+                "symbol": "",
+                "doclink1": "https://",
+                "doclink2": "",
+            }).draw().node();
+            $(rowNode)
+                .attr('class', 'newRow');
+        })
+
+        $('.fund-delete').click(function () {
+            alert(datatable.rows('.selected').data().length + ' row(s) selected');
+            var rows = datatable
+                .rows('.selected')
+                .remove()
+                .draw();
+        })
+
+    });
+</script>

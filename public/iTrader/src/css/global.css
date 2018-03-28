@@ -1,0 +1,202 @@
+.theme-group {
+    margin-top: -5px;
+    margin-right: 5px;
+}
+
+.loader-container {
+    background-color: #2c3e50;
+}
+
+.theme-group .active {
+    border-bottom: 2px solid #7cd45f;
+}
+.btn-theme-light {
+    color: #fff;
+    background-color: #C71517;
+}
+.btn-theme-lightblue {
+    color: #fff;
+    background-color: #00377B;
+}
+.btn-theme-dark{
+    color: #c8c8c8;
+    background-color: #272B30;
+}
+
+.ellipsis {
+    word-break: keep-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.short-input {
+    width: 120px !important;
+    height: 22px !important;
+}
+
+.alert-condensed {
+    padding: 8px;
+}
+
+.icon-left-margin{
+    margin-left: 8px;
+}
+
+.user-info .user-name {
+    color: #5a7391;
+}
+
+.highlight-tag {
+    height: 19px;
+    text-align: center;
+    font-size: 14px;
+    color: #ff9900;
+    border: 1px solid #feb557;
+    padding: 0 8px;
+    line-height: 20px;
+    font-style: normal;
+}
+
+.highlight-tag-sm {
+    font-size: 12px;
+}
+
+.bubble-title {
+    border-bottom: 1px dashed #999999;
+    cursor: help;
+    padding-bottom: 3px;
+}
+
+.captcha-img {
+    float: right;
+    margin-top: -33px;
+    right: 8px;
+    position: relative;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+.btn-group-label {
+    cursor: default;
+}
+
+.default-cursor {
+    cursor: default;
+}
+
+.dropdown .percentage-input {
+    height: 25px;
+    border: 0px;
+    padding-left: 20px;
+}
+
+.overflow-visible {
+    overflow:visible;
+}
+
+.symbol-code-tag{
+    border: 1px solid #e8e8e8;
+    height: 30px;
+    line-height: 30px;
+    margin-top:5px;
+    margin: 0px 5px 0 5px;
+    padding: 5px;
+}
+
+.symbol-code-tag:hover{
+    border: 1px solid #337ab7;;
+    cursor: pointer;
+}
+
+.icon-btn-x {
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.icon-btn-in {
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.fund-panel-padding
+{
+    padding: 5px 15px;
+}
+.bond-panel-padding
+{
+    padding: 5px 15px;
+}
+
+.icon-btn-bank-balance-reload
+{
+    cursor: pointer;
+    margin-left: 5px;
+    padding-bottom: 2px;
+    font-weight: normal;
+}
+
+#account-banlance-ul li b {
+    display: block;
+    word-break: break-word;
+    width: 70%;
+}
+
+#account-banlance-ul li .account_balance_list {
+    position: relative;
+    bottom: 20px;
+}
+
+.content-overflow-hidden-60{
+    max-width: 60%;
+    text-overflow: ellipsis;
+    white-space:nowrap; 
+    overflow:hidden; 
+}
+
+.content-overflow-hidden-30{
+    max-width: 30%;
+    text-overflow: ellipsis;
+    white-space:nowrap; 
+    overflow:hidden; 
+}
+
+.bond-maxsell-style{
+    margin-left: 50%
+}
+
+.fund-maxsell-style{
+   margin-left: 30%
+}
+
+#account-balance-panel .ps-container > .ps-scrollbar-x-rail {
+    opacity: 0.6;
+}
+
+#account-balance-panel .ps-container > .ps-scrollbar-y-rail {
+    opacity: 0.6;
+}
+.settlement-radio-margin{
+    margin-left: 0px !important;
+}
+.tab-message-notice{
+    background: #bf1031;
+    border: 1px solid #b11331;
+    box-shadow: 0 1px 2px rgba(0,0,0,.1), inset 0 1px 0 rgba(255,255,255,.15);
+    color: #fff;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    -webkit-text-size-adjust: none;
+    padding: 0 5px;
+    height: 16px;
+    line-height: 16px;
+    border-radius: 16px;
+    text-indent: 0;
+    text-align: center;
+    text-decoration: none;
+}
+
+.modal-dialog .modal-body td{
+    max-width: 418px;
+}

@@ -1,0 +1,155 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <% var nav_bar = config.views.nav_bar %>
+            <% if(config.views.nav_bar.brand) { %>
+            <% var brand = config.views.nav_bar.brand %>
+            <a class="navbar-brand" href="<%= brand.href %>">
+                <span data-i18n="nav_bar_<%= brand.name %>"><%= brand.name %></span>
+            </a>
+            <% } %>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="nav navbar-nav">
+            <% for(var i = 0; i < config.views.nav_bar.left.length; i++) { %>
+            <% var item = config.views.nav_bar.left[i] %>
+            <% if(item.items) { %>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        <span data-i18n="nav_bar_<%= item.name %>"><%= item.name %></span><span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <% for(var k = 0; k < item.items.length; k++) { %>
+                        <% var subItem = item.items[k] %>
+                        <% if(subItem.entitlement && user.entitlement.indexOf(subItem.entitlement) < 0) { continue } %>
+                            <li>
+                                <a href="<%= subItem.href %>" target="<%= subItem.target %>">
+                                    <span data-i18n="nav_bar_<%= subItem.name %>"><%= subItem.name %></span>
+                                </a>
+                            </li>
+                            <% } %>
+                    </ul>
+                </li>
+                <% } else { %>
+                <li>
+                    <a href="<%= item.href %>" target="<%= item.target %>">
+                        <span data-i18n="nav_bar_<%= item.name %>"><%= item.name %></span>
+                    </a>
+                </li>
+            <% } %>
+            <% } %>
+            </ul>
+            <% if(nav_bar.right) { %>
+            <ul class="nav navbar-nav navbar-right">
+                <% if (user) { %>
+                    <% if(nav_bar.right.account && user.accounts.length > 1) { %>
+                    <li class="dropdown" id="nav_accounts_dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <span class="nav_current_account dropdown-group-text" id="nav_account"></span><span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-group-list" role="menu" id="nav_account_list"></ul>
+                    </li>
+                    <% } %>
+                    <% if(nav_bar.right.languages) { %>
+                    <li class="dropdown" id="nav_language-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <i class="fa fa-globe icon-margin"></i><span class="dropdown-group-text" id="nav_language"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-group-list" role="menu"></ul>
+                    </li>
+                    <% } %>
+                    <% if(nav_bar.right.user) {%>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <i class="fa fa-user icon-margin"></i><span data-i18n="nav_bar_my_account"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <% if(nav_bar.right.user.info && user.info) { %>
+                                <li style="width:320px;padding:10px">
+                                    <div class="">
+                                        <p class="row"><span class="col-sm-5" data-i18n="nav_bar_account_name"></span><span class="col-sm-7" id="nav-user-name"><%= user.info.name %></span></p>
+                                        <p class="row"><span class="col-sm-5" data-i18n="nav_bar_account_id"></span><span class="col-sm-7"><%= user.id %></span></p>
+                                        <p class="row"><span class="col-sm-5" data-i18n="nav_bar_account_user_type"></span><span class="col-sm-7"
+                                            data-i18n="oms.user_type_<%= user.info.margin_type %>"></span></p>
+                                        <p class="row"><span class="col-sm-5" data-i18n="nav_bar_account_last_login_app"></span><span class="col-sm-7" data-i18n="oms.app_<%= user.info.lastLoginApp %>"><%= user.info.lastLoginApp %></span></p>
+                                        <p class="row"><span class="col-sm-5" data-i18n="nav_bar_account_last_login_time"></span><span class="col-sm-7"><%= user.info.lastLoginTime %></span></p>
+                                        <% if(user.accountsInfo && user.accountsInfo[user.id] && user.accountsInfo[user.id].customInfo) { %>
+                                            <% var customInfo = user.accountsInfo[user.id].customInfo %>
+                                            <% if(customInfo.CIES === 'Y') { %>
+                                            <i class="highlight-tag" style="cursor: help;" data-i18n="tag_CIES">CIES</i>
+                                            <% } %>
+                                            <% if(customInfo.RPQLevel) { %>
+                                            <i class="highlight-tag" style="cursor: help;" data-i18n="tag_RPQ"><%= 'Risk ' + customInfo.RPQLevel %></i>
+                                            <% } %>
+                                            <% if(customInfo.NationalityCode) { %>
+                                            <i class="highlight-tag" style="cursor: help;" data-i18n="tag_nationality"><%= customInfo.NationalityCode %></i>
+                                            <% } %>
+                                            <% if(customInfo.ProfessionalInvestor == 1) { %>
+                                            <i class="highlight-tag" style="cursor: help;" data-i18n="tag_professional_investor">PI</i>
+                                            <% } %>
+                                            <% if(customInfo.DerivativeKnowledge == 'Y') { %>
+                                                <i class="highlight-tag" style="cursor: help;margin-left: 5px;" data-i18n="tag_derivative_product">D</i>
+                                            <% } %>
+                                        <% } %>
+                                    </div>
+                                </li>                                
+                                <li role="separator" class="divider"></li>
+                                <li>
+                                    <% if(globalConfig.site.themes && globalConfig.site.themes.length > 1) { %>
+                                    <div class="btn-group btn-group-xs pull-right theme-group">
+                                        <% for(var i = 0; i < globalConfig.site.themes.length; i++) { %>
+                                            <% var name = globalConfig.site.themes[i] %>
+                                            <% var classname = "btn btn-theme-" + name; if (userOptions && userOptions.theme == name) {classname += " active"} %>
+                                            <button class="<%= classname %>" data-theme="<%= name %>"><span data-i18n="theme_<%= name%>">zhuti</span></button>
+                                        <% } %>
+                                    </div>
+                                    <% } %>
+                                </li>
+                                <% } %>
+                                    <% if(nav_bar.right.user.change_password) { %>
+                                    <li><a href="javascript:void(0)" id="nav-change-password"><i class="fa fa-key icon-margin"></i><span data-i18n="nav_bar_change_password"></span></a></li>
+                                    <% } %>
+                                    <% if(nav_bar.right.user.transfer_cash && user.accounts.length > 1) { %>
+                                    <li><a href="javascript:TransferCash()"><i class="fa fa-exchange icon-margin"></i><span data-i18n="nav_bar_cash_transfer"></span></a></li>
+                                    <% } %>
+                                    <% if(nav_bar.right.user.settlement) { %>
+                                    <li><a href="javascript:SettlementInstruction()"><i class="fa fa-list-alt icon-margin"></i><span data-i18n="nav_bar_settlement_instruction"></span></a></li>
+                                    <% } %>
+                                    <% if(nav_bar.right.user.user_setting) {%>
+                                    <li><a href="javascript:PopupUserSetting()"><i class="fa fa-gear icon-margin"></i><span data-i18n="nav_bar_user_setting"></span></a></li>
+                                    <% } %>
+                                    <% if(nav_bar.right.user.user_2FA ) {%>
+                                        <li><a href="javascript:void(0)" id="nav-registraFA"><i class="fa fa-bookmark icon-margin"></i><span data-i18n="nav_bar_user_2FA"></span></a></li>
+                                    <% } %>
+                                    <% if(nav_bar.right.user.logout) { %>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="javascript:Logout()"><i class="fa fa-sign-out icon-margin"></i><span data-i18n="nav_bar_logout">Log Out</span></a></li>
+                                    <% } %>
+                        </ul>
+                    </li>
+                    <% } %>
+                    <% } %>
+            </ul>
+            <% } %>
+        </div>
+    </div>
+</nav>
+
+<script>
+    seajs.use('password', function (pwd) {
+        $('#nav-change-password').click(function() {
+            pwd.change()
+        })
+    })
+    seajs.use('cregistrationFA', function (regist) {
+        $('#nav-registraFA').click(function() {
+            regist.register2FA({cmd: 'chgtoken'})
+        })
+    })
+</script>

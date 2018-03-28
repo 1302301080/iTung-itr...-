@@ -1,0 +1,29 @@
+.disclaimer {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.disclaimer-header {
+    color: #626262;
+    background-color: #EEEEEE;
+    padding: -10px;
+    max-width: 900px;
+}
+
+.disclaimer-content {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 13px;
+    color: #626262;
+    max-width: 900px;
+    height: 400px;
+    overflow: auto;
+    text-align: justify;
+    border: solid 1px #CCCCCC;
+}
+
+.disclaimer-options {
+    max-width: 900px;
+    padding: 0;
+    margin-bottom: 10px;
+}

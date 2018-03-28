@@ -1,0 +1,56 @@
+<div id="search-product-panel">
+    <div class="row" id="search_product_panel">
+        <div class="col-md-12">
+            <form class="form-horizontal" id="search-product-form">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <div class="form-group form-group-sm">
+                    <div class="col-sm-6">
+                        <div class="input-group input-group-sm">
+                            <input id="search-product-input" data-i18n="search_product_input" onkeypress="return SearchProduct_KeyPress(event)" name="query"
+                                type="text" class="form-control">
+                            <span class="input-group-btn">
+                        <button id="search-product-btn" class="btn btn-default" type="button" data-i18n="btn_search"></button>
+                    </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <select class="form-control" name="exchange" id="search-product-exchange">
+                            <% for(var i = 0; i < exchanges.length; i++) { %>
+                               <% if(exchanges[i]==0){ %>
+                              <option value="" data-i18n="ALL"></option>
+                              <% continue %>
+                            <% } %>
+                                <option data-format="exchange" value="<%= exchanges[i] %>">
+                                    <%= exchanges[i] %>
+                                </option>
+                                <% } %>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <select class="form-control" name="product_type" id="search-product-product">
+                            <% for(var i = 0; i < productTypes.length; i++) { %>
+                            <% if(productTypes[i]==0){ %>
+                          <option value="" data-i18n="ALL"></option>
+                          <% continue %>
+                            <% } %>
+                                <option data-format="product_type" value="<%= productTypes[i] %>">
+                                    <%= productTypes[i] %>
+                                </option>
+                                <% } %>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table id="search-product-table" class="table table-bordered table-condensed table-striped">
+                <thead id="search-product-thead">
+                </thead>
+                <tbody id="search-product-tbody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

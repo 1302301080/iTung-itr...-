@@ -1,0 +1,84 @@
+<div class="settlement_detail hidden" id="settlement_detail_SD_PDE">
+
+       <div class="form-group form-group-sm">
+            <label class="col-sm-3 control-label" data-i18n="settlement_SD_product_code"></label>
+            <div class="col-sm-6">
+                <input type="text" name="productCode" class="form-control productCode" required>
+            </div>
+        </div>
+
+          <div class="form-group form-group-sm">
+            <label class="col-sm-3 control-label" data-i18n="settlement_SD_product_name"></label>
+            <div class="col-sm-6">
+                <input type="text" name="productName" class="form-control sd-productName"  readonly required>
+            </div>
+        </div>
+
+         <div class="form-group form-group-sm">
+            <label class="col-sm-3 control-label" data-i18n="settlement_SD_qty"></label>
+            <div class="col-sm-6">
+                <input type="text" name="amount" class="form-control input-amount" required>
+            </div>
+        </div>
+
+        <div class="form-group form-group-sm">
+            <label class="col-sm-3 control-label" data-i18n="settlement_SD_date"></label>
+            <div class="col-sm-6">
+                <input type="text" name="datetime" class="form-control form-datetime">
+            </div>
+            <span data-i18n="settlement_instruction_option"><span>
+        </div>
+
+        <div class="form-group form-group-sm">
+            <label class="col-sm-3 control-label" data-i18n="settlement_SD_CP_name"></label>
+            <div class="col-sm-6">
+                <input type="text" name="party_name" class="form-control" required>
+            </div>
+        </div>
+
+        <div class="form-group form-group-sm">
+            <label class="col-sm-3 control-label" data-i18n="settlement_SD_contact_person"></label>
+            <div class="col-sm-6">
+                <input type="text" name="party_contact_name" class="form-control">
+            </div>
+            <span data-i18n="settlement_instruction_option"><span>
+        </div>
+
+        <div class="form-group form-group-sm">
+            <label class="col-sm-3 control-label" data-i18n="settlement_SD_contact_number"></label>
+            <div class="col-sm-6">
+                <input type="text" name="party_contact_no" class="form-control">
+            </div>
+            <span data-i18n="settlement_instruction_option"><span>
+        </div>
+          <div class="form-group form-group-sm">
+            <label class="col-sm-3 control-label" data-i18n="settlement_SD_AC_number"></label>
+            <div class="col-sm-6">
+                <input type="text" name="party_AC_no" class="form-control" required>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-3 control-label" data-i18n="settlement_instruction_remark"></label>
+            <div class="col-sm-6">
+                <input type="text" name="remark" class="form-control">
+            </div>
+            <span data-i18n="settlement_instruction_option"><span>
+        </div>
+         <div class="form-group form-group-sm">
+            <label class="col-sm-3 control-label" data-i18n="settlement_SD_SW_payment_type"></label>
+            <div class="col-sm-9">
+                    <label class="form-inline">
+                            <input type="radio" name="payment_type" value="DVP">
+                            <span data-i18n="settlement_payment_DVP"></span>
+            <input type="text" name="payment_input" class="form-control" required>
+            </label>
+            <div>
+                <label>
+                            <input type="radio" name="payment_type" value="FOP">
+                            <span data-i18n="settlement_payment_FOP"></span>
+                        </label>
+            </div>
+        </div>
+    </div>
+
+    </div>

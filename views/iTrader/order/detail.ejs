@@ -1,0 +1,82 @@
+<% include ../../control/orderInfo.ejs %>
+
+
+<% var baseColor = order['11'] == '1' ? 'text-danger' : 'text-success' %>
+    <form>
+        <fieldset>
+            <table class='table table-condensed'>
+                <thead>
+                    <th class="col-md-3"></th>
+                    <th class="col-md-9"></th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-i18n="order_detail_datetime"></td>
+                        <td><strong id="order-detail-datetime"><%= order['33'] %></strong></td>
+                    </tr>
+                    <tr>
+                        <td data-i18n="order_detail_number"></td>
+                        <td><strong><%= order['6'] %></strong></td>
+                    </tr>
+                    <tr>
+                        <td data-i18n="order_detail_symbol"></td>
+                        <td><strong><%= symbolCode %></strong></td>
+                    </tr>
+                    <tr>
+                        <td data-i18n="order_detail_name"></td>
+                        <td><strong><%= symbolName %></strong></td>
+                    </tr>
+                    <tr>
+                        <td data-i18n="<%= priceI18n %>"></td>
+                        <td>
+                            <div class="row">
+                                <strong class="col-sm-5"><span id="order-detail-price" data-price="order"><%= order['3'] %></span>(<%= order.symbol_currency %>)</strong>
+                                <span class="col-sm-3" data-i18n="order_detail_avg_price"></span>
+                                <strong class="col-sm-4"><span id="order-detail-avgPrice" data-price="avg"><%= order['42'] %></span>(<%= order.symbol_currency %>)</strong>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-i18n="<%= quantityI18n %>""></td>
+                        <td>
+                            <div class="row">
+                                <strong class="col-sm-5" data-format="quantity"><%= order['4'] %></strong>
+                                <span class="col-sm-3" data-i18n="order_detail_filled_quantity"></span>
+                                <strong class="col-sm-4" data-format="quantity"><%= order['34'] %></strong>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-i18n="order_detail_side"></td>
+                        <td><strong id="order-detail-side" class="<%= baseColor %>"><%= order['11'] %></strong></td>
+                    </tr>
+                    <tr>
+                        <td data-i18n="order_detail_type"></td>
+                        <td>
+                            <strong>
+                            <span data-i18n="oms.order_type_<%= order.type %>"></span>
+                            <% var tif = order.tif, extra_message = '' %>
+                            <% if (tif === 'gtd') { tif = 'gtd_pre'; extra_message = order['495'] } %>
+                            <span>(</span>
+                            <span class="<%= baseColor %>" data-i18n="oms.order_tif_<%= tif %>"></span>
+                            <% if (extra_message) { %>
+                            <span class="<%= baseColor %>"><%= extra_message %></span>
+                            <% } %>
+                            <span>)</span>
+                        </strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-i18n="order_detail_status"></td>
+                        <td><strong id="order-detail-status"><%= order['5'] %></strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table id="order-detail-table" class="table table-bordered table-hover table-condensed hidden">
+                <thead id="order-detail-thead">
+                </thead>
+                <tbody id="order-detail-tbody">
+                </tbody>
+            </table>
+        </fieldset>
+    </form>

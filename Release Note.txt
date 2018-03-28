@@ -1,0 +1,1143 @@
+﻿======================================================
+
+              iTrader ELite Release Note
+
+======================================================
+
+Dependencies
+- NONE
+  Even for Node.js, it's NOT necessary to be installed in the target machine, the compiled binary already included the node.js
+
+1.0.0
+2016-04-13
+----------
+1. The first release of iTrader ELite, with the following functions
+   - Second Password verify supports (PIN Verification) during login procedure
+     * Required SSM supports PIN verify function, if the login response session message has no omsTag#116 (OMS_PIN_POS), this feature will be disabled
+   - Change Password supports strict security policy
+   - Supports SSO, and allow Cash Transfer
+   - Supports Settlement Instruction
+   - Supports Add/Change/Cancel orders, with the following order type and time in force supports (required entitlement in the bracket)
+     * Order Type: Limit Order, Market Order(OEMarketOrder), Auction Order(OEAO), Stop Limit Order(OEStopL), Enhanced Limit Order(OEEnhanced)
+     * Time in Force: Day Order, GTC Order(OEGoodtillCancel), GTD Order(OEGoodtillDate), FOK(OEFOK), FAK(OEFAK)
+   - Supports the following market quotes, required entitlement in the bracket
+     * AAStocks(AASTOCKS), Megahub(MEGAHUB), TSCI(TSCIPRICE), ETNet(ETNeTPRICE)
+   - Assets page for Account Summary & Position Summary
+   - Support Themes, with the following themes supported, default is "light"
+     * dark, the night style theme
+     * light, the day style theme
+
+     *** To change theme, please specify the query string "?theme=<THEMENAME>" like below
+     ****** http://www.iTraderELite.com/?theme=dark
+2. The whole site was built on Express Framework + Node.js, fully support HTML5 & Web Socket, and Device Responsive
+3. Supported browser: IE, Chrome, Firefox, Safari
+   - Special remind, as Chrome no longer supports Java Applet, the market quotes, such as AAStocks, Megahub, TSCI & ETNet will not function in Google Chrome
+
+1.0.1
+2016-04-21
+----------
+1. Bug fix to handle single currency and multi currency mode.
+2. Bug fix spinner for input price and quantity in the ticket panel.
+3. Bug fix using the browser's language as the default language.
+4. Bug fix not allow to change price for market order and auction order.
+5. Bug fix query history order return wrong data.
+6. Bug fix to handle messy code for symbol's simplified and traditional name
+
+1.0.2
+2016-05-06
+----------
+1. bug fix position/account/web price real time update. As data update frequency too fast, apply settings to control update frequency
+   - config.iTrader.update_frequency, value in seconds while "0" means no delay.
+2. bug fix handle securities settlement case.
+3. bug fix query history orders issue, orders will keep in memory and no need to ITS query every time.
+4. bug fix settlement instruction function issues.
+   - cannot save quantity to DB for the instruction message.
+   - cannot save stock withdrawal instruction to DB.
+5. update some layout issue found by QA.
+6. enhance support password expiry prompt
+    - config. iTrader.views.login.pwdExpiryPromptDays, default 3 days
+
+1.0.3
+2016-05-16
+----------
+1. Bug fix max sell calculation error
+2. Bug fix stop price spinner issue
+3. Bug fix accept value real time update issue
+4. Bug fix handle invalid symbol case. (symbol cannot found in static market file or DDS)
+
+1.0.4
+2016-05-24
+----------
+1. Bug fix cash voucher in position view issue
+2. Buf fix calculate total buy/sell exclude securities settlement
+3. Bug fix order history view display Deposit/Withdraw instead of Buy/Sell for side column
+   - apply new custom query: LoadHistoryOrders
+4. Bug fix QA report missed orders issue.
+5. Bug fix DDS reconnected issue, and make socket reconnect interval configurable
+   - config. iTrader.oms.reconnectInterval, default 30 means 30 seconds
+6. Enhance to make global request timeout setting configurable
+   - config. global.site.timeout, default 30 means 30 seconds
+
+1.0.5
+2016-06-02
+----------
+1. Enhance to support trade detail.
+   - config. iTrader.views.trade.order_book.trade_detail, default true
+2. Enhance to allow to config color style for order book, can specified font color by order side & status
+   - config. iTrader.views.trade.order_book.color_schema
+3. Enhance to support print function for order book, cash book, order history & position view
+4. Enhance to support trading password when add/change/cancel order
+   - config. iTrader.views.trade.order_confirmation.compulsoryPasswordConfirmation, default false
+   Either "CompulsoryPasswordConfirmation" is ON, or no entitlement "SkipTradingPassword" found, the trading password is required for add/change/cancel order
+5. Enhance to allow skip disclaimer page after login successfully.
+   - need custom query "SetDisclaimerENT"
+6. Add tips button for order ticket
+   - config. iTrader.views.trade.ticket.tips, default false
+7. Enhance to popup agreement when user trying to trade the CBBC/Warrant/ETF product while they are not yet scribe these products
+   - config. iTrader.views.trade.ticket.CBBCAgreement, default false
+   - need custom query "GetCBBCAgreementFlags" and "SaveCBBCAgreementFlag"
+8. Enhance to allow order changeable/cancelable can configure by channel
+   - config. iTrader.views.trade.order_book.change, iTrader.views.trade.order_book.cancel, default allow all channel
+9. Enhance to add warning text in the bottom of the order confirmation box
+   - config. iTrader.views.trade.order_confirmation.warningMessageConfirmation, default false
+10. Enhance to support different margin ratio model
+   - config. iTrader.oms. MarginRatioMode, there’s two mode in current version.
+     Value “1”, use custom query “GetMarginBySymbolAcct” to get margin ratio
+     Value “2”, use custom query “QueryMargPara” to get margin ratio
+11. Enhance to support fee with new tags and match MarginM generic fee model
+   - config. iTrader.views.trade.order_confirmation.commNFee
+     avaliable key: commision, ccass, stamp, levy, tradefee, inlevy, totalfee, tax or any oms tag
+   - config. iTrader.views.trade.order_confirmation.fee:
+     isBaseCurrency, default true, means fee in basse currency, otherwise, fee in symbol currency
+     genericModel, default false, matched MarginM "IsUseGenericModel" to judge to use fee tags 4xx or new fee tags 3xxxx
+12. Enhance to add image as banner's background
+   - image path: /public/images/banner_bg.png
+13. Enhance to support shortcut key for order ticket, current support actions: buy, sell, reset, tabUp, tabDown
+   - config. iTrader.views.trade.ticket.shortcut, enable default false
+
+1.0.6
+2016-06-16
+----------
+1. Bug fix UI issue. Prevent submit form when press Enter key in password textbox in order confirmation dialog.
+2. Bug fix missed columns in cash book/history order for print function.
+3. Bug fix total amount calculation error.
+4. Add more fee field "charge6".
+   - now support fee fields:  commision, ccass, stamp, levy, tradefee, inlevy, totalfee, tax, charge6
+5. Enhance to support turn on skip disclaimer options. (user setting)
+6. Bug fix performance problem.
+   - display large data of products.(symbol search function)
+   - reduce data transmission.(symbol image data)
+
+1.0.7
+2016-07-26
+----------
+1. Enhance to be able to compile the entire website into an executable binary using EncloseJS
+2. Introduce setting iTrader.oms.exchanges. Follow the old logic, exchanges subscribed from DDS. This setting just for reference to sort the exchanges display on UI.
+   - icon, icon for exchange, all icons please refer to "http://flag-icon-css.lip.is/"
+   - enable, default true, means display on UI.
+   example: { key: 'SEHK', icon: 'flag-icon-hk' },{ key: 'MANU', enable: false }
+   as this new setting introduced, old setting exchange_filter will be discard
+3. Introduce new feature to make the messages configuration more flexible. Place extend multi-language files to the public/i18n/dist folder to replace the default messages.
+   - file name must be *_xxx.js, here xxx means language code, like "en-US", "zh-CN", "zh-HK"
+4. Bug fix QA reported issue, mktcharge calculation error in condition { isBaseCurrency: false, genericModel: false }
+5. Enhance to make http header configurable.
+   - config. global.web.headers. example: web:{headers:[{name:’’,value:’’}]}
+6. Enhance to include manual flag when place market order.
+7. Enhance to make trade detail columns configurable
+   - config.iTrader.views.trade.order_book.trade_schema
+8. Enhance Position View to show tooltip window when mouse hover the symbol
+   - config.iTrader.views.portfolio.tooltip
+9. Enhance to allow jump page for all grid tables
+10. Enhance to support Order Server new feature for order create date time
+    - If omsTag#441 contains key "born", the order create date time will be taken from this "born" value
+11. Enhance to support status filtering in Order Book
+12. Enhance to introduce new setting "avgPriceMode" to allow configuring the average price mode, and the possible values are
+    - "0", formula as below
+      Avg Price = (BODLongAmt + TodayBuyAmt - TodaySellAmt + DepositAmt - WithdrawAmt) / (BODLongQty + TodayBuyQty - TodaySellQty + DepositQty - WithdrawQty)
+    - "1", formula as below
+      Avg Price = ((BODLongQty - BODShortQty) * PreClosed + TodayBuyAmt) / (BODLongQty - BODShortQty + TodayBuyQty)
+    - "2", follow First-In-First-NET rules
+         
+      Where, 
+               TodayBuyAmt = SUM(Buy Trade Qty * Buy Trade Price)
+               TodaySellAmt = SUM(Sell Trade Qty * Sell Trade Price)
+               DepositAmt = SUM(DepositQty * PreClosed)
+               WithdrawAmt = SUM(WithdrawQty * PreClosed)
+               BODLongAmt = BODLongQty * BODPrice
+               "BODPrice" gets from dbo.BOD_Position_File.Ave_Price, if "Ave_Price" not available, "BODPrice" is Pre Closed Price
+
+1.0.8
+2016-08-12
+----------
+1. Enhance to make shortcut function support configure key code(before only support some special character).
+   - full support key code please ref http://unixpapa.com/js/key.html
+   - sample:
+   shortcut: {
+       enable: true,
+       buy: 111,
+       sell: 106,
+       reset: 'F8',
+       tabUp: 109,
+       tabDown: 107,
+       refresh: 'F9'
+   }
+2. Enhance to make SSL support ca file, for handle SSL trust on mobile.
+   - sample:
+   global.site.ssl = {
+     cert: 'cert file path',
+     key: 'key file path',
+     ca: 'ca file path'
+   }
+3. Bug fix to handle *** account when get margin ratio.
+4. Bug fix to send PIN command with device name omsTag#157.
+5. Bug fix avg. price calculate issue(with bod position)
+6. Bug fix UI - Account Balance - Currency drop down group display issue
+   - display duplicate currency
+   - auto change back to the first currency when account data update
+7. Bug fix cannot add order when symbol without name issue.
+8. Bug fix UI - Position view - tooltip display issue
+   - show "N/A" when some info unavailable(before show "undefined")
+9. Bug fix to show correct order time for order history.
+10. Bug fix to calculate correct accept value under multi-currency mode.
+11. Bug fix to handle calculate image without exchange case.
+
+
+1.0.9
+2016-09-05
+----------
+1. Bug fix sorting issue in symbol search page.
+2. Bug fix to handle margin ratio with *** account issue.
+3. Bug fix to calculate avg price follow the formula in avgPriceMode = 1, last version use bod avg price(not PreClose) when only with bod data.
+   * ((BODLongQty - BODShortQty) * PreClose + TodayBuyAmt) / (BODLongQty - BODShortQty + TodayBuyQty)
+4. Change order submitted message to change/cancel request submitted for change/cancel order
+5. Bug fix price spinner issue(use the old spread while price changed in case without click up/down button)
+6. Redefine currency mode. It's run in multi-currency mode while table RiskMan_File has "OMSBaseCurrency" and "TradeAbleCur" or "UnConvertCur" records.
+7. Enhance to add setting to control order type & tif by exchanges.
+    - config.iTrader.oms.exchanges, default full list as sample.
+    exchanges: [
+        { key: 'SEHK', icon: 'flag-icon-hk', type: 'LO,AO,ELO,SLO', tif: 'FAK,FOK,GTC,GTD' },
+        { key: 'US', icon: 'flag-icon-us', type: 'LO',tif: 'FAK,FOK' },
+    ]
+8. Add remark message to account summary page.
+9. Enhance to add cashview panel to account summary. Only work in multi-currency mode.
+   - can choose to show account list or cashview in account summary page, by setting enable, false means display none.
+10. Enhance to add exchange ratio page.
+11. Bug fix to get margin ratio by every account in SSO mode. For handle different account type(cash/margin) in one account group.
+
+1.0.10
+2016-09-26
+----------
+1. Bug fix missed handle error code in disconnect command from ITS.
+2. Bug fix Account Balance Panel dropdown auto changed when account info update.
+3. Bug fix GTD select date button do not hide when change exchange(GTD change to Day).
+4. Bug fix datetime formatting issue in order book.
+5. Bug fix settlement instruction missed transfer method when save DB.
+   - Cash Deposit -> Transfer -> Transfer
+6. Bug fix price spinner issue
+   - use last spread when price input element trigger blur event.
+7. Bug fix exchange ratio real time update issue(need reopen).
+8. Enhance to add additional field to Account Balance
+   - margin call, key: 996
+   - total portfolio value, key: totalPortfolioValue
+9. Enhance to add additional field to Portfolio
+   - available quantity, key: availableQuantity
+10. Enhance to allow market quote put into tab.
+11. Enhance to support operator flag mapping(i18n files).
+12. Enhance to allow control if zero price is illegal for add order.
+- config.iTrader.views.trade.ticket.allowZeroPrice, default true, means accept order with zero price.
+13. Enhance to support load currency balance from DB by custom query in multi-currency mode.
+   - apply new custom query: LoadCurrencyBal
+14. Enhance to provide another Account Balance UI for multi-currency mode.
+   - config. iTrader.views.account_balance.mainSchema example: 
+     mainSchema: [
+         { name: 'C.B.', key: 156 },
+         { name: 'T.L.', key: 155 },
+     ]
+15. Enhance to allow order type/tif sorting
+   - config. iTraer.oms.exchanges type/tif attribute
+16. Remove group record in cash view.
+17. Enhance to display currency hint in ticket after input symbol.
+18. Enhance to display "N/A"(configurable in i18n files) for field "accept value" and "margin call"
+
+1.0.11
+2016-10-11
+----------
+1. CSS style changed. 
+   * remove input element with default close icon from IE10(only apply to order ticket)
+   * increase zIndex value for Layer popup(exchange ratio popup)
+2. Bug fix missed GTD selection when exchange changed.
+3. Bug fix incorrect behavior when using market order as default order type(still can input price)
+4. Bug fix change password & settlement dialog missed wording issue as onshown event fired quickly before remote page loaded
+
+
+1.0.12
+2016-10-14
+----------
+1. Enhance to support Master-Sub Account Mode(CNY SUB Account Map). Introduce two setting:
+   - config.iTrader.oms.CNYAcctMapExchList, default empty. For turn on/off CNY sub account map feature.
+   - config.iTrader.oms.CNYAcctSuffix, default "_CNY", use for CNY sub account map.
+2. Bug fix incorrect behavior when using market order as default order type after click "clear" button.
+
+1.0.13
+2016-10-25
+----------
+1. Enhance to support change theme by user.
+   - config.global.site.themes, support multiple values, the first one is default. e.g. ['lightblue', 'dark', 'light']
+   - config.global.site.theme will be ignore.
+   * please note that this user preference only save in client's browser using cookie.
+2. Enhance to support ITS auto verify.
+   - config.iTrader.oms.autoVerifyInterval, in seconds, default 0 means never auto verify.
+3. Enhance to allow configure password rule.
+   - config.iTrader.oms.password.pattern, if set, use this for change password checking, otherwise, use SSM's testpwd function   
+4. Update some default value for configuration
+   - config.global.session.timeout, up to 60 * 60 * 4 (4 hours) as default value.
+   - config.iTrader.views.trade.rows, price tab with entitlement "WebPrice"
+   - config.iTrader.views.order_confirmation.transactionCost/commission/orderAmount/totalAmount, default true means visible.
+
+1.0.14
+2016-11-04
+----------
+1. Enhance to support trade Bond & Fund product.
+   * introduce fund order book
+     - config.iTrader.views.trade.fund_book
+   * order ticket support three modes: stock, bond and fund, switch by product type or exchange(BOND/FUND)
+   * quantity format support decimal
+   * need new custom query: "LoadCustomAccountInfo" and "LoadCustomTableDefine"
+2. Bug fix QA report issues:
+   * account balance auto change to "ALL(HKD)" when account image update, it should keep current currency.
+   * price/quantity spinner is not working in change order box.
+   * position view show position record which not belong to current account in SSO mode.
+3. Update to popup "service unavailable" message when cannot connect to ITS, instead of "Internal error".
+4. Bug fix to correct the page language parameter and code for AAStocks
+   - The language parameter should be "lang" rather than "language"
+   - It's "CHN" for Simplified Chinese rather than "CHS" in AAStocks
+5. Bug fix to prevent user submit user more than once if keep clicking ENTER key in order ticket
+
+
+1.0.15
+2016-11-15
+----------
+1. Enhance to query fund orders(active and history) from GBS web service.
+   - config.iTrader.GBSWebService, e.g.
+     GBSWebService: {
+        url: 'http://192.168.169.192/GBSDataInterface/GBSDataInterfaceService.svc',
+        getFundInterval: 60,   // get active fund orders by interval, in seconds.
+    }
+2. Enhance to allow configure clear ticket form after add order.
+   - config.iTrader.views.trade.ticket.clearAfterSubmit, default false. If true, ticket form will be clear after add order.
+3. Enhance to allow configure bond price type(in percentage or amount)
+   - config.iTrader.views.trade.ticket.bondPriceInRate, default true.
+4. Update to show original value for margin call(omsTag#996) rather than "N/A" for cash client.
+5. Update to support MegaHub new version which used new parameters:
+   * u: username
+   * p: password
+   * b: broker id
+6. Bug fix to handle get/post parameters.
+   * trim all strings
+   * convert SBC to DBC
+7. Bug fix currency label not update in account balance panel when change account. This case happens in multi-currency + SSO mode.
+
+
+1.0.16
+2016-11-22
+----------
+1. Bug fix copy price function for MegaHub quote page(using HTML5 postMessage function).
+2. Enhance to popup dialog for announcement, popup window before this version.
+
+1.0.17
+2016-12-09
+----------
+1. Enhance to support field "Time" in static market data xml file for auto update.
+2. Enhance to support query transaction history(data from BOAPI via ITS).
+3. Enhance to support login by name.
+4. Enhance to support TSCI's market quote.
+   - add new settings "useLogonName" to identify whether to use account id or account name(as login by name mode will be appied).
+5. Bug fix to correct GTC info format. Remove characters "<" and ">".
+6. Enhance to load error code message from Messages.xml. Current Stage only support local files.
+   - config.global.message
+7. Update to read omsTag#10 & omsTag#21 with encoding "GB18030" in case the symbol name is in Chinese.
+8. Enhance to support PIN/Email/SMS/Token authentication.
+9. Log rolling type configured to default based on date, before based on file size.
+
+1.0.18
+2016-12-14
+----------
+1. Bug fix to show "submitted" status for fund order which has been submitted, including:
+   * OMS Fund Order instruct3 (omsTag#491) contains flag omsOrder3Submitted (=4096).
+   * GBS Fund Order with "pending" status.
+2. Dismiss setting "bondPriceInRate" as display ratio(omsTag#1504) has been introduced.
+3. Enhance to allow non-submitted fund order change/cancel.
+4. Enhance to auto upper case for symbol code input in order ticket.
+
+
+1.1.0
+2016-12-22
+----------
+1. Enhance to integrate eipo. Support start specified project with parameters, default start "elite".
+   * start eipo project with parameter "eipo", example: "iTrader.exe eipo" or "iTrader.exe elite eipo".
+2. Adjust eipo's UI to make style consistent.
+3. Bug fix failed to trade listed FUND/BOND products 
+
+1.1.1
+2016-12-29
+----------
+1. Bug fix to mask password in the log.
+2. Bug fix realized P&L calculation issue. (case with bod data)
+3. Enhance to upload error messages from client side to server side for checking.
+
+
+1.1.2
+2017-01-06
+----------
+1. Bug fix to disable input "username" and "password" while login successfully and waitting for input verify code.
+2. Bug fix RPQ checking. No pass while product without RPQ info.
+3. Bug fix to get client IP for handling local login.
+   - config.iTrader.client_ip_url, an URL for providing IP service.
+4. Bug fix ETNET market quote copy price issue.
+
+1.1.3
+2017-01-19
+----------
+[PC]
+1. Introduce eStatement function to allow user look daily and monthly statements. Currently support two display mode: popup window and tab.
+   - config.iTrader/views.eStatement
+     * fileDirectory, the eStatement's folder
+     * period, provide "daily" and "monthly" settings as condition for query
+     * fileNameDailyFormat and fileNameMonthlyFormat, use regex to match statement files
+     * dateFormat, date format in statement file name
+2. Enhance to support fund switch. Introduce new page "Fund trading" as professional fund ticket while original ticket is a simple one, including modules:
+   * fund list
+   * fund subscribe/redeem
+   * fund switch
+   * fund order book
+   * fund position
+3. Bug fix to not allow change/cancel bulk order and add "Bulk Order;" info to remark.
+4. Bug fix query fund history orders issues. If setting GBSWebService is empty, it will make request timeout error, it's incorrect.
+
+[ALL]
+1. Bug fix to prevent the label(left of the dropdown group) allow client to click.
+2. Bug fix exchange ratio pupup cannot move issue and apply color theme to the popup.
+3. Introduce global format to config. Currently only date format(eStatement use this date format).
+   - config.iTrader.format
+
+1.1.4
+2017-02-06
+----------
+[PC]
+1. Bug fix eStatement query monthly statement issue. Cannot use 30 days as 1 month to calculate as monthly statement always without day but only year and month in the file name. Follow below rule:
+   Let X be Current month (January)
+   Latest 1 month  = X, X – 1, December & January 
+   Latest 3 months = X, X - 1, X - 2, X - 3, January, December, Nov, Oct 
+   Latest 6 months = X, X - 1, X - 2,..., X - 6, January, December, Nov, Oct, Sep, Aug, July
+2. Enhance to allow external applications (such as DC2/DC3) to access eStatement page.
+3. Bug fix showing wrong "Bulk Order" remark for those Non-Bulk orders
+
+[ALL]
+1. Use ellipsis for tables when text overflow, for handle tool long text in one cell and text wrap that make table looks bad.
+2. Device Responsive enhancement.
+   * Every panel/tab in the page, and every column in table can disable in mobile version by config mobile = false.
+   * To make better experience in the mobile browser, disable some futures, including:
+     - table ordering
+     - table searching
+     - table footer info
+     - table print function
+     - table paging without page go function
+     - tooltip
+3. Bug fix assets page set account overall input box to be read-only
+
+1.1.5
+2017-02-17
+----------
+[ALL]
+1. Bug fix encoding issues for symbol name(with CHT & CHS). 
+   - There's missunderstand that GB18030 can decode CHT & CHS characters but it didn't. Now bug fix to use GB2312 for decode CHS(omsTag#505) and Big5 for decode CHT(omsTag#36, omsTag#21) as DC2 do.
+   - config iTrader.oms.encoding default value change from "Big5" to "GB18030" as it's more commonly used.
+2. Bug fix QA reported issue that eStatement show today's and yesterday's statement when query today daily statement. It should be just today's.
+3. Bug fix Assets page account summary textbox editable issue(it should be readonly).
+4. Enhance to map "last login app" and "product type". 
+   These values get from message.xml first and then i18n files. Now useful resource in message.xml for elite including:
+   * error code
+   * currency
+   * exchange
+   * source(channel)
+   * applicationID
+   * product type
+5. Enhance include more columns in the Static Market Data file, and they are
+   - OTC Flag
+   - RPQ Level
+   - CIES
+   - Professional Investor Flag
+   - NAV Date
+   - Nationality
+   - Display Ratio
+   - Product Flags
+[PC]
+1. Redesign fund trading page and some enhancements.
+   * Workflow: login > click "Fund" > turn to "Risk Discloser" page > click "Agree" > show fund list > place order
+   * Risk disclosure & disclaimer. Access fund page should agree risk disclosure first. Then every add order action will prompt disclaimer and every confirmation box should read/check disclaimer.
+     - config iTrader.views.full_trade.fund.disclaimer & disclosure, just comment out to turn the function off.
+   * Fund list display mode support "item" and "table", default is "table". Select one fund will turn to fund subscribe page while select more than one fund will turn to fund switch page.
+   * Enhance to add thousand separator futures for input fund amount/unit.
+   * Enhance to add percentage unit input futures for redeem unit input.
+
+1.1.6
+2017-02-27
+----------
+[ALL]
+1. Bug fix QA reported copy symbol failed from position view to order ticket issue(price tab has same issue).
+2. Redesign the stop limit order UI to prevent some browser compatibility issue(popover issue).
+3. Turn off autocomplete function for order ticket. (default "on" in Firefox)
+   * input value in the order ticket and then refresh the page will auto complete.
+4. Bug fix to apply theme for the exchange ratio dialog.
+5. Update the total net value formula: Total Net Value = Total S. Value – Total B. Value
+6. Remove extra parameters in the URL when call ETNET’s market quote.
+7. Bug fix issue that sometimes load static data failed.
+
+1.2.1
+2017-02-28
+----------
+1. Upgrade to support Node.js version 6.3.1, 32bit
+
+1.2.2
+2017-03-13
+----------
+[ALL]
+1. Bug fix max buy/sell calculation issues.
+   * handle non-day trade for max sell. Today buy positions will be ignore in the max sell calculation.
+     - config.iTrader.oms.exchanges:  { key: 'SHSE', icon: 'flag-icon-cn', isDayTrade: false }
+   * handle multi-currency mode unconvertable currency for max buy.
+     - if unconvertable, use the TL of the specified currency, otherwise, use the consolidated TL.
+   * fix QA reported that up/down price not trigger recalculte the max buy issue.
+   * for market order, max buy will show nothing.
+2. Bug fix queue quantity calculation issue(rejected orders has been include in the calculation).
+   * only outstanding sell orders will be include in the calculation
+3. Bug fix QA reported that trade detail show the wrong price in securities settlement case.
+   * for securities settlement, trade price always is 0, but calculate position will use pre close. Trade price in trade detail shoule not use pre close.
+4. Bug fix QA reported that position view show the wrong tooltip detail after close one position.
+4. Security enhance for eStatement. Cannot read other's statement even you get the url with random key.
+5. Enhance to popup detail information for table in mobile view.
+[BDA]
+1. Enhance to support reload bank balance(omsTag#469). Control only send 1 request in 1 second.
+   - config.iTrader.views.account_balance:  { name: 'bank balance', key: 469, i18n: 'column_bank_balance' }
+[Fulbright]
+1. Enhance to support display consolidated balance in different currency(consolidated balance * ratio) in account balance panel.
+   * only work in multi-currency mode
+   * not consider unconvertable currency.
+   - config.iTrader.views.account_balance.consolidatedBalanceMode, default "false"
+2. Add Market Value(HKD) label under the Global Assets pie chart.
+[PC]
+1. Enhance to introduce Bond Trading Page
+
+1.2.3
+2017-03-21
+----------
+[ALL]
+1. Bug fix to handle the negative market value in the global assets pie chart. The negative market value should be included in the chart.
+2. Bug fix table page auto turn to the 1st page when data update in positions summary, assets page.
+3. Bug fix QA reported that account balance panel dropdown group sellect currency issues.
+   * case reproduce: in multi-mode, account without CNY but add A share order, account balance panel's currency cannot match this currency.
+
+1.2.4
+2017-04-07
+----------
+[ALL]
+1. Bug fix last version(1.2.3) item 3, if symbol image update constantly, still have that issues.
+2. Bug fix QA reported that account balance calculation error using the wrong exchange ratio in single currency mode.
+3. Bug fix to consider unconvertable currency when calculate total amount in order confirmation box.
+   * if symbol's currency is unconvertable, the total amount will not convert to base currency.
+
+
+1.2.5
+2017-04-26
+----------
+[ALL]
+1. Bug fix QA reported that price up/down arrow not work.
+  * case reproduce: no bod position, no order, first time login and input symbol code in the ticket, then click the up/down arrow.
+2. Roll back the item which enhanced in v1.2.2: Security enhance for eStatement. Cannot read other's statement even you get the url with random key.
+  * In order to work with other program like DC2, the eStatement link cannot prevent others to access because it open in the new window.
+3. Bug fix an PL calculation issues. Case reproduce should meet below condition:
+  * multi-currency mode and avgPriceMode != 1
+  * has BOD position and avg price = 0
+  * no static market data deployed.
+  * symbol image without omsTag#31. (Please note that no omsTag#31 and empty omsTag#31 is different. one will be "null" and another "undefined". In javascript calculation, null will be treated as 0, and undefined will be treated as NaN.)
+4. Enhance to support Auction Limit Order. Need entitlement "OEALO".
+5. Override jQuery ajax function to prevent cache which cause http 304.
+[Fulbright]
+1. Enhance to allow custom advertisement in the login page.
+   - config.iTrader.views.login.advertisement: { url: '' }
+[BDA]
+1. Introduce new key word "bankBalance" for bank balance as omsTag#469 has different meanings that will cause conflict.
+   * only get the bank balance field(omsTag#469) from the bank balance image.
+   - config: { name: 'bank balance', key: 'bankBalance', i18n: 'column_bank_balance' },
+
+[PC]
+1. Simplify the charge currency rules.
+   - config.iTrader.views.order_confirmation.fee: { genericModel: false }, options "isBaseCurrency" is no use.
+   * charge currency rules:
+     -------------------------------------------------------------------------------------------------------------
+     | Geneirc Mode | Currency Mode | Convertible | Tag# | Charge Currency   | Order Amount    | Total Amount    |
+     -----------------------------------------------------------------------------------------------------------
+     | NO           | Single        | N/A         | 4xx  | Base Currency     | Symbol Currency | Base Currency   |
+     | NO           | Multiple      | YES         | 4xx  | Symbol Currency   | Symbol Currency | Base Currency   |
+     | NO           | Multiple      | NO          | 4xx  | Symbol Currency   | Symbol Currency | Symbol Currency |
+     | YES          | Single        | N/A         | 341x | Symbol Currency   | Symbol Currency | Base Currency   |
+     | YES          | Multiple      | YES         | 341x | Symbol Currency   | Symbol Currency | Base Currency   |
+     | YES          | Multiple      | NO          | 341x | Symbol Currency   | Symbol Currency | Symbol Currency |
+     -------------------------------------------------------------------------------------------------------------
+
+1.2.6
+2017-05-08
+----------
+[ALL]
+1. Optimized code to make query statement more faster.
+2. Adjust to hide "All(<BASECCY>)" filter options in Account Balance panel in multi-currency mode.
+   * rule: if the count of Tradable Currencies in Riskman_File < 2, hide "All(HKD)".
+3. Bug fix QA reported that P&L calculation issues with invalid symbol. If symbol is invalid, no P&l calculation for this position.
+4. Bug fix QA reported that total amount calculation issues(introduced in last version). genericModel = false and in single currency.
+
+[PC]
+1. Enhance Settlement Instruction to provide more information for the end user to submit the instruction, especially for Cash Voucher, the Bank Slip and/or Cheque Copy images will be uploaded to File Server.
+    - config.iTrader.views.settlement.dataFileServer, file server path(only local path).
+    - config.iTrader.views.settlement.cashCurrency, deposit/withdrawal currencies.
+    - config.iTrader.views.settlement.bankNameFileURL, beneficiary bank file path. 
+	  * This new Bank File should be in CSV format, no header required, column as below
+	    Bank Alias Name,Bank SWIFT Code,Bank A/C Number,Bank A/C Name,Bank English Name,Bank Simplified Chinese Name,Bank Traditional Chinese Name
+		
+		Sample Bank.txt
+		---------------
+		BOC,123,100-211-322-433,eBroker Systems Ltd. on BOC, Bank of China,中国银行,中國銀行
+        CCB,456,101-211-322-433,eBroker Systems Ltd. on CCB, China Construction Bank, 中国建设银行,中國建設銀行
+        ICBC,789,102-211-322-433,eBroker Systems Ltd. on ICBC,Industrial and Commercial Bank of China,中国工商银行,中國工商銀行
+		
+    - introduce more instruction method TFE(enhance for TF), PDE(enhance for PD) and PWE(enhance for PW)
+2. Introduce new function message handler.
+    - config.iTrader.views.settlement.schema
+3. Adjust BOND/FUND page work flow, especially support submit multiple orders one time.
+4. Enhance to support price quote mode.
+   - config.iTrader.exchanges: { key: 'BOND', icon: 'flag-icon-hk', isPriceQuote: true }
+
+1.2.401
+2017-05-11
+----------
+	Branch version on 1.2.4
+[PC]
+1. Optimized code to make query statement more faster
+2. Bug fix to translate the market dropdown in Order Ticket in mobile view
+3. Bug fix to allow sorting in Position View in mobile view
+4. Bug fix to support eStatement file date format "ddMMyyyy"
+
+1.3.1
+2017-05-22
+---------
+1. Redesign the data flow to improve performance.
+   * before: all the symbol info will feed to client side to calculation and display for order/position...
+   * now: order/position calculation job will be done in server side and just feed the necessary data to client side.
+2. Bug fix QA auto test found format issues.
+3. Bug fix QA found UI display issues.
+4. Bug fix multiple fund order missed GTC flag issues.
+
+1.3.2
+2017-05-24
+----------
+1. Bug fix position cannot update when there's no symbol price update.
+2. Bug fix order options mapping issues.
+3. Bug fix stop price format issues.
+4. Bug fix order history side and status mapping issues.
+5. Bug fix to remove GTC flag for all fund order.
+
+1.3.3
+2017-05-26
+----------
+1. Bug fix QA reported realized P&L calculation issues under deposit stock case(trade price should use preClose when calc P&L).
+2. Bug fix stop price decimal format issues(change order confirmation box).
+3. Bug fix max buy quantity update issues.
+4. Bug fix filter by status issues in order history book.
+5. Bug fix settlement instruction issues.
+     * Introduce CHE,CQE,TFE type for the new UI.
+     * Keep CH,CQ,TF type for original behavior. 
+
+1.3.4
+2017-06-02
+----------
+1. Bug fix assets page pie chart performance issues(cause by draw so many times).
+2. Bug fix change order confirmation box price/quantity cannot update in a second time change(only happend in IE as it's a cache issue).
+3. Bug fix settlement instruction CD=>TF missed value for transfer type. It will send the chinese to server and make encoding issues.
+4. In some case, no trades table display thought the order has completed.
+5. Bug fix no trades record display in trade detail dialog when trade number with some special characters. Because jQuery not support some character(like : . ) as an id attribute.
+
+
+1.3.5
+2017-06-15
+----------
+1. Update to append ISIN code to symbol name(not include short name) if ISIN code exist.
+   * in the previous version, only append ISIN code to BOND/FUND product.
+2. Apply loading page for all single page, include BOND, FUND and Assets page.
+3. Update to make use display ratio(omsTag#1504) for all price fields.
+   * in the previous version, only BOND product use the display ratio.
+4. Bug fix to correct the ISIN code append to the symbol name instead of symbol code in the confirmation box.
+5. Bug fix to correct fund name with duplicate ISIN code issue in the FUND page.
+6. Bug fix program hung up issues(out of memory) when query settlement instruction messages with messy code(Chinese code) in the image.
+7. Bug fix to show tooltip(Mouse hover) for symbol name column in the symbol search page.
+8. Bug fix P&L ratio show "null" in position view in some case(no BOD avg price and preClose price).
+9. Bug fix display wrong value for account balance under China Connect Master-Sub Account Mode(mode 2).
+    * this issues happens from v1.2.3
+
+[PC]
+1. Bond price quote agree function use command "change" instead of "schange". Because "schange" command will not release update image to DDS.
+2. Update bond price quote workflow, follow some rules:
+   - Price quote order will group to “Price Quote” tab while normal order will group to “Order Book”.
+   - After client accept the price quote order, it will change to an normal order, so it will be moved from “Price Quote” to “Order Book”. And it’s not allow change.
+   - Canceled price quote order treat it as an normal order, it will show in “Order Book”.
+   - Price quote order cannot be change, only allow to accept or cancel.
+3. Update BOND/FUND page to adapt mobile view.
+4. Bug fix QA found settlement instruction issues.
+   - Cash Deposit=>Cheque:  missed "Upload Cheque" field.
+   - Cash Deposit=>Transfer: popup "Internal error" error.
+   - Stock Deposit=>Physical Deposit: choose "Delivery VS Payment" and input nothing for the field of "Delivery VS Payment", click "Submit" button, it will change to be red to warn, then choose "Free of Payment", but it still show the red warning.
+   - Stock Deposit/Withdraw=>Physical Deposit: input ISIN code and submit, not map to product code in the instruction message.
+   - Stock Withdraw: not check on the "Number of scrip" field. rule: Withdraw Quantity = Number of Script * Quantity
+   - bug fix to prevent send out instruction when input invalid symbol code.
+   - bug fix to skip withdraw amount/quantity for all Cash/Stock withdrawal.
+   - Bug fix to correct the rule on OTC product. Deposit is allow while withdraw is not allow for OTC product.
+   - bug fix to show correct error message when upload invalid cheque copy and bank slip. Only support file type ".jpg", ".jpeg" and ".png".
+5. Enhance to support show advertisement in Bond/Fund page.
+   - config.iTrader.views.full_trade.bond.advertisement: [{ src: '/images/aaa.jpg', href: '' }, { src: 'images/bbb.jpg', href: '' }] image url list.
+   - config.iTrader.views.full_trade.fund.advertisement: [{ src: '/images/ccc.jpg', href: '' }, { src: 'images/ddd.jpg', href: '' }] image url list.
+
+[BDA]
+1. Add more field "netAssetValue" for account balance.
+   - normal mode: Net Asset Value = Cash Balance + Market Value(the same as totalPortfolioValue)
+   - bank balance mode(Account Balance page with Bank Balance field): If Trading Limit >= 0 then Net Asset Value = Bank Balance + Trading Limit, else Net Asset Value = Bank Balance
+   - config: { name: 'net asset value', key: 'netAssetValue', i18n: 'column_net_asset_value' }
+
+
+1.3.6
+2017-06-30
+----------
+[ALL]
+1. Bug fix display issues when symbol with display ratio.
+   * Order detail form with wrong price format.
+   * Position view in asset page with wrong price format.
+   * History book with wrong price format.
+   * Change command with wrong price.
+   * change price up/down arrow with wrong spread.
+[BDA]
+1. Bug fix netAssetValue calculation error for bank balance mode.
+   * in previous version, netAssetValue = Bank Balance + Cash Balance, but it should be Bank Balance + Trading Limit
+[PC]
+1. Bug fix QA found cannot get fund product in fund page in case DDS has record but static data not exist.
+   * Actually, this is because this symbol image with traditional Chinese in omsTag#10 and make mess code.
+2. Bug fix QA found some display issues in BOND/FUND page.
+
+
+1.3.7
+2017-07-12
+----------
+[ALL]
+1. 2FA phaseⅡ enhance.
+   * support challenge command with toke type = 5(EBS software authentication)
+   * support query login from SSM by interval to check if client click "Approve" or "Deny" on the mobile app.
+   * support primary to secondary login token switch.
+   * collect more information when login, include: device OS, browser info, location
+
+[KGI]
+1. Enhance to handle omsTag#1116 for order update.
+   * based on FIX protocol, add/change/cancel order may follow with some pending messages, show "submitted successfully" for these pending order. And if error follow these orders, shou error notification messages.
+     - omsReqPendingChange = 3
+     - omsReqPendingCancel = 5
+     - omsAmending = 7
+     - omsCancelling = 9
+2. Enhance to support configure pricing exchange. No market value allowed for those markets without pricing license.
+   - config.iTrader.exchanges: { key: 'BOND', icon: 'flag-icon-hk', isPricing: false },  default true, false means no pricing license.
+
+[PC]
+1. Bug fix fund switch out percentage using value in percentage in omsTag#487 "SwitchP" field.
+   * in previous version, it used decimal value.
+2. Bug fix transaction fee using value in percentage in omsTag#487 "TRANSFEE" field.
+   * in previous version, it used decimal value.
+3. Bug fix UI issues about expand fund switch orders in fund book.
+4. Bug fix UI issues(mainly appear in IE) about all symbols change to the same one after select in the fund switch form.
+5. Bug fix cancel fund switch orders issues.
+   * in previous version, it only cancel the last order.
+6. Bug fix min transaction fee rate and max transaction fee amount checking.
+   * If Sell Max Transaction Fee Rate (omsTag#3606) was not defined, Max Transaction Fee Rate (omsTag#3407) share for both BUY/SELL sides.
+   * If Sell Min Transaction Fee Amount (omsTag#3607) was not defined, Minimum Transaction Fee (omsTag#3408) share for both BUY/SELL sides.
+7. Bug fix to handle error orders for fund switch.
+   * introduce new custom query "QueryErrorOrder" for query all the error orders after login.
+   * need "NotifyHandler" version above 1.0.2.2 for save error orders.
+
+[BDA]
+1. Enhance to use net asset value instead of trading limit to calculate max buy for bank balance mode.
+
+
+1.3.8
+2017-08-03
+-----------
+[ALL]
+1. 2FA querylogin function removed interval timer as SSM has update to push data to client.
+2. Introduce manual verify session function. Mouse click or keyboard press will trigger verify session action.
+   - config.iTrader.oms.manualVerifyInterval, in second, default 0, only work when it > 0. For example: manualVerifyInterval=300, means will verify one time when client click mouse or press keyboard.
+   * please be aware of that there's no conflict with setting "autoVerifyInterval", so please make sure only one of them was in used in deployment.
+3. Bug fix position view appear currency issues. It's because in some case elite received order later than trade causing failed to define cash voucher.
+4. Enhance to carry exchange to symbol search form from order ticket(click search icon in order ticket).
+5. Update change password command to carry omsTag#22(account type).
+6. Update change password dialog not support close by backdrop and keyboard(esc key).
+7. Add exchange ratio remind message into the exchange ratio popup dialog.
+8. Change default config.js to make "Market Quote” as the default tab name for third party market quotes(AAStocks, MegaHub, ETNet and TSCI).
+9. Enhance to apply clear after submit function for BOND/FUND ticket.
+   - config.iTrader.views.ticket.clearAfterSubmit
+10. Enhance to allow control pie chart(in assets page) display or not.
+   - config.iTrader.views.assets.position.pieChart, default true, means display pie chart.
+11. Enhance to support favicons for different devices(ios, android chrome, windows metro, macOS Safari...).
+   * for deployment, please use the service "realfavicongenerator"(http://realfavicongenerator.net/) to generate the favicons and copy to the folder "public/favicons".
+
+[PC]
+1. Correct fund redeem amount formula: Redemption Amount = Redeem Unit * NAV
+   * in previous version, Redemption Amount = Redeem Unit * price(always 1)
+2. Bug fix QA report agree bond price quote issues(no change command forward to ORD).
+3. Bug fix Fund order issues which from GBS web service.
+   * correct fund order's datetime
+   * correct status mapping use below rule:
+     GBS status     OMS status
+     Pend           Submitted
+     Apply          Submitted
+     Complete       Confirm
+     Confirm        Complete
+     Cancel         Cancel
+4. Bug fix to show fund switch order in history book.
+   * introduce new custom query "QueryHistoryErrorOrder"
+
+[KGI]
+1. Bug fix QA report issues about omsTag#1116 handling
+   * use another third party component "pnotify" instead of "noty" to notify error messages.
+   * clarify some points:
+     1) orderbook column "remark" only show omsTag#25 value in order image.
+     2) no need to consider missed error message popup when close browser or logout.
+
+1.3.9
+2017-08-17
+----------
+[ALL]
+1. Correct the price format function.
+   * no auto format for input price in order ticket. Place order with the user input price.
+   * order price precision minimum align to tick size, maximun up to 8 decimals.
+   * avg prce precision minimum align to tick size + 1, maximun up to 8 decimals.
+  * market price align to tick size.
+2. Enhance to force to logout when user access the login page even though he has login in the same browser.
+
+[KGI]
+1. Enhance to show multiple currency cash balance in Account Balance panel, currency cash balance are a BOD data loaded from database, in table oms_CustomAccountBalance.limit07(get from custom query)
+   - config.iTrader.views.account_balance.showMultiCurrencyCB, default false
+   - introduce new custom query "GetAcctCurrencyBalance"
+2. Enhance to allow toggling consolidated cash balance in Account Balance panel
+   - config.iTrader.views.account_balance.showConsolidatedCB, default true
+3. Enhance to support special limit order.
+   - config.iTrader.oms.exchanges[i].type:[SLO]
+   * correct the type name: SLO ==> special limit order, STPL ==> stop limit order
+
+[PC]
+1. Word change
+   * "Price Rate" ==> "Price" for bond.
+   * "Min Purchase Amount" ==> "Min Amount" for bond.
+2. Bug fix to check minimum amount and incremental amount on both buy and sell side for BOND.
+3. Bug fix holding fund symbol issues in FUND Switch page.
+4. Bug fix to remove "Min Subscription Amount" in FUND ticket for FUND redemption.
+5. Bug fix to remove the currency label for transaction fee in BOND/FUND confirmation box.
+6. Bug fix missed "Qstate" field in omsTag#487 when symbol with omsTag#3605.
+7. Bug fix to handler query history fund switch order issues.
+
+1.3.10
+2017-08-30
+----------
+[ALL]
+1. Bug fix format function(format with pattern) issue.
+   - in previous version, "40.920000001" will format to "40.92000000" when using patter "#,##0.000#####", actually it should be "40.920"
+2. In order detail page, append symbol currency after price and avg price for align the behavior.
+
+[KGI]
+1. Bug fix QA reported sometimes showMultiCurrencyCB not work(no currencies display).
+   * just set a timer to try to run the function more times.
+
+[PC]
+1. Bug fix fund switch issues.
+   * show the wrong unit for switch out.
+   * fixed fund switch missed error order when relogin.
+2. Bug fix query history order issues(with error order in fund switch).
+   * correct "subscribe/redeem" side for fund order.
+   * filter out normal error order.
+3. Bug fix bond issues.
+   * correct the transaction fee ratio format in bond confirmation box.
+3. Label change.
+   * "Symbol(ISIN)"  ==> "Symbol"
+   * "Fund Name" ==> "Fund Name(ISIN)"
+
+1.3.11
+2017-09-26
+----------
+[ALL]
+1. Bug fix responsive issues for risk disclosure page in mobile view.
+2. Bug fix balance data auto turn to consolidate value when click refresh button in account balance panel(in multi-currency mode). Case reproduce step:
+   1) change to one currency like “USD”
+   2) click the refresh button on the left top.
+   3) check the balance data.
+
+[PC]
+1. Bug fix to display all orders result in a popup dialog in BOND/FUND page.
+2. Update fund switch UI to make switch out/in order more clearer.
+3. Bug fix suitability checking issues on fund switch.
+
+1.4.1
+2017-10-27
+----------
+[ALL]
+1. Enhance to provide service for WeChat Mini Program
+   -  config
+      var wxa = {
+          oms: {
+              user: '8888',  // the user must be an super user include all accounts.
+              password: '1234',
+          },
+          "appid": "wxa698cd7ba7ce9f6e",  // provided by tencent company
+          "secret": "98e770a0f4567c3ab4f68b79c19933a8",  // provide by tencent company
+          "url": "https://api.weixin.qq.com/sns/jscode2session",
+      }
+2. Enhance to provide API service. Detail please ref the iTrader ELite Open API Spec.pdf
+3. Enhance to support more client type(in account info panel).
+   "0": Cash Client
+   "1": Margin Client
+   "2": Custodian Client
+   "5": DVP Client
+4. Enhance to show the error message when new password not match the rules(work with SSM "testpwd" command).
+5. Bug fix to handle case for http timeout in verify ebs token(2FA).
+6. Bug fix cannot hide "FAK" & "FOK" options when select special limit order. This issues only happend in IE.
+7. Bug fix market value calculation issues when last price = 0(|3|0.000|), it ok when empty omsTag#3 or no omsTag#3 defined.
+8. Bug fix accept value calculation issues when setting "MarginRatioMode = 2".
+9. Bug fix missed subscribe suborder/trade by exchange in case received exchange data delay(after bod data back). For reproduce this case, you should restart ITS & elite then first time login.
+10. Bug fix display wrong data in account balance panel. Case reproduce step:
+   1) mulit-currency mode, add tradable currency must be unconvertable.
+   2) change currency by dropdown, like change to "USD"
+   3) update symbol price to trigger position update then trigger account balance update
+   4) currency auto change to "HKD" but balance data still for "USD"
+   
+[PC]
+1. Enhance to disable price input for price quote. And always send price = 0 to ORD when calculate/add order.
+2. Bug fix BOND/FUND page UI issues:
+   - Add the wrong symbol to the pending submit list after change the FUND subscribe/redeem tab or BOND buy/sell tab.
+   - Cannot choose FUND redeem unit by percentage.
+   - Cannot sort symbol/symbol name columns in BOND/FUND position table.
+   - Popup wrong data in confirmation box after copy symbol from position table.
+   - Format coupon rate with pattern "#,##0.########"%
+   - Display wrong data for settlement date, pre coupon date and transaction fee rate in BOND page.
+   - Skip suitability checking on FUND switch out order.​
+   
+1.4.2
+2015-11-16
+----------
+1. Bug fix login by name issues(orders/positions cannot show because filter by account name).
+2. Correct accept value to support negative value and Number.MIN_SAFE_INTEGER(-9007199254740991) issues in IE.
+3. Change logic for getting symbol name.
+   - In previous version, if there's symbol in both static data file and DDS, will only use the symbol name in static data file even it's empty.
+   - From this version, get symbol name from static data file, if it's empty then get from symbol image(DDS).
+3. Apply default headers for web protection.
+   - Introduce a configure file "config/headers.config.js" to custom the headers.
+   - For compatibility, the setting "global.web.headers" in "config.js" is still available, but we recommend to custom the "config/headers.config.js" file.​
+
+1.4.3
+2017-11-29
+----------
+[ALL]
+1. Introduce new field "unavailableQuantity" for position view.
+   - config: { name: 'unavailable quantity', key: 'unavailableQuantity', format: 'quantity', class: 'text-right', i18n: 'column_unavailable_quantity' }
+2. All password input filed add attribute autocomplete="off"
+3. Bug fix order ticket issues. Case reproduce step:
+   1) input symbol 00001
+   2) change exchange to SHSE(change faield, auto turn back to SEHK)
+   3) check the order type/tif, it should under SEHK but not SHSE
+[KGI]
+1. Enhance to allow configure format patter for price/quantity/amount/percentage.
+   * please noted that we not recommended to open the amount/quantity/price/percentage format as we have build-in format solution, and this configuration just for special requirement.
+   - config.iTrader.format: {
+         amount: '#,##0.00',
+         quantity: '#,##0.00',
+         price: '#,##0.000',
+         percentage: '#,##0.000'
+     }
+2. Enhance to pupup rejected order(only in trading page). Reject order checking will trigger by timer and click event.
+   - config.iTrader.views.popupRejectedOrder, true means will popup dialog to show rejected order
+2. Bug fix CBBC/Warrant/ETF trading agreement issues. It should not popup again if client has agree it.
+3. Bug fix shortcut sequence issues for tabup and tabdown.
+4. Bug fix shortcut isseus for sell order.
+[CCBI]
+1. Enhance to make headers configuration take effect on static files serving(all files(image/css/js) under public folder)
+   - specially for header "X-Content-Type-Options=nosniff", it will only take effect for static script or style file(js/css).
+
+1.4.4
+2017-12-15
+----------
+[ALL]
+1. Bug fix order ticket shortcut issues. Tab-up/Tab-down cannot work when there's disabled input field.
+2. Bug fix format function issues. For example: "-100000.32" with pattern "#,##0.00" should format to "-100,000.32" but not "-,100,000.32".
+3. Bug fix repeat subscribe suborder/trade by exchange.
+4. Style adjust:
+   * adjust padding size for panel header and tab to make it more condensed.
+   * adjust font side to 13px in assets page.
+
+[KGI]
+1. Enhance to make commision & fee display more configurative in order configuration box.
+   - config.iTrader.views.trade.order_confirmation
+     transactionCost: true/false or ['SEHK', 'SHSE']
+     commission: true/false or ['SEHK', 'SHSE']
+     orderAmount: true/false or ['SEHK', 'SHSE']
+     totalAmount: true/false or ['SEHK', 'SHSE']
+   For compatibility, these setting support Boolean and Array value. You can specified exchanges to control which exchange should show these values.
+2. Enhance to make total amount currency configurable for special requirement.
+   - config.iTrader.views.trade.order_confirmation.showSymbolCurrencyInTotalAmount: ['TW'], value should be an array of exchanges. These exchange use symbol currency in total amount, otherwise, follow the normal rules(ref v1.2.5 enhance).
+3. Enhance to disable currencies conversion function in account balance panel. In this case, no currency switching and display a remark message.
+   - config.iTrader.views.trade.account_balance.disableCurrencyConversion, default false
+4. Introduce more fields:
+   * PSL Web (omsTag 467), account balance view
+     - { name: 'PSL Web', key: 467, i18n: 'column_PSL_web' }
+   * Purchasing Power (No Margin) (omsTag 1202 ), account balance view
+     - { name: 'purchasing power', key: 1202, i18n: 'column_purchasing_power' }
+   * Market, position view
+     - { name: 'market', key: 'market', i18n: 'column_market' }
+   * Int.Accrual(ddmm) (omsTag 1120 & omsTag 1121), account summary view, date format "DDMM"
+     - { name: 'Int.Accrual(ddmm)', key: 'interestAccrualWithDate', class: 'text-right', i18n: 'column_int_accrual' }
+   * Net Withdrawable (omsTag 499), account summary view
+     - { name: 'Net Withdrawable', key: '499', format: 'amount', class: 'text-right', i18n: 'column_net_withdrawable' }
+5. Optimize symbol searching function.
+   * Ignore language version, input whatever Chinese or English can be able to search.
+   * Adjust sorting methed, the results which matched symbol code should be on the top, then those matched symbol name.
+
+
+1.4.5
+2017-12-26
+----------
+[PC]
+1. Re-design BOND page, include modules:
+   * bond ticket
+   * account balance
+   * price quote book
+   * order book
+   * investment portfolio
+   * daily bond list
+2. Re-design FUND page, include modules:
+   * fund ticket
+   * account balance
+   * order book
+   * investment portfolio
+   * fund market
+3. Introduce derivative flag as product's and account's property.
+4. Enhance to allow disable bond and fund trading in trade page ticket.
+   config.iTrader.views.trade.ticket.disableFundTicket: true, default false, if true, will show hypelink "Go To Fund Trading Page"
+   config.iTrader.views.trade.ticket.disableBondTicket: true, default false, if true, will show hypelink "Go To Bond Trading Page"
+5. Enhance to custom risk disclosure url in login flow.
+   -config.iTrader.views.login.riskDisclosureUrl: '/html/disclaimer.html', default is "/html/disclosure.html"
+6. Enhance to support generate fund switch ID sequence.
+   * open router "/api/generic/seq" for external program to get the sequence
+   - config.iTrader.oms.fundSwitchIDPrefix = 'X'
+   - config.iTrader.oms.recover.fundSwitchIDSeq = 'D:/oms/recover/fund-switchID-seq.txt', recover file will auto reset when detect date changed.
+
+1.4.6
+2018-01-10
+----------
+[ALL]
+1. Bug fix order ticket auto change back to default order type "Limit Order". Received exchagne status update togger order ticket refresh.
+2. Bug fix to kill session in ELite. Case reproduce:
+   1) login
+   2) close browser tab
+   3) make SSM session timeout
+   4) reopen the browser tab, session in OMS was terminated but still alive in elite.
+3. Bug fix to add filed "unavailableQuantity" in position view(missed in v1.4.5).
+
+[KGI]
+1. Bug fix to display "symbol currency" rather than "base currency" for setting "showSymbolCurrencyInTotalAmount".
+
+[2FA]
+1. Disable the function of switch back to eBrokerKey from OTP and hide the hyperlink.
+
+1.5.1
+2018-01-19
+----------
+1. Upgrade API function to v2.
+2. Introduce admin page for maintain web side. Support function:
+   * Support edit html files, include disclaimer, risk disclosure and private files.
+   * Support upload images, include login background and banner image.
+   * Support edit fund product info(offering document link).
+   * Support edit daily bond list.
+3. Bug fix QA report order ticket cannot change to correct exchange when copy symbol from symbol search box. Case reproduce:
+   1) copy US symbol from symbol search box
+   2) copy SHSE symbol from symbol search box
+   3) order ticket should auto change exchange to SHSE
+4. Bug fix to send testpwd command with omsTag#74 = 'testpwd', just make to send the same command with iwtrader.
+
+
+1.5.2
+2018-02-05
+----------
+[PC]
+1. Bug fix to show transaction fee and min transaction fee amount for sell side in bond order ticket.
+2. Bug fix to show ISIN code for bond/fund order confirmation box.
+3. Bug fix to show more info for agree quote confirmation box for bond order.
+4. Bug fix to adjust status filter options, only support "requesting", "quoting" and "quoted".
+5. Bug fix fund order RPQ checking issues. if product RPQ > account RPQ, it doesn't popup error message and do nothing (product omsTag#3605 include 256)
+6. Bug fix to correct order amount = "redeem unit * NAV" in order confirmation box for fund order.
+7. Bug fix to do the Min Holding Unit checking when redeem fund.
+8. Bug fix to show market filter for order book.
+9. Bug fix to show NAV info for switch-in fund.
+
+
+1.5.3
+2018-02-28
+----------
+[ALL]
+1. Bug fix currency dropdown(in account balance view) auto change to base currency when account balance data update in IE.
+2. Bug fix symbol search issues. From v1.4.4, cannot search Traditional Chinese.
+3. Bug fix to show the correct info in add/change/cancel order confirmation box for stop limit order, enhanced limit order and FAK/FOK order, .
+
+[PC]
+1. Bug fix show the wrong transaction fee and minimum transaction fee amount in bond ticket.
+2. Align behavior for display ISIN code in add/change/cancel/agree/detail bond and fund confirmation box.
+3. Align behavior for display transaction fee ratio in add/change/cancel/agree/detail bond and fund confirmation box.
+4. Bug fix price quote order appear in order book issues after change market filter options.
+5. Bug fix show the wrong RPQ level in error message box while RPQ checking failed. (product omsTag#3605 include 256)
+6. Bug fix show the wrong transaction cost in add fund & bond order confirmation box.
+7. Bug fix show the wrong transaction fee ratio in fund switch confirmation box.
+8. Bug fix transaction fee checking in fund switch order.
+
+1.5.4
+2018-03-09
+----------
+[KGI]
+1. Enhance to support 2FA registration.
+   - Login challenge with Pend(-1) token type, will popup dialog to allow user select 2FA method.
+   - In "My Account", allow user change 2FA method.
+
+[GF]
+1. Enhance to handle multiple APs.
+   - Allow to select mobile number or email after login.
+   - Support display available resend times.
+   - Support display SMS message id.
+   - Support display SMS send time.
+   
+[2FA]
+1. Bug fix "Resend OTP" button don't work issues.
+
+1.5.5
+2018-03-22
+----------
+[KGI]
+1. Enhance to set default value as "N/A"(character configurable in i18n files) for special field (market value, accept value).
+   - config.iTrader.views.zeroShowNA: ['marketValue', 'acceptValue', 'globalMarketValue']
+[ALL]
+1. Enhance to add field "tokenStatus" (omsgTag#130) in session object.
+2. Enhance to add field "actCodeResendTimeout" (omsTag#131) in session object.
+3. Bug fix to remove the dummy account info(use dummy account & password for passing login router checking) in 'verify' OTP and 'querylogin' function.
+4. Enhance to support select BCAN in order ticket, only work on ashare exchange.
+   - config.iTrader.oms.exchanges { key: 'SHSE', icon: 'flag-icon-cn', isDayTrade: false, isAShare: true }
+5. Introduce new field "totalBuySell", formual: Math.abs(totalBuy) + Math.abs(totalSell)
+6. Enhance allow show accept value even cash account.
+   - config.iTrader.views.forceShowAcceptValue: true
+6. Enhance to support Futures & Options trading via API.
+   * introduce field "openClose", "principal" and "AHFT" for order
+   * introduct field "contractSize", "maturity", "series", "strikePrice" and "callPut"

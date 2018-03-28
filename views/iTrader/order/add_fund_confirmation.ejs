@@ -1,0 +1,51 @@
+<% include ../../control/orderInfo.ejs %>
+
+<form id="add-order-form" method="POST">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <table class='table table-condensed'>
+        <thead>
+            <th data-i18n="order_confirmation_order_information" class="col-md-3"></th>
+            <th class="col-md-9"></th>
+        </thead>
+        <tbody>
+            <tr>
+                <td data-i18n="<%= symbolI18n %>"></td>
+                <td>
+                    <strong><%= symbolCode %></strong>
+                </td>
+            </tr>
+            <tr>
+                <td data-i18n="<%= symbolNameI18n %>"></td>
+                <td>
+                    <strong title="<%= symbolName %>"><%= symbolName %></strong>
+                </td>
+            </tr>
+            <tr>
+                <td data-i18n="<%= side == 4 ? 'order_confirmation_subscription_amount' : 'order_confirmation_redemption_unit'%>"></td>
+                <td>
+                    <% if(side == 4) { %>
+                        <strong data-format="amount"><%= price %></strong>
+                        <strong>(<%= order.symbol_currency %>)</strong>
+                    <% } else { %>
+                        <strong data-format="amount@4"><%= quantity %></strong>
+                    <% } %>
+                </td>
+            </tr>
+            <tr>
+                <td data-i18n="order_confirmation_fund_side"></td>
+                <td>
+                    <strong data-format="side" class="<%= baseColor %>"><%= side %></strong>
+                </td>
+            </tr>
+            <% include ../../control/confirmation_transfee.ejs %>
+        </tbody>
+    </table>
+        <% include ../../control/commNFees.ejs %>        
+        <legend></legend>
+        <% include ../../control/totalAmount.ejs %>
+        <% include ../../control/confirmation_password.ejs %>
+        <% include ../../control/confirmation_disclosure.ejs %>
+        <% if(config.views.trade.order_confirmation.warningMessageConfirmation) { %>
+            <p class="help-block" data-i18n="order_confirmation_warning"></p>
+        <% } %>
+</form>

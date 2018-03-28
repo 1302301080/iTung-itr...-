@@ -1,0 +1,38 @@
+<div id="account-panel" class="panel panel-default" style="height: 382px;">
+    <div class="panel-heading">
+        <a href="javascript:void(0);" data-update="account">
+            <i class="text-muted fa fa-refresh icon-refresh"></i>
+        </a>
+        <span data-i18n="account_balance"></span>
+        <div style="float: right;">
+            <% if(user.accountsInfo && user.accountsInfo[user.id] && user.accountsInfo[user.id].customInfo) { %>
+            <% var customInfo = user.accountsInfo[user.id].customInfo %>
+            <% if(customInfo.CIES === 'Y') { %>
+            <i class="highlight-tag" style="cursor: help;margin-left: 5px;" data-i18n="tag_CIES">CIES</i>
+            <% } %>
+            <% if(customInfo.RPQLevel) { %>
+            <i class="highlight-tag" style="cursor: help;margin-left: 5px;" data-i18n="tag_RPQ">
+                <%= 'Risk ' + customInfo.RPQLevel %>
+            </i>
+            <% } %>
+            <% if(customInfo.NationalityCode) { %>
+            <i class="highlight-tag" style="cursor: help;margin-left: 5px;" data-i18n="tag_nationality">
+                <%= customInfo.NationalityCode %>
+            </i>
+            <% } %>
+            <% if(customInfo.ProfessionalInvestor == 1) { %>
+                <i class="highlight-tag" style="cursor: help;margin-left: 5px;" data-i18n="tag_professional_investor">PI</i>
+            <% } %>
+            <% if(customInfo.DerivativeKnowledge == 'Y') { %>
+                <i class="highlight-tag" style="cursor: help;margin-left: 5px;" data-i18n="tag_derivative_product">D</i>
+            <% } %>
+            <% } %>
+        </div>
+    </div>
+
+    <div class="panel-body panel-first-row">
+        <div class="active" id="account-balance-panel">
+
+        </div>
+    </div>
+</div>

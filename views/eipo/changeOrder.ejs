@@ -1,0 +1,94 @@
+<input type="hidden" name="_csrf" value="<%= csrfToken %>">
+<div class="container-fluid">
+    <div class="row">
+        <input type="hidden" id="ipo-symbol-code" value="<%= ipo.symbol %>" />
+        <input type="hidden" id="ipo-announce-code" value="<%= ipo.announceCode %>" />
+        <div class="col-sm-12">
+            <table class="table table-condensed">
+                <tr>
+                    <td data-i18n="column-application-id" style="width:200px;"></td>
+                    <td id="ipo-orderNo">
+                        <%= order['6'] %>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-i18n="column-symbol"></td>
+                    <td>
+                        <%= order['0'] %>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-i18n="column-account"></td>
+                    <td id="change-order-account">
+                        <%= order['10'] %>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-i18n="column-last-qty"></td>
+                    <td data-format="-<%= format.decimal %>">
+                        <%= order['4'] %>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-i18n="column-new-qty"></td>
+                    <td>
+                        <select id="ipo-select-quantity" class="default-style form-control">
+                            <option data-i18n="not-select"></option>
+                            <% if (ipo['74']) {%>
+                                <%var qtyAmtList = ipo['74'].split(','); for (var i = 0; i < qtyAmtList.length; i++) { %>
+                                    <% var kv = qtyAmtList[i].split('=') %>
+                                    <% if(kv.length === 2) { %>
+                                        <option><%= kv[0] %></option>
+                                    <% } %>
+                                <% } %>
+                            <% } %>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-i18n="column-apply-date"></td>
+                    <td data-format="date">
+                        <%= order['1600'] %>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-i18n="column-loan-ratio"></td>
+                    <td>
+                        <%= (order['1601'] ? order['1601'] / order['3'] * 100 : 0).toFixed(2) %>%
+                    </td>
+                </tr>
+                <tr>
+                    <td data-i18n="column-status"></td>
+                    <td data-i18n="status_<%= order['5'] %>">
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!--<hr />-->
+        <div class="col-sm-12">
+            <table class="table table-condensed">
+                <tr>
+                    <td data-i18n="ipo-total-required-amount" style="width:200px;"></td>
+                    <td id="ipo-total-required-amount" class="calc-info"></td>
+                </tr>
+                <tr>
+                    <td data-i18n="ipo-cash-amount"></td>
+                    <td id="ipo-cash-amount" class="calc-info"></td>
+                </tr>
+                <tr>
+                    <td data-i18n="ipo-loan-amount"></td>
+                    <td id="ipo-loan-amount" class="calc-info"></td>
+                </tr>
+                <tr>
+                    <td data-i18n="ipo-estimated-interest"></td>
+                    <td id="ipo-estimated-interest" class="calc-info"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <span class="text-danger" id="ipo-error-message"></span>
+        </div>        
+    </div>
+</div>

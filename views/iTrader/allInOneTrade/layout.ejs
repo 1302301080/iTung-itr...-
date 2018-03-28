@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="<%= userOptions.lang %>">
+
+<head>
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">        
+    <% include ../../control/header.ejs %>
+        <link rel="stylesheet" href="/stylesheets/bootswatch/<%= userOptions.theme %>/bootstrap.min.css" />
+        <link rel="stylesheet" href="/stylesheets/bootstrap3-dialog/css/<%= userOptions.theme %>/bootstrap-dialog.min.css" />
+        <link rel="stylesheet" href="/stylesheets/font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="/stylesheets/flag-icon-css/css/flag-icon.min.css" />
+        <link rel="stylesheet" href="/stylesheets/datatables/css/dataTables.bootstrap.min.css" />
+        <link rel="stylesheet" href="/stylesheets/jquery-spinner/css/bootstrap-spinner.css" />
+        <link rel="stylesheet" href="/stylesheets/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" />
+        <link rel="stylesheet" href="/stylesheets/jquery-selectric/themes/<%= userOptions.theme %>/selectric.css" />
+        <link rel="stylesheet" href="/stylesheets/datatables.net-buttons-dt/css/buttons.dataTables.min.css" />
+        <link rel="stylesheet" href="/stylesheets/perfect-scrollbar/perfect-scrollbar.min.css" />
+        <link rel="stylesheet" href="/stylesheets/loaders.css/loaders.min.css" />
+        <link rel="stylesheet" href="/stylesheets/pnotify/pnotify.custom.min.css" />
+        <link rel="stylesheet" href="/stylesheets/iTrader/css/<%= userOptions.theme %>/iTrader.style.css" />
+
+        <script type="text/javascript" src="/javascripts/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="/javascripts/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/javascripts/layer/layer.js" merge="true"></script>
+        <script type="text/javascript" src="/javascripts/seajs/sea.js"></script>
+        <script type="text/javascript" src="/javascripts/shared/iTrader.shared.js"></script>
+        <script type="text/javascript" src="/javascripts/iTrader/iTrader.global.js"></script>
+</head>
+
+<body class="loader-container">
+    <% include ../../control/loader.ejs %>
+    <div class="hide">
+        <% include ../../control/banner.ejs %>
+        <% include ../nav.ejs %>
+        <div class="container-fluid">
+            <%-body%>
+        </div>
+        <% include ../footer.ejs %>
+    </div>
+
+    <script type="text/javascript" src="/iTrader/initialize/messages"></script>
+    <script type="text/javascript" src="/javascripts/datatables/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/javascripts/datatables/js/dataTables.iTrader.bootstrap.min.js"></script>
+    <script type="text/javascript" src="/javascripts/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="/javascripts/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script type="text/javascript" src="/javascripts/lodash/lodash.min.js"></script>
+    <script type="text/javascript" src="/javascripts/js-cookie/js.cookie.js"></script>
+    <script type="text/javascript" src="/javascripts/socket.io-client/socket.io.js"></script>
+    <script type="text/javascript" src="/javascripts/jquery-number/jquery.number.min.js"></script>
+    <script type="text/javascript" src="/javascripts/jquery-validation/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="/javascripts/jquery-spinner/js/jquery.spinner.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap3-dialog/js/bootstrap-dialog.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="/javascripts/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="/javascripts/jquery-selectric/jquery.selectric.min.js"></script>
+    <script type="text/javascript" src="/javascripts/js-shortcuts/js-shortcuts.js"></script>
+    <script type="text/javascript" src="/javascripts/perfect-scrollbar/perfect-scrollbar.jquery.min.js"></script>
+    <script type="text/javascript" src="/javascripts/pnotify/pnotify.custom.min.js"></script>
+</body>
+</html>

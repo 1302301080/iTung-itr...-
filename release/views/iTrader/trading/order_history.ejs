@@ -1,0 +1,30 @@
+<form id="order-history-form" class="filter-group">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <div class="btn-group btn-group-xs" id="order-history-types-dropdown-group">
+    </div>
+    <div class="btn-group btn-group-xs" id="order-history-status-dropdown-group">
+    </div>
+    <div class="btn-group btn-group-xs" id="order-history-days-dropdown-group">
+    </div>
+    <div class="btn-group btn-group-xs ">
+        <button type="button" class="btn btn-info" id="order-history-btn">
+            <i class="fa fa-search btn-icon-search"></i>
+            <i class="fa fa-spinner fa-pulse hidden btn-icon-spinner"></i>
+            <span data-i18n="btn_query"></span>
+        </button>
+    </div>
+</form>
+<div id="history-order-book-panel">
+    <div class="history-table-wrapper">
+        <table id="history-order-table" class="table table-bordered table-hover table-condensed table-striped">
+        </table>
+    </div>
+    <div class="history-table-wrapper hidden">
+        <table id="history-fund-table" class="table table-bordered table-hover table-condensed table-striped">
+        </table>
+    </div>
+    <div class="history-table-wrapper hidden">
+        <table id="history-cash-table" class="table table-bordered table-hover table-condensed table-striped">
+        </table>
+    </div>
+</div>

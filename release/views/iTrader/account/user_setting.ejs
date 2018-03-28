@@ -1,0 +1,9 @@
+<form id="user-setting-form" method="POST">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <div class="checkbox">
+        <label>
+         <input type="checkbox" name="skipDisclaimer" id="options-disclaimer" value="true" <% if(options.skipDisclaimer) {%> checked <%}%>">         
+         <small><span data-i18n="risk_disclosure_options"></span></small>
+    </label>
+    </div>
+</form>

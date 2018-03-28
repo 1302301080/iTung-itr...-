@@ -1,0 +1,44 @@
+<% var confirmationSection = config.views.trade.order_confirmation %>
+        <% if(confirmationSection.transactionCost === true || (IsArray(confirmationSection.transactionCost) && confirmationSection.transactionCost.indexOf(order[20]) >= 0)) { %>
+        <p class="help-block text-right"><span data-i18n="order_confirmation_transcost"></span><span data-format="amount"><%= order.transaction_cost %></span>                    (
+            <%= order.fee_currency %>)</p>
+        <% } %>
+        <% if(confirmationSection.bondTransactionFee !== false && typeof order.transaction_commission !== 'undefined' && order[22] == 6) { %>
+            <p class="help-block text-right"><span data-i18n="order_confirmation_bond_commission"></span><span data-format="amount"><%= order.transaction_commission %></span>                    (
+                <%= order.fee_currency %>)</p>
+        <% } %>
+        <% if(confirmationSection.commission !== false && typeof order.transaction_commission !== 'undefined' && order[22] == 10) { %>
+        <p class="help-block text-right"><span data-i18n="order_confirmation_fund_commission"></span><span data-format="amount"><%= order.transaction_commission %></span>                    (
+            <%= order.fee_currency %>)</p>
+        <% } %>
+        <% if(confirmationSection.commission ===true || (IsArray(confirmationSection.commission) && confirmationSection.commission.indexOf(order[20]) >=0)) { %>
+        <p class="help-block text-right"><span data-i18n="order_confirmation_commission"></span><span data-format="amount"><%= order.commission%></span>                    (
+            <%= order.fee_currency %>)</p>
+        <% } %>
+        <% if(confirmationSection.orderAmount === true || (IsArray(confirmationSection.orderAmount) && confirmationSection.orderAmount.indexOf(order[20]) >=0)) { %>
+        <p class="help-block text-right"><span data-i18n="order_confirmation_order_amount"></span><span data-format="amount"><%= order.order_amount %></span>                    (
+            <%= order.symbol_currency %>)</p>
+        <% } %>
+        <% if(confirmationSection.totalAmount === true || (IsArray(confirmationSection.totalAmount) && confirmationSection.totalAmount.indexOf(order[20]) >= 0)) { %>
+        <h4 class="text-right">
+            <span data-i18n="order_confirmation_total_amount"></span>
+            <span><span data-format="amount"><%= order.total_amount %></span>
+            (<%= order.total_amount_currency %>)</span>
+        </h4>
+        <% } %>
+
+        <% if(order.fee_currency !== order.symbol_currency || order.symbol_currency !== order.total_amount_currency) { %>
+        <% if(order.fee_currency !== order.base_currency) { %>
+            <p class="text-right help-block">
+                <%= order.fee_currency %>/<%= order.base_currency %>:<%= (order.exchange_ratio_list.fee_currency || 0).toFixed(6) %>
+            </p>
+        <% } else if(order.symbol_currency !== order.base_currency) { %>
+            <p class="text-right help-block">
+                <%= order.symbol_currency %>/<%= order.base_currency %>:<%= (order.exchange_ratio_list.symbol_currency || 0).toFixed(6) %>
+            </p>
+        <% } else if(order.total_amount_currency !== order.base_currency) { %>
+            <p class="text-right help-block">
+                <%= order.total_amount_currency %>/<%= order.base_currency %>:<%= (order.exchange_ratio_list.total_amount_currency || 0).toFixed(6) %>
+            </p>
+        <% } %>
+        <% } %>

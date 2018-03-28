@@ -1,0 +1,22 @@
+<form id="settlement-instruction-form" class="filter-group">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <div class="btn-group btn-group-xs" id="settlement_type" name="type">
+    </div>
+    <div class="btn-group btn-group-xs" id="settlement_period" name="period">
+    </div>
+    <div class="btn-group btn-group-xs" id="settlement_status" name="status">
+    </div>
+    <div class="btn-group btn-group-xs ">
+        <button type="button" class="btn btn-info" id="settlement_btn">
+            <i class="fa fa-search btn-icon-search"></i>
+            <i class="fa fa-spinner fa-pulse hidden btn-icon-spinner"></i>
+            <span data-i18n="btn_query"></span>
+        </button>
+    </div>
+</form>
+<div id="settlement_panel">
+    <div class="history-table-wrapper">
+        <table id="settlement_table" class="table table-hover table-bordered table-condensed table-striped">
+        </table>
+    </div>
+</div>

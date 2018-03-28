@@ -1,0 +1,50 @@
+<div class="settlement_detail hidden" id="settlement_detail_CD_TF">
+            <div class="form-group form-group-sm">
+                <label class="col-sm-3 control-label" data-i18n="settlement_CD_transfer_type"></label>
+                <div class="col-sm-6">
+                    <select class="form-control" name="transfer_method">
+                        <option data-i18n="settlement_transfer_type_atm" value="ATM"></option>
+                        <option data-i18n="settlement_transfer_type_internet" value="Internet"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <label class="col-sm-3 control-label" data-i18n="settlement_CD_bank"></label>
+                <div class="col-sm-6">
+                    <select class="form-control" name="bank_name">
+                        <% for(var i = 0; i < settlement.banks.length; i++) { %>
+                            <option value="<%= settlement.banks[i] %>">
+                                <%= settlement.banks[i] %>
+                            </option>
+                            <% } %>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <label class="col-sm-3 control-label" data-i18n="settlement_CD_date"></label>
+                <div class="col-sm-6">
+                    <input type="text" name="datetime" class="form-control form-datetime" required>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <label class="col-sm-3 control-label" data-i18n="settlement_CD_bank_No"></label>
+                <div class="col-sm-6">
+                    <input type="text" name="bank_account_no" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <label class="col-sm-3 control-label" data-i18n="settlement_CD_amount"></label>
+                <div class="col-sm-6">
+                    <input type="text" name="amount" class="form-control" required>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control" name="currency">
+                        <% for(var i = 0; i < currency_list.length; i++) { %>
+                            <option value="<%= currency_list[i] %>">
+                                <%= currency_list[i] %>
+                            </option>
+                            <% } %>
+                    </select>
+                </div>
+            </div>
+        </div>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="<%= userOptions.lang %>">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+    <title data-i18n="eipo-title"></title>
+
+    <!--<link rel="stylesheet" href="/stylesheets/bootswatch/<%= userOptions.theme %>/bootstrap.min.css" />
+    <link rel="stylesheet" href="/stylesheets/datatables/css/dataTables.bootstrap.min.css" />
+    <link rel="stylesheet" href="/stylesheets/datatables.net-buttons-dt/css/buttons.dataTables.min.css" />
+    <link rel="stylesheet" href="/stylesheets/bootstrap3-dialog/css/<%= userOptions.theme %>/bootstrap-dialog.min.css" />
+    <link rel="stylesheet" href="/stylesheets/perfect-scrollbar/perfect-scrollbar.min.css" />
+    <link rel="stylesheet" href="/stylesheets/eipo/css/iTrader.eipo.style.css" />-->
+</head>
+
+<body>
+    <div class="container-fluid">
+        <input type="hidden" id="ipo-symbol-code" value="<%= ipo.symbol %>" />
+        <input type="hidden" id="ipo-announce-code" value="<%= ipo.announceCode %>" />
+        <input type="hidden" id="ipo-login-id" value="<%= user.id %>" />
+        <input type="hidden" id="login-type" value="<%= user.type %>" />
+        <div class="panel-group ipo-application-form" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" data-i18n="ipo-application-info-panel-title"></a>
+                        <div class="pull-right" id="ipo-prospectus">
+                        </div>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-7">
+                                <table id="ipo-info-table" class="table table-condensed table-striped table-fixed">
+                                </table>
+                            </div>
+                            <div class="col-xs-5 scrollbar" id="ipo-qty-amount" style="position: relative;height: 280px">
+                                <table id="ipo-qty-amount-table" class="table table-bordered table-condensed table-striped">
+                                    <tr>
+                                        <th data-i18n="column-apply-qty"></th>
+                                        <th data-i18n="column-apply-amount"></th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                    <h4 class="panel-title">
+                        <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo" data-i18n="ipo-application-entry-panel-title"></a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                    <div class="panel-body">
+                        <form class="form-horizontal col-xs-7" role="form">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <div class="form-group form-group-sm">
+                                <label class="col-xs-4 control-label" data-i18n="column-account"></label>
+                                <div class="col-xs-8 user-visible">
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" class="form-control uppercase-field" id="ipo-user-input-account">
+                                        <div class="input-group-addon pointer" id="app-account-exploer-btn">...</div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-8 acct-visible">
+                                    <input type="text" class="form-control" id="ipo-acct-input-account">
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                <label class="col-xs-4 control-label" data-i18n="column-apply-qty"></label>
+                                <div class="col-xs-8">
+                                    <select class="form-control" id="ipo-select-quantity">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm hidden" id="ipo-margin-ratio-group">
+                                <label class="col-xs-4 control-label"><span data-i18n="column-loan-ratio"></span>(%)</label>
+                                <div class="col-xs-7">
+                                    <input type="text" class="form-control" id="ipo-input-margin-ratio" disabled>
+                                </div>
+                                <label><input type="checkbox" class="default-checkbox-style" id="ipo-checkbox-margin-ratio"></label>
+                            </div>
+                            <p class="col-xs-12 text-danger" id="ipo-error-message"></p>
+                        </form>
+
+                        <div class="col-xs-5">
+                            <table id="ipo-calc-result-table" class="table table-condensed table-striped">
+                                <tr>
+                                    <td><span data-i18n="ipo-total-required-amount"></span></td>
+                                    <td><span id="ipo-total-required-amount" class="calc-info"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><span data-i18n="ipo-cash-amount"></span></td>
+                                    <td><span id="ipo-cash-amount" class="calc-info"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><span data-i18n="ipo-loan-amount"></span></td>
+                                    <td><span id="ipo-loan-amount" class="calc-info"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><span data-i18n="ipo-estimated-interest"></td>
+                                        <td><span id="ipo-estimated-interest" class="calc-info"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<script type="text/javascript" src="/eipo/message?<%= userOptions.randomKey %>"></script>
+    <script type="text/javascript" src="/javascripts/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/javascripts/datatables/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap3-dialog/js/bootstrap-dialog.min.js"></script>
+    <script type="text/javascript" src="/javascripts/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="/javascripts/layer/layer.js" merge="true"></script>
+    <script type="text/javascript" src="/javascripts/socket.io-client/socket.io.js"></script>
+    <script type="text/javascript" src="/javascripts/perfect-scrollbar/perfect-scrollbar.jquery.min.js"></script>
+    <script type="text/javascript" src="/javascripts/seajs/sea.js"></script>
+    <script type="text/javascript" src="/javascripts/shared/iTrader.shared.js"></script>-->
+    <!--<script>
+    if (typeof layer === 'object' && typeof layer.config === 'function') {
+        seajs.use('eipo-application', function(a) {
+            a.initApplicationForm()
+        })
+    }
+    </script>-->
+</body>
+
+</html>

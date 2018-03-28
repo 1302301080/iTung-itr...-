@@ -1,0 +1,23 @@
+<html>
+
+<head>
+    <title>Market Data Price</title>
+    <meta http-equiv="X-UA-Compatible" content="<%= item.compatible || 'IE=edge'%>">
+    <script type="text/javascript" src="/javascripts/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/iTrader/initialize/messages"></script>
+    <script type="text/javascript" src="/javascripts/seajs/sea.js"></script>
+    <script type="text/javascript" src="/javascripts/shared/iTrader.shared.js"></script>
+</head>
+
+<body>
+    <% var src = item.url + item.parameters %>
+    <% if(item.method === 'POST') { %>
+        <% src = '/iTrader/product/market?page=' + item.name + '&name=' + item.name %>
+    <% } %>
+    <iframe id="market-price-frame" src="<%= src %>" width="100%" height="<%= item.height || '100%' %>" frameborder="0" scrolling="no"> </iframe>
+    <script>
+        seajs.use("market-price")
+    </script>
+</body>
+
+</html>

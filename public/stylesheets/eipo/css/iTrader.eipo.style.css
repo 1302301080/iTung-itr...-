@@ -1,0 +1,71 @@
+body {
+    /*font-size: 13px;*/
+}
+
+td.text-ellipsis {
+    /*width: 200px;*/
+    overflow: hidden;
+    text-overflow: ellipsis !important;
+    white-space: nowrap;
+}
+
+.loader-container {
+    background-color: #2c3e50;
+}
+
+.pointer:hover {
+    cursor: pointer
+}
+
+.table-fixed {
+    table-layout: fixed;
+    word-break:break-all;
+}
+
+.table-fixed tr td {  
+    text-overflow: ellipsis; 
+    -moz-text-overflow: ellipsis;  
+    overflow: hidden;  
+    white-space: nowrap;
+} 
+
+.login-account {
+    margin-top: 10px;
+}
+
+.login-account span {
+    margin-left: 5px;
+}
+
+.ipo-application-form .panel-body {
+    margin-bottom: 0;  
+    padding-bottom: 0;
+}
+
+.ipo-application-form td {
+    padding: 2px !important;
+}
+
+#ipo-qty-amount-table td {
+    padding: 1px !important;
+    text-align: right;
+}
+
+.options-item {
+    margin-right: 20px;
+}
+
+select.default-style {
+    width: auto;
+    height: auto;
+    padding: 0;
+    color: inherit !important;
+}
+
+input.default-checkbox-style {
+    margin: 8px 0;
+}
+
+.tooltip-inner {
+    max-width: 500px;
+}

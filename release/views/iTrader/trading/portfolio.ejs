@@ -1,0 +1,22 @@
+<div id="portfolio-panel" class="panel panel-default">
+    <div class="panel-heading">
+        <form class="form-inline">
+            <a href="javascript:void(0);" data-update="position"><i class="text-muted fa fa-refresh icon-refresh"></i></a>
+            <span data-i18n="portfolio_panel_title"></span>
+            <% if(user.accounts.length > 1) { %>
+                - <span class="nav_current_account"></span>
+                <% } %>
+                    <div class="pull-right" id="portfolio-search"></div>
+                    <div class="pull-right" id="portfolio-dropdown-group">
+                    </div>
+        </form>
+    </div>
+    <div class="panel-body panel-first-row">
+        <table id="portfolio-table" class="table table-bordered table-hover table-condensed table-striped">
+            <thead id="portfolio_thead">
+            </thead>
+            <tbody id="portfolio_tbody">
+            </tbody>
+        </table>
+    </div>
+</div>

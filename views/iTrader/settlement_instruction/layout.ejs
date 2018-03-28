@@ -1,0 +1,41 @@
+<html lang="<%= userOptions.lang %>">
+
+<head>
+<% include ../../control/header.ejs %>
+    <link rel="stylesheet" href="/stylesheets/bootswatch/<%= userOptions.theme %>/bootstrap.min.css" />
+    <link rel="stylesheet" href="/stylesheets/bootstrap3-dialog/css/lightblue/bootstrap-dialog.min.css" />
+    <link rel="stylesheet" href="/stylesheets/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/stylesheets/datatables/css/dataTables.bootstrap.min.css" />
+    <link rel="stylesheet" href="/stylesheets/datatables.net-buttons-dt/css/buttons.dataTables.min.css" />
+    <link rel="stylesheet" href="/stylesheets/iTrader/css/light/iTrader.style.css" />
+    <script type="text/javascript" src="/javascripts/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="panel panel-default">
+
+            <div class="panel-body">
+                <% include index.ejs %>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/iTrader/initialize/messages?<%= userOptions.randomKey %>"></script>
+    <script type="text/javascript" src="/javascripts/jquery-number/jquery.number.min.js"></script>
+    <script type="text/javascript" src="/javascripts/datatables/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/javascripts/datatables/js/dataTables.iTrader.bootstrap.min.js"></script>
+    <script type="text/javascript" src="/javascripts/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="/javascripts/seajs/sea.js"></script>
+    <script type="text/javascript" src="/javascripts/iTrader/iTrader.global.js"></script>
+    <script type="text/javascript" src="/javascripts/shared/iTrader.shared.js"></script>
+    <script>
+    $(document).ready(function(){
+        seajs.use(["format", "settlement", "mobile"], function(f, s, mo)  {
+            mo.init()
+        }) 
+    })
+    </script>
+</body>
+
+</html>

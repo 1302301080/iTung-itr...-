@@ -1,0 +1,49 @@
+<form class="form-horizontal" id="cash-transfer-form" method="POST">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <div class="alert alert-danger hidden" role="alert">
+        <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+        <span data-i18n="cash_transfer_message_confirmation"></span>
+    </div>
+    <div class="form-group form-group-sm">
+        <label class="col-sm-2 control-label" data-i18n="cash_transfer_amount"></label>
+        <div class="col-sm-7">
+            <input type="text" name="amount" class="form-control" id="cash-transfer-amount" required>
+            <p class="help-block"><span data-i18n="cash_transfer_amount_help"></span>
+                <span id="cash-transfer-available-amount"></span></p>
+        </div>
+        <div class="col-sm-3">
+            <select class="form-control" name="currency" id="cash-transfer-currency">
+                <% for(var i = 0; i < currency_list.length; i++) { %>
+                    <option value="<%= currency_list[i] %>">
+                        <%= currency_list[i] %>
+                    </option>
+                    <% } %>
+            </select>
+        </div>
+    </div>
+    </div>
+    <div class="form-group form-group-sm">
+        <label class="col-sm-2 control-label" data-i18n="cash_transfer_account_out"></label>
+        <div class="col-sm-10">
+            <select id="cash-transfer-account-out" name="account_out" class="form-control">
+                <% for(var i = 0; i < accounts.length; i++) { %>
+                    <option value="<%= accounts[i] %>">
+                        <%= accounts[i] %>
+                    </option>
+                    <% } %>
+            </select>
+        </div>
+    </div>
+    <div class="form-group form-group-sm">
+        <label class="col-sm-2 control-label" data-i18n="cash_transfer_account_in"></label>
+        <div class="col-sm-10">
+            <select id="cash-transfer-account-in" name="account_in" class="form-control">
+                <% for(var i = 0; i < accounts.length; i++) { %>
+                    <option value="<%= accounts[i] %>">
+                        <%= accounts[i] %>
+                    </option>
+                    <% } %>
+            </select>
+        </div>
+    </div>
+</form>

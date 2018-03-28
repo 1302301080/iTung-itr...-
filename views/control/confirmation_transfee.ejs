@@ -1,0 +1,8 @@
+<% if(typeof order.transFee !== 'undefined') { %>
+    <tr>
+        <td data-i18n="order_confirmation_transFee"></td>
+        <td>
+            <strong><span data-format="percentage@2"><%= order.transFee %></span></strong>
+        </td>
+    </tr>
+<% } %>

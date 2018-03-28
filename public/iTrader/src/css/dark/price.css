@@ -1,0 +1,48 @@
+.price-table p {
+    margin: 0;
+}
+
+.price-table .symbol-cell {
+    color: #c8c8c8;
+    font-size: 15px;
+    background-color: #3E444C;
+}
+
+.price-table .last-cell {
+    background-color: #2E3338
+}
+
+.price-table .bid-cell {
+    background-color: #2E3338;
+}
+
+.price-table .ask-cell {
+    background-color: #2E3338;
+}
+
+.price-table .info-cell {
+    background-color: #2E3338;
+}
+
+.price-table .text-name {
+    color: #808080;
+}
+
+.price-table .text-value {
+    color: #c8c8c8;
+}
+
+.price-table .text-last-price {
+    color: #3CB371;
+    font-size: 500%;
+}
+
+.price-table .text-bid-price {
+    color: #67879f;
+    font-size: 250%;
+}
+
+.price-table .text-ask-price {
+    color: #b85a57;
+    font-size: 250%;
+}

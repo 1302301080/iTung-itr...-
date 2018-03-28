@@ -1,0 +1,56 @@
+<div class="panel panel-default hidden" id="fund-list-panel">
+    <div class="panel-heading bond-panel-padding" style="overflow:hidden">
+        <form class="form-inline">
+            <span class="panel-title" data-i18n="fund_market_panel_title"></span>
+            <div class="input-group input-group-sm">
+                <input id="fund-search" class="form-control input-sm" onkeypress="return SearchProduct_KeyPress(event)" data-i18n="fund_search_input">
+                <span class="input-group-btn">
+                    <button id="search-fund-btn" class="btn btn-default" type="button" data-i18n="btn_search"></button>
+        </span>
+            </div>
+            <div class="radio fullTrade-radio-range">
+                <label>
+                    <input type="radio" name="fund-order-action" value="subscribe" checked="true" >
+                    <span data-i18n ="fund_subscribe"></span>
+                </label>
+            </div>
+            <div class="radio fullTrade-radio-range">
+                <label>
+                    <input type="radio" name="fund-order-action" value="redeem">
+                    <span data-i18n="fund_redeem"></span>
+                </label>
+            </div>
+            <div class="radio fullTrade-radio-range">
+                <label>
+                    <input type="radio" name="fund-order-action" value="switch">
+                    <span data-i18n="fund_switch"></span>
+                </label>
+            </div>
+            <div class="pull-right">
+                <button type="button" class="btn btn-sm btn-info btn-submit" id="fund-next-btn" data-i18n="fund_next_btn"></button>
+            </div>
+        </form>
+    </div>
+    <div id="collapse-fund-list" class="panel-collapse collapse in">
+        <div class="alert alert-info fund-warning-switch hidden">
+            <p data-i18n="fund_switchout_select"></p>
+        </div>
+        <div class="panel-body panel-fund-list">
+            <div class="row hidden selected-fund-list selected-subscribe-fund-list"></div>
+            <div class="row hidden selected-fund-list selected-redeem-fund-list"></div>
+            <div class="row hidden selected-fund-list selected-switch-fund-list">
+                <span class="hidden" data-i18n="fund_switch_out_symbol"></span>
+                <div class="row"></div>
+                <span class="hidden" data-i18n="fund_switch_in_symbol"></span>
+                <div class="row"></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div id="fund-table-div">
+                        <table id="fund-table" class='table table-bordered table-hover table-condensed table-striped'></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

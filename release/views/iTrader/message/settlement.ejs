@@ -1,0 +1,70 @@
+<form class="form-horizontal" id="settlement-form" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <div class="alert alert-danger hidden" role="alert">
+        <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+        <span data-i18n="settlement_message_warning"></span>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <label class="col-sm-2 control-label" data-i18n="settlement_instruction"></label>
+            <div class="col-sm-10">
+                <% for(var i = 0; i < settlement.instructions.length; i++) { %>
+                    <% var name = settlement.instructions[i].name %>
+                        <div class="radio-inline settlement-radio-margin">
+                            <label>
+                                <input type="radio" name="instruction" value="<%= name %>">
+                                <span data-i18n="settlement_instruction_<%= name %>"></span>
+                            </label>
+                        </div>
+                        <% } %>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <% for(var i = 0; i < settlement.instructions.length; i++) { %>
+            <% var name = settlement.instructions[i].name %>
+                <div class="form-group settlement_method hidden" id="settlement_method_<%= name %>">
+                    <label class="col-sm-2 control-label" data-i18n="settlement_method_<%= name %>"></label>
+                    <div class="col-sm-10">
+                        <% for(var j = 0; j < settlement.instructions[i].methods.length; j++) { %>
+                            <% var method = settlement.instructions[i].methods[j] %>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="method" value="<%= method %>" required>
+                                        <span data-i18n="settlement_method_<%= name %>_<%= method %>"></span>
+                                    </label>
+                                </div>
+                                <% } %>
+                    </div>
+                </div>
+                <% } %>
+    </div>
+    <legend></legend>
+    <% include ./settlement_CD.ejs %>
+
+    <% include ./settlement_CD_TF.ejs %>
+    
+    <% include ./settlement_CDE.ejs %>
+
+    <% include ./settlement_CW.ejs %>
+
+    <% include ./settlement_CW_TT.ejs %>
+
+    <% include ./settlement_CW_OB.ejs %>
+
+    <% include ./settlement_SD_SW.ejs %>
+
+    <% include ./settlement_SD_PDE.ejs %>
+
+    <% include ./settlement_SD_SW_TC.ejs %>
+
+    <% include ./settlement_SW_SI.ejs %>
+
+    <% include ./settlement_SW_PWE.ejs %>
+    
+
+   <div>
+        <span id="settlement-warning-message" class="text-danger"></span>
+        </div>
+</form>

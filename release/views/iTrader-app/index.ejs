@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="<%= userOptions.lang %>">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>iTrader-mobile</title>
+    <!--<link rel="stylesheet" href="/app/css/amazeui.min.css" />-->
+    <link rel="stylesheet" href="/javascripts/app/css/main.css">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/javascripts/app/css/weui.min.css" >
+    <link rel="stylesheet" href="/stylesheets/flag-icon-css/css/flag-icon.min.css" />
+</head>
+
+<body>
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+    <input type="hidden" name="_lang" id="language" value="<%= userOptions.lang %>" />
+    <div id="content">
+
+    </div>
+    <script type="text/javascript" src="/iTrader/initialize/messages?lang=<%= userOptions.lang %>"></script>
+    <script type="text/javascript" src="/setting/webapp"></script>
+    <script src="/javascripts/app/app.js"></script>
+</body>
+
+</html>

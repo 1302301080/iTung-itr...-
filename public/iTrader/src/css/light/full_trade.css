@@ -1,0 +1,39 @@
+.full-trade-input
+{
+    padding: 0px;
+}
+.fund-add-title
+{
+   margin-top: 5px;
+    position: relative;
+    height: -0px;
+    line-height: 30px;
+    float: left;
+    /* margin: 0px 5px 0 5px; */
+    padding: 0 0px 0 4px;
+}
+.fund-warning-switch
+{
+    padding: 8px;
+    margin-bottom: 0px;
+}
+.fullTrade_checkbox
+{
+    margin-top:0;
+    margin-bottom: 0;
+}
+.bond-maxsell-style{
+    margin-left: 543px;
+}
+.fullTrade-radio-range
+{
+    margin-left: 1%;
+}
+
+.carousel-indicators li {
+    border: 1px solid #272B30;
+}
+
+.carousel-indicators li.active {
+    background-color: #272B30;
+}

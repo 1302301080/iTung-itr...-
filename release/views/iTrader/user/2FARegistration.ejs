@@ -1,0 +1,79 @@
+<style>
+    .radio_btn{background: url('/images/radio_status.png') -21px 0px no-repeat;display: inline-block;width: 20px;height: 20px;
+    border-radius: 30px;position: relative;vertical-align: middle;z-index: 1;top: -5px; }
+    .radio_btn input{width: 100%;height: 100%;position: absolute;top: 0;left: 0;z-index: 100;opacity: 0;margin: 0; cursor:pointer;  }
+    .radio_btn span{background: url('/images/radio_status.png') -21px -21px no-repeat;width: 20px;height: 20px;display: inline-block;
+    position: absolute;z-index: 1;top: 0px;left: 0px;border-radius: 10px;  }
+    .radio_btn input[type="radio"] + span{opacity: 0; }  
+    .radio_btn input[type="radio"]:checked + span{opacity: 1;  }
+    .registra-icon{ padding: 0 10px;display: inline-block;width: 50px;text-align: center;}
+    .token-list{border: 0;}
+    .delivery-method{border: 1px solid #dddddd;}
+    .list-group{margin-bottom: 10px;}
+</style>
+
+<div>
+    <div>
+        <div class="reg-logo text-center">
+            <img src="/images/banner_2FA_registration.png" onerror="this.parentNode.removeChild(this)" style="width:100%" />
+        </div>
+        <p data-i18n="login_2FA_registration_top"></p>
+        <ul class="list-group">
+            <% if(availableTokenTypes.indexOf('2') >= 0) { %>
+            <li class="list-group-item token-list">
+                <span class="radio_btn">
+                    <input class="email" type="radio" name="token" value='2' />
+                    <span></span>
+                </span>
+                <span class="registra-icon"><i class="fa fa-envelope fa-2x"></i></span>
+                <span class="" data-i18n="login_2FA_registration_email">Email OTP</span>
+            </li>
+            <% } %>
+            <% if(availableTokenTypes.indexOf('3') >= 0) { %>
+            <li class="list-group-item token-list">
+                <span class="radio_btn">
+                    <input class="sms" type="radio" name="token" value='3' />
+                    <span></span>
+                </span>
+                <span class="registra-icon"><i class="fa fa-commenting-o fa-2x"></i></span>
+                <span data-i18n="login_2FA_registration_sms">SMS OTP</span>
+            </li>
+            <% } %>
+            <% if(availableTokenTypes.indexOf('5') >= 0) { %>
+            <li class="list-group-item token-list">
+                <span class="radio_btn">
+                    <input class="ebrokerkey" type="radio" name="token" value='ebrokerkey' />
+                    <span></span>
+                </span>
+                <span class="registra-icon"><i class="fa fa-mobile fa-3x"></i></span>
+                <span data-i18n="login_2FA_registration_eBrokerKey">eBrokerKey</span>
+            </li>
+            <% } %>
+        </ul>
+    </div>
+    <% if(availableDeliveryMethods) { %>
+    <div class="col-lg-12 col-md-12 col-xs-12 delivery-method hidden">
+        <p data-i18n="login_2FA_registration_delivery_method"></p>
+        <% if(availableDeliveryMethods.indexOf('2') >= 0) { %>
+        <div class="col-lg-6 col-md-6 col-xs-6 delivery-list">
+            <span class="radio_btn">
+                <input id="email" type="radio" checked="checked" name="delivery" value='2' />
+                <span></span>
+            </span>
+            <span class="registra-icon"><i class="fa fa-envelope fa-2x"></i></span>
+            <span data-i18n="login_2FA_registration_email">Email</span>
+        </div>
+        <% } %>
+        <% if(availableDeliveryMethods.indexOf('3') >= 0) { %>
+        <div class="col-lg-6 col-md-6 col-xs-6 delivery-list">
+            <span class="radio_btn">
+                <input id="sms" type="radio" name="delivery" value='3' />
+                <span></span>
+            </span>
+            <span class="registra-icon"><i class="fa fa-commenting-o fa-2x"></i></span>
+            <span data-i18n="login_2FA_registration_sms">SMS</span>
+        </div>
+        <% } %>
+    </div>
+    <% } %>
+</div>

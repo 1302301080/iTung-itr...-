@@ -1,0 +1,43 @@
+<head>
+    <% include ../components/base.ejs %>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+        <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" />
+        <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.4/css/select.dataTables.min.css" />
+</head>
+
+<body>
+    <nav class="breadcrumb">
+        <i class="Hui-iconfont"></i> Home
+        <span class="c-gray en">&gt;</span> Product
+        <span class="c-gray en">&gt;</span> Daily BOND List
+        <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px;margin-left:5px;" href="javascript:location.replace(location.href);"
+            title="Refresh">
+            <i class="Hui-iconfont"></i>
+        </a>
+        <a class="radius r" style="line-height:1.6em;margin-top:3px">
+            <input class="btn btn-primary size-M radius btn-save" type="button" value="Save">
+        </a>
+    </nav>
+    <div class="page-container">
+        <textarea name="" cols="" rows="10" class="textarea col-12 bond-text" placeholder="" style="height:80%;background:#f7f7f7;"></textarea>
+    </div>
+
+</body>
+<script>
+    $(document).ready(function () {
+        $.get('/admin/product/bond/data', {}, function (data) {
+            $('.bond-text').val(data)
+        })
+        $('.btn-save').click(function () {
+            var content = ''
+            content = $('.bond-text').val()
+            $.post('/admin/product/bond/data', { content: content }, function (data) {
+                if (data == 'success') {
+                    alert('success!')
+                } else {
+                    alert('failure!')
+                }
+            }.bind(this))
+        })
+    });
+</script>

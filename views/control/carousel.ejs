@@ -1,0 +1,27 @@
+<% var carouselID = typeof carouselID === 'undefined' ? 'myCarousel' : carouselID %>
+<% if(typeof carouselImageList !== 'undefined' && carouselImageList && carouselImageList.length > 0) { %>
+<div id="<%= carouselID %>" class="carousel slide">
+    <div class="carousel-inner">
+        <% for(var i = 0; i < carouselImageList.length; i++) { %>
+            <div class="item <%= i === 0 ? 'active' : '' %>" >
+                <% if(carouselImageList[i].href) { %>
+                    <a target="_blank" href="<%= carouselImageList[i].href %>">
+                        <img src="<%= carouselImageList[i].src %>" style="margin:auto;">
+                    </a>
+                <% } else { %>
+                    <img src="<%= carouselImageList[i].src %>" style="margin:auto;">
+                <% } %>
+                </div>
+            <% } %>
+        </div>
+        <ol class="carousel-indicators" style="bottom:inherit;">
+            <% for(var i = 0; i < carouselImageList.length; i++) { %>
+                <li data-target="#<%= carouselID %>" data-slide-to="<%= i %>" class="<%= i === 0 ? 'active' : '' %>'"></li>
+            <% } %>
+        </ol>
+    </div>
+
+<% } %>
+<script>
+    $('.carousel').carousel()
+</script>

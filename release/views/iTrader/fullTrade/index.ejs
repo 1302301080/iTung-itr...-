@@ -1,0 +1,115 @@
+<input type="hidden" id="location" value = <%= location %>>
+<% var params = (location || '').split(','); if(params.length > 1) { %>
+    <% var sClass = params[1] === 's' ? 'active' : '' %>
+    <% var rClass = params[1] === 's' ? 'active' : '' %>
+    <% var swClass = params[1] === 'sw' ? 'active' : '' %>
+<% } %>
+<% if(!rClass && !swClass) {sClass = 'active'} %>
+<div class="col-xs-12 hidden" data-spy="scroll" id="fund-trade-panel">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="panel-group accordion">
+					<ul class="nav nav-tabs">
+						<li class="<%= sClass %>" id = "tab-fund-s"><a href="#tab-fund-subscribe" data-toggle="tab" data-i18n="fund_subscribe"></a></li>
+						<li class="<%= rClass %>" id = "tab-fund-r"><a href="#tab-fund-redeem" data-toggle="tab" data-i18n="fund_redeem"></a></li>
+						<li class="<%= swClass %>" id = "tab-fund-sw"><a href="#tab-fund-switch" data-toggle="tab" data-i18n="fund_switch"></a></li>
+							<button type="button" class="btn btn-sm btn-success pull-right" id="fund-select-submit"data-i18n="fund_submit"></button>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane <%= sClass %>" id="tab-fund-subscribe">
+							<div class="well well-sm">
+                                    <div class="fund-info col-sm-12">
+								</div>
+								<form class="form-inline" role="form" id="fund-subscribe-form">
+									<input type="hidden" name="side" value="0">
+									<input type="hidden" name="quantity" value="1">
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+									<div class="form-group form-group-sm">
+										<label data-i18n="fund_symbol_code"></label>
+										<div class="input-group input-group-sm">
+											<input type="text" name="symbol" id="ticket-input-symbol-code" class="form-control symbol-code fund-input-symbol" data-i18n="fund_symbol_code" required>
+											<span class="input-group-addon">
+                                                <a href="javascript:SearchProduct_Search('FUND','0');" tabindex="-1"><i class="fa fa-search text-muted"></i></a>
+                                            </span>
+										</div>
+									</div>
+									<div class="form-group form-group-sm">
+										<label data-i18n="fund_subscription_amount" style="margin-left:10px;"></label>
+										<input type="text" class="form-control" id="input-amount" data-format ="amount" data-i18n="fund_subscription_amount" required>
+									</div>
+									<button type="button" class="btn btn-sm btn-success btn-submit" data-i18n="fund_add"></button>
+								</form>
+								<div style="margin-top: 10px;">
+                             <b><span class="hidden pend-title" data-i18n ="fund_pend_sub_title"></span></b>
+                               </div>
+								<div>						
+								<small><table class="table table-bordered table-condensed table-green pending-submit-table" id="fund-sub-table" side = "0" ></table></small>			
+								</div>			
+							</div>
+						</div>
+						<div class="tab-pane <%= rClass %>" id="tab-fund-redeem">
+							<div class="well well-sm">
+                                    <div class="fund-info col-sm-12">
+								</div>
+								<form class="form-inline" role="form" id="fund-redeem-form">
+									<input type="hidden" name="side" value="1">
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+									<input type="hidden" name="price" value="1">
+									<div class="form-group form-group-sm">
+										<label data-i18n="fund_symbol_code"></label>
+										<div class="input-group input-group-sm">
+											<input type="text" name="symbol" class="form-control fund-input-symbol symbol-code" data-i18n="fund_symbol_code" required>
+											<span class="input-group-addon">
+                                                <a href="javascript:SearchProduct_Search('FUND','0');" tabindex="-1"><i class="fa fa-search text-muted"></i></span></a>
+                                            </span>
+										</div>
+									</div>
+									<div class="form-group form-group-sm">
+										<label data-i18n="fund_redeem_unit" style="margin-left:10px;"></label>
+										<div class="form-group form-group-sm">
+											<input type="text" id="input-unit" class="form-control" data-i18n="fund_redeem_unit"
+												required>
+										</div>
+									</div>
+									<button type="button" class="btn btn-sm btn-danger btn-submit" data-i18n="fund_add"></button>
+								</form>
+								<div class ='pend-red-title'style="margin-top: 10px;">
+                             <b><span class="hidden pend-title" data-i18n ="fund_pend_red_title"></span></b>
+                               </div>
+								<div >	
+								<small><table class="table table-bordered table-condensed table-red pending-submit-table" id="fund-red-table" side = "1"></table></small>							
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane <%= swClass %>" id="tab-fund-switch">
+							<div class="well well-sm">
+								<% include ./fund_switch.ejs %>
+						    </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+			<div class="panel panel-default">
+				<ul class="nav nav-tabs">
+						<li class="active"><a href="#tab-fund-book" data-toggle="tab" data-i18n="fund_book"></a></li>
+						<li><a href="#tab-fund-position" data-toggle="tab" data-i18n="fund_position"></a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="tab-fund-book">
+				            <div id="fund-book-panel">
+                                <table id="fund-book-table" class="table table-bordered table-hover table-condensed table-striped">
+                                </table>
+						</div>
+						</div>
+						<div class="tab-pane" id="tab-fund-position">
+							<table id="fund-position-table" class="table table-bordered table-hover table-condensed table-striped">
+                                </table>
+						</div>
+					</div>
+			</div>
+	</div>
+</div>

@@ -1,0 +1,150 @@
+<head>
+	<% include ../components/base.ejs %>
+</head>
+
+<body>
+	<nav class="breadcrumb">
+		<i class="Hui-iconfont"></i> Home
+		<span class="c-gray en">&gt;</span>
+		System
+		<span class="c-gray en">&gt;</span>
+		Basic
+		<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);"
+		 title="Refresh">
+			<i class="Hui-iconfont"></i>
+		</a>
+	</nav>
+	<div class="page-container">
+		<div class="form form-horizontal" id="form-article-add">
+			<div id="tab-system" class="HuiTab">
+				<div class="tabBar cl">
+					<span>Images</span>
+				</div>
+				<div class="tabCon">
+					<div class="select-img mt-20">
+						<div class="col-6">
+							<p>Select the image you want to replace:</p>
+							<select class="select-box size-M" id="selectId"></select>
+							<p class="pixels"></p>
+						</div>
+						<div class="col-6">
+							<form id="upload-form" enctype="multipart/form-data">
+								<input type="file" name="file_img" id="file_img" multiple="multiple" accept="image/*" />
+							</form>
+							<div class="row cl">
+								<div class="col-12">
+									<button class="btn btn-primary size-M radius btn-save" type="button">Save</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-12 text-c mt-50 boxInit bk-gray radius" id="initImg">
+						<img src="" id="imgInitial" class="imgBoxInit">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	$(function () {
+		var btn = $('.btn-save')
+		$("#tab-system").Huitab({
+			index: 0
+		});
+		var file_imgName = ''
+		$.get('/admin/setting/img', {}, function (data) {
+			if (data) {
+				var select = $('#selectId')
+				for (var i = 0; i < data.length; i++) {
+					if (data[i].indexOf('banner.') != -1) {
+						select.append("<option value='" + data[i] + "'>" + 'Banner Image' + "</option>");
+					} else if (data[i].indexOf('banner_bg.') != -1) {
+						select.append("<option value='" + data[i] + "'>" + 'Banner Background Image' + "</option>");
+					} else if (data[i].indexOf('banner_bond.') != -1) {
+						select.append("<option value='" + data[i] + "'>" + 'Bond Banner Image' + "</option>");
+					} else if (data[i].indexOf('banner_fund.') != -1) {
+						select.append("<option value='" + data[i] + "'>" + 'Fund Banner Image' + "</option>");
+					} else if (data[i].indexOf('login_bg.') != -1) {
+						select.append("<option value='" + data[i] + "'>" + 'Login Background Image' + "</option>");
+					}
+				}
+				var select = $('#selectId')
+				file_imgName = select.prop('selectedIndex', 0).val()
+				imgType(file_imgName)
+				$('#imgInitial').attr('src', '/images/' + file_imgName)
+				select.change(function () {
+					file_imgName = this.value;
+					imgType(file_imgName)
+					$('#imgInitial').attr('src', '/images/' + file_imgName)
+				})
+				$('#initImg').click(function () {
+					var src = $('#imgInitial').attr('src')
+					if (src.indexOf('blob') == -1) {
+						window.open('/images/' + file_imgName)
+					}
+				})
+			}
+		})
+		btn.click(function () {
+			var file = $('#file_img')[0].files[0];
+			if (/image\/\w+/.test(file.type)) {
+				var formData = new FormData($('#upload-form')[0])
+				formData.append('filename', file_imgName)
+				$.ajax({
+					url: '/admin/setting/img?filename=' + file_imgName,
+					type: 'post',
+					data: formData,
+					dataType: 'JSON',
+					cache: false,
+					processData: false,
+					contentType: false,
+					success: function (data) {
+						alert(data.msg)
+					}
+				})
+			} else {
+				return false
+			}
+		})
+		function imgType(imgName) {
+			if (imgName) {
+				if (imgName.indexOf('banner.') >= 0) {
+					$('.pixels').html('Recommended upload 1024 * 85 Picture of pixels')
+				} else if (imgName.indexOf('banner_bg.') >= 0) {
+					$('.pixels').html('Recommended upload 85 * 10 Picture of pixels')
+				} else if (imgName.indexOf('banner_') >= 0) {
+					$('.pixels').html('Recommended upload 1024 * 85 Picture of pixels')
+				} else if (imgName.indexOf('login_bg') >= 0) {
+					$('.pixels').html('Recommended upload 1440 * 900 Picture of pixels')
+				}
+			}
+		}
+		$("#file_img").change(function () {
+			if (this.files[0]) {
+				var objUrl = getObjectURL(this.files[0]);
+				if (objUrl) {
+					$("#imgInitial").attr("src", objUrl);
+				}
+				$('#initImg').click(function () {
+					var src = $('#imgInitial').attr('src')
+					if (src.indexOf('blob') >= 0) {
+						window.open(objUrl)
+					}
+				})
+			}
+		});
+		function getObjectURL(file) {
+			var url = null;
+			if (window.createObjectURL != undefined) {
+				url = window.createObjectURL(file);
+			} else if (window.URL != undefined) {
+				url = window.URL.createObjectURL(file);
+			} else if (window.webkitURL != undefined) {
+				url = window.webkitURL.createObjectURL(file);
+			}
+			return url;
+		}
+
+	})
+</script>

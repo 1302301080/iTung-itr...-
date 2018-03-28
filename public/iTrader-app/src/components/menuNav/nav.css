@@ -1,0 +1,26 @@
+.menu-nav{
+    position: fixed;
+    height: 36px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 100%;
+    background: #FFF;
+    z-index: 1;
+    box-shadow: 0px 3px 4px #DDD;
+}
+.menu-navitem{
+    width: 20%;
+    text-align: center;
+}
+.menu-navitem a{
+    display: block;
+    line-height: 36px;
+    font-weight: bold;
+}
+.menu-active{
+    background: #04BE02;
+}
+.menu-active > a{
+    color: #FFF;
+}

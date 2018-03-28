@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="<%= userOptions.lang %>">
+
+<head>
+    <% include ../../control/header.ejs %>
+
+        <link rel="stylesheet" href="/stylesheets/bootswatch/<%= userOptions.theme %>/bootstrap.min.css" />
+        <link rel="stylesheet" href="/stylesheets/bootstrap3-dialog/css/<%= userOptions.theme %>/bootstrap-dialog.min.css" />
+        <link rel="stylesheet" href="/stylesheets/bootstrap-tokenfield/css/bootstrap-tokenfield.min.css" />
+        <link rel="stylesheet" href="/stylesheets/font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="/stylesheets/iTrader/css/<%= userOptions.theme %>/iTrader.style.css" />
+</head>
+
+<body>
+    <input type="hidden" id="login-error-code" value="<%= error %>" />
+    <input type="hidden" id="login-get-client-ip-url" value="<%= config.client_ip_url %>"/>
+    <div class="container-fluid">
+        <% include ../../control/banner.ejs %>
+        <div class="loing-container">
+            <% var hasAdvertisement = false; if (loginConfig && loginConfig.advertisement && loginConfig.advertisement.url) {hasAdvertisement = true} %>
+            <div class="<%= hasAdvertisement ? 'container-fluid' : 'container' %>">
+                <div class="<%= hasAdvertisement ? 'col-lg-3 col-md-4 col-sm-12 col-xs-12' : 'col-lg-4 col-md-6 col-sm-12 col-xs-12' %>">
+                    <div class="login-panel panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title text-center" data-i18n="login_panel_title"></h3>
+                        </div>
+                        <div class="panel-body msclear">
+                            <div class="alert alert-dismissible alert-danger alert-condensed hidden" id="login-alert">
+                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                <span id="login-message"></span>
+                            </div>
+                            <form role="form" id="login-form">
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <input class="form-control" id="login-username" name="username" type="text" data-i18n="login_input_username"
+                                            value="<%= username %>" autofocus>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" name="password" id="login-password" type="password" data-i18n="login_input_password" autocomplete="off">
+                                        <% if(loginConfig && loginConfig.forgetPasswordUrl) { %>
+                                            <small class="pull-right" style="margin: 5px 0"><a id="login-forget-password" href="javascript:void(0)" data-url="<%= loginConfig.forgetPasswordUrl %>" data-i18n="login_forget_password"></a></small>
+                                        <% } %>
+                                    </div>
+                                     <% include ../../control/captcha.ejs %>
+                                    <small class="pull-right"><p class="text-muted" data-i18n="login_remark_1"></p></small>
+                                    <div class="hidden" id="verify-pin">
+                                        <div class="form-group" id="login-pin-group">
+                                            <% for(var i = 1; i <= config.views.login.pin; i++) { %>
+                                                <div class="pin-input-grount-item"><small><span class="pin-help-text"><%= i %></span></small>
+                                                    <input type="password" class="pin-input" disabled autocomplete="off">
+                                                </div>
+                                                <% } %>
+                                        </div>
+                                        <small><p class="text-muted" id="login-pin-remark" data-i18n="login_remark_pin"></p></small>
+                                    </div>
+
+                                    <div class="hidden" id="verify-email-code">
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" data-i18n="login_verify_email_code">
+                                        </div>
+                                        <div class="resend-link">
+                                            <a href="#" class="resend-btn"></a>
+                                        </div>
+                                        <small>
+                                            <p class="text-muted">
+                                            <p class="login-resendtime"></p>
+                                            <span data-i18n="login_verify_email_remark"></span>
+                                            <span id="login-email-address"></span>
+                                            <span class="login-messageid"></span>
+                                            <span class="login-sendtime"></span>
+                                            <span data-i18n='login_token_remind'></span></p>
+                                        </small>
+                                    </div>
+
+                                    <div class="hidden" id="verify-SMS-code">
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" data-i18n="login_verify_SMS_code">
+                                        </div>
+                                        <div class="resend-link">
+                                            <a href="#" class="resend-btn"></a>
+                                        </div>
+                                        <small>
+                                            <p class="text-muted">
+                                            <p class="login-resendtime"></p>
+                                            <span data-i18n="login_verify_SMS_remark"></span>
+                                            <span id="login-phone-number"></span>
+                                            <span class="login-messageid"></span>
+                                            <span class="login-sendtime"></span>
+                                            <span></span>
+                                            <span data-i18n='login_token_remind'></span></p>
+                                            </p>
+                                        </small>
+                                    </div>
+
+                                    <div class="hidden" id="verify-token-code">
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" data-i18n="login_verify_token">
+                                        </div>
+                                        <small><p class="text-muted" data-i18n="login_verify_token_remark"></p></small>
+                                    </div>
+
+                                     <div class="hidden" id="verify-EBSToken-code">
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" data-i18n="login_verify_token">
+                                        </div>
+                                        <small><p class="text-muted" data-i18n="login_verify_EBSToken_remark"></p></small>
+                                    </div>
+                                    <div class="hidden" id="phonemail-listCode">
+                                        <small class="row col-xs-12 col-lg-12 col-md-12"><p class="text-muted" data-i18n="login_select_phonemail_remark"></p></small>
+                                        <div class="form-group">
+                                            <select class="form-control phonemail-select"></select>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-success btn-block" id="login-submit" type="submit" data-i18n="login_btn_submit"></button>
+                                </fieldset>
+                                </br>
+                                <small><p class="text-muted" data-i18n="login_remark_2"></p></small>
+                            </form>
+                            <legend></legend>
+                            <ul class="list-inline">
+                                <li><a href="/iTrader/user/login?lang=zh-CN"><span class="blue-link" data-i18n="short_lang_zh_CN"></span></a></li>
+                                <li><a href="/iTrader/user/login?lang=zh-HK"><span class="blue-link" data-i18n="short_lang_zh_HK"></span></a></li>
+                                <li><a href="/iTrader/user/login?lang=en-US"><span class="blue-link" data-i18n="short_lang_en_US"></span></a></li>
+                                <li class="pull-right"><a href="javascript:void(0)" class="default-cursor"><i class="fa fa-html5"></i><span class="text-muted"><%= site.version %></span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <% if (hasAdvertisement) { %>
+                <div class="col-lg-9 col-md-8 hidden-xs hidden-sm">
+                    <iframe src="<%= loginConfig.advertisement.url %>" style="width: 100%;height: 650px;" frameborder="0" target="_top"></iframe>
+                </div>
+                <% } %>
+            </div>
+        </div>
+        <div class="login-fotter">
+            <% include ../footer.ejs %>
+        </div>
+    </div>
+    <script type="text/javascript" src="/iTrader/initialize/messages"></script>
+    <script type="text/javascript" src="/javascripts/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/javascripts/lodash/lodash.min.js"></script>
+    <script type="text/javascript" src="/javascripts/jquery-validation/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap3-dialog/js/bootstrap-dialog.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap-tokenfield/bootstrap-tokenfield.min.js"></script>
+    <script type="text/javascript" src="/javascripts/seajs/sea.js"></script>
+    <script type="text/javascript" src="/javascripts/shared/iTrader.shared.js"></script>
+    <script type="text/javascript" src="/javascripts/iTrader/iTrader.global.js"></script>
+    <script type="text/javascript" src="/javascripts/iTrader/iTrader.user.js"></script>
+</body>
+
+</html>

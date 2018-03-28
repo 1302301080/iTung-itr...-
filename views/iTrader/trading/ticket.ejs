@@ -1,0 +1,236 @@
+<div id="ticket-panel" class="panel panel-default panel-ticket msclear">
+    <div class="col-sm-12 col-lg-12 panel-heading text-right">
+        <span class="ticket-title text-left pull-left" data-i18n="ticket_title"></span>
+        <% if(user.accounts.length > 1) { %>
+            <span class="pull-left">- <span class="nav_current_account"></span></span>
+        <% } %>
+        <div class="account-BCAN"></div>
+        <% if(config.views.trade.ticket.tips) { %>
+            <span data-i18n="ticket_tips" class="pull-right" style="margin-top: 2px;padding-left: 5px;"></span>
+        <% } %>
+    </div>
+    <div class="panel-body panel-first-row">
+        <form id="ticket-form" class="form-horizontal" method="POST" autocomplete="off">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <input type="hidden" id="ticket-side" name="side">
+            <input type="hidden" id="ticket-otc-flag" name="OTCFlag" value="0">
+            <div class="form-group form-group-sm">
+                <div class="col-sm-12 col-xs-12 text-ellipsis">
+                    <small><span id="ticket-input-sysbol-name" class="ticket-text"></span></small>
+                </div>
+            </div>
+            <div class="form-group form-group-sm ticket-mode-all">
+                <div class="col-sm-12">
+                    <div class="col-sm-12 col-xs-12 input-group input-group-sm">
+                        <select id="ticket-select-exchange" name="exchange" class="form-control custom-options">
+                            <% for(var i = 0; i < exchanges.length; i++ ) { %>
+                                <% var exchange = exchanges[i] %>
+                                    <option value="<%= exchange %>" data-format="exchange">
+                                        <%= exchange %>
+                                    </option>
+                                    <% } %>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-group-sm ticket-mode-fund hidden">
+                <div class="col-sm-12 ticket-fund-radio-group">
+                <label class="radio-inline">
+                    <input type="radio" name="ticket-fund-radio-side" value="0" checked><span data-i18n="ticket_subscribe"></span>
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="ticket-fund-radio-side" value="1"><span data-i18n="ticket_redeem"></span>
+                </label>
+                <label class="radio-inline pull-right">
+                <a href="/iTrader/fullTrade/fund"><span class="label label-info" data-i18n="ticket_switch"></span></a>
+                </label>
+                </div>
+            </div>
+            <div class="form-group form-group-sm ticket-mode-all">
+                <div class="col-sm-12">
+                    <div class="input-group input-group-sm">
+                        <input type="text" name="symbol" class="form-control" id="ticket-input-symbol-code" data-i18n="ticket_input_symbol" tabindex="1" autofocus
+                        required>
+                        <span class="input-hint" id="ticket-currency-hint"></span>
+                        <span class="input-group-addon pointer">
+                            <a  tabindex="-1"><i class="fa fa-search text-muted" id="ticket-search"></i></a>
+                            </span>
+
+                    </div>
+                </div>
+            </div>
+
+            <!--stock form-->
+            <div id="ticket-stock-form" class="ticket-mode-stock">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <div class="input-group input-group-sm spinner price-spinner">
+                        <input type="text" name="price" class="form-control" id="ticket-input-price" data-format="price" data-i18n="ticket_input_price" tabindex="2"
+                        required>
+                            <% include ../../control/spinner.ejs %>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <div class="input-group input-group-sm spinner quantity-spinner">
+                        <input type="text" name="quantity" class="form-control" id="ticket-input-quantity" data-i18n="ticket_input_quantity" tabindex="3" required>
+                            <% include ../../control/spinner.ejs %>
+                        </div>
+                        <span class="input-hint hidden ticket-hint"><span data-i18n="ticket_lot_size"></span><span id="ticket-lot-size"></span></span>
+                    </div>
+                </div>
+                <small><p class="help-block pull-right hidden" id="ticket-max-buy-sell-hint">
+                    <span class="ticket-text <%= config.views.trade.ticket.max_buy ? '' : 'hidden'%>">
+            <span data-i18n="ticket_max_buy"></span><span id="ticket-max-buy"></span></span>
+            <span class="ticket-text <%= config.views.trade.ticket.max_sell ? '' : 'hidden'%>"><span data-i18n="ticket_max_sell"></span><span id="ticket-max-sell"></span></span></p></small>
+                <div class="form-group form-group-sm">
+                    <div class="col-sm-12">
+                    <select id="ticket-order-type" name="type" class="form-control" tabindex="4">
+                        <option value="limit" data-i18n="oms.order_type_limit"></option>
+                    <% if(user.entitlement.indexOf('OEMarketOrder') >= 0) { %>
+                        <option value="market" data-i18n="oms.order_type_market"></option>
+                    <% } %>
+                    <% if(user.entitlement.indexOf('OEAO') >= 0) { %>
+                        <option value="auction" data-i18n="oms.order_type_auction"></option>
+                    <% } %>
+                    <% if(user.entitlement.indexOf('OEALO') >= 0) { %>
+                        <option value="auctionLimit" data-i18n="oms.order_type_auctionLimit"></option>
+                    <% } %>
+                    <% if(user.entitlement.indexOf('OEEnhanced') >= 0) { %>
+                        <option value="enhancedLimit" data-i18n="oms.order_type_enhancedLimit"></option>
+                    <% } %>
+                    <% if(user.entitlement.indexOf('OESpecial') >= 0) { %>
+                        <option value="specialLimit" data-i18n="oms.order_type_specialLimit"></option>
+                    <% } %>
+                    <% if(user.entitlement.indexOf('OEStopL') >= 0) { %>
+                        <option value="stopLimit" data-i18n="oms.order_type_stopLimit"></option>
+                    <% } %>
+                    </select>
+                    </div>
+                    <div class="col-sm-6 hidden" id="ticket-stop-price-container">
+                        <div class="input-group input-group-sm spinner price-spinner">
+                        <input type="text" class="form-control" id="ticket-input-stop-price" data-i18n="ticket_stop_price">
+                        <% include ../../control/spinner.ejs %>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <div class="col-sm-12">
+                        <div class="col-sm-12 col-xs-12 input-group input-group-sm">
+                            <select id="ticket-order-tif" name="tif" class="form-control" tabindex="5">
+                            <option value="day" data-i18n="oms.order_tif_day"></option>
+                            <% if(user.entitlement.indexOf('OEFOK') >= 0) { %>
+                                <option value="fok" data-i18n="oms.order_tif_fok"></option>
+                            <% } %>
+                            <% if(user.entitlement.indexOf('OEFAK') >= 0) { %>
+                                <option value="fak" data-i18n="oms.order_tif_fak"></option>
+                            <% } %>
+                            <% if(user.entitlement.indexOf('OEGoodtillCancel') >= 0) { %>
+                                <option value="gtc" data-i18n="oms.order_tif_gtc"></option>
+                            <% } %>
+                            <% if(user.entitlement.indexOf('OEGoodtillDate') >= 0) { %>
+                                <option id="ticket-gtd-option" value="gtd" data-i18n="oms.order_tif_gtd"></option>
+                            <% } %>
+                        </select>
+                            <span class="input-group-addon hidden" id="ticket-gtd-addon">
+                            <a href="#" tabindex="-1" id="ticket-gtd-picker"><i class="fa fa-calendar text-muted"></i></a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--fund form-->
+            <div class="ticket-mode-disabled-fund hidden pull-right">
+                <a href="/iTrader/fullTrade/fund" data-i18n="ticket_go_to_fund_page"></a>
+            </div>
+            <div id="ticket-fund-form" class="ticket-mode-fund hidden">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <div class="input-group input-group-sm col-sm-12">
+                            <input type="text" name="fundAmountUnit" id="ticket-fund-amount-unit" class="form-control" tabindex="2"
+                                data-i18n="fund_subscription_amount" required>
+                        </div>
+                    </div>
+                </div>
+                <small>
+                <div class="col-sm-12 help-block">
+                    <span data-i18n="ticket_fund_nav"></span><span id="ticket-fund-nav" class="fund-info"></span></span>
+                </div>
+                <div class="col-sm-12 help-block">
+                    <span data-i18n="ticket_fund_transaction_fee"></span><span id="ticket-fund-transaction-fee" class="fund-info"></span></span>
+                </div>
+                <div class="col-sm-12 help-block">
+                    <span data-i18n="ticket_fund_min_subscription_amount"></span><span id="ticket-fund-min-subscription-amount" class="fund-info"></span></span>
+                </div>
+                <div class="col-sm-12 help-block">
+                    <span data-i18n="ticket_fund_min_transaction_fee_amount"></span><span id="ticket-fund-min-transaction-fee-amount" class="fund-info"></span></span>
+                </div>
+                </small>
+            </div>
+            
+            <!--bond form-->
+            <div class="ticket-mode-disabled-bond hidden pull-right">
+                    <a href="/iTrader/fullTrade/bond" data-i18n="ticket_go_to_bond_page"></a>
+            </div>
+             <div id="ticket-bond-form" class="ticket-mode-bond hidden">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <div class="input-group input-group-sm col-sm-12">
+                            <% var isPriceQuote = false; for(var item of config.oms.exchanges) { if(item.key === 'BOND') {isPriceQuote = item.isPriceQuote} }%>
+                            <input type="text" name="bondPrice" id="ticket-bond-price" class="form-control" data-format="amount" tabindex="2"
+                                data-i18n="ticket_bond_price" disabled="<%= isPriceQuote ? 'disabled' : false %>" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <div class="input-group input-group-sm col-sm-12">
+                            <input type="text" name="bondPAR" id="ticket-PAR-value" class="form-control" data-format="amount" tabindex="3"
+                                data-i18n="ticket_bond_PAR" required>
+                        </div>
+                    </div>
+                </div>
+                <small>
+                <div class="col-sm-12 help-block">
+                    <!--<span><span data-i18n="ticket_bond_transaction_fee"></span><span id="ticket-bond-transaction-fee" style="margin-right: 5px"></span></span></span>-->
+                    <span data-i18n="ticket_bond_coupon_rate"></span><span id="ticket-bond-coupon-rate" class="bond-info"></span></span>
+                </div>
+                <div class="col-sm-12 help-block">
+                    <span data-i18n="ticket_bond_coupon_payment_frequency"></span><span id="ticket-bond-cPFrequency-amount" class="bond-info"></span></span>
+                </div>
+                <div class="col-sm-12 help-block">
+                    <span data-i18n="ticket_bond_min_purchase_amount"></span><span id="ticket-bond-min-purchase-amount" class="bond-info"></span></span>
+                </div>
+                <div class="col-sm-12 help-block">
+                    <span data-i18n="ticket_bond_incremental_amount"></span><span id="ticket-bond-incremental-amount" class="bond-info"></span></span>
+                </div>
+                <div class="col-sm-12 help-block">
+                    <span data-i18n="ticket_bond_settlement_date"></span><span id="ticket-bond-settlement-date" class="bond-info"></span></span>
+                </div>
+                <div class="col-sm-12 help-block">
+                    <span data-i18n="ticket_bond_pre_coupon_date"></span><span id="ticket-bond-pre-coupon-date" class="bond-info"></span></span>
+                </div>
+                </small>
+            </div>
+
+            <div class="ticket-mode-stock ticket-mode-bond">
+                <button class="btn btn-success btn-sm col-sm-4 col-xs-4" id="ticket-btn-buy-side" type="submit" value="0" data-i18n="ticket_buy"
+                    tabindex="6"></button>
+                <a class="col-sm-2 col-xs-2 col-sm-offset-1 col-xs-offset-1 btn btn-default btn-xs btn-clear ticket-btn-reset" tabindex="8"
+                    data-i18n="ticket_form_reset"></a>
+                <button class="btn btn-danger btn-sm col-sm-4 col-xs-4  col-sm-offset-1 col-xs-offset-1" id="ticket-btn-sell-side" type="submit"
+                    tabindex="7" value="1" data-i18n="ticket_sell" data-container="body" data-toggle="popover"
+                    data-placement="right" data-content=""></button>
+            </div>
+
+            <div class="ticket-mode-fund hidden">
+                <button class="btn btn-success btn-sm col-sm-4 col-xs-4 pull-right" id="ticket-btn-fund-side" type="submit" value="0" data-i18n="ticket_subscribe"
+                    tabindex="6"></button>
+                <a class="col-sm-2 col-xs-2 col-sm-offset-4 col-xs-offset-4 btn btn-default btn-xs btn-clear ticket-btn-reset" tabindex="8"
+                    data-i18n="ticket_form_reset"></a>
+            </div>
+        </form>
+    </div>
+</div>

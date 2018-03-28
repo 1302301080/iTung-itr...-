@@ -1,0 +1,77 @@
+<% include ../../control/orderInfo.ejs %>
+
+
+<% var baseColor = order['11'] == '1' ? 'text-danger' : 'text-success' %>
+<form id="add-order-form" method="POST">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <table class='table table-condensed'>
+            <thead>
+                <th data-i18n="order_confirmation_order_information" class="col-md-3"></th>
+                <th class="col-md-9"></th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-i18n="<%= symbolI18n %>"></td>
+                    <td>
+                        <strong><%= symbolCode %></strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-i18n="<%= symbolNameI18n %>"></td>
+                    <td>
+                        <strong title="<%= symbolName %>"><%= symbolName %></strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-i18n="order_confirmation_price"></td>
+                    <td>
+                        <strong data-price="order"><%= price %></strong>
+                        <strong>(<%= order.symbol_currency %>)</strong>
+                    </td>
+                </tr>
+                
+                <% if(order.type === 'stopLimit') { %>
+                    <tr>
+                        <td data-i18n="order_confirmation_stop_price"></td>
+                        <td>
+                            <strong data-price="order"><%= order['41'] %></strong>
+                            <strong>(<%= order.symbol_currency %>)</strong>
+                        </td>
+                    </tr>
+                    <% } %>
+                        <tr>
+                            <td data-i18n="order_confirmation_quantity"></td>
+                            <td>
+                                <strong data-format="quantity"><%= quantity %></strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-i18n="order_confirmation_order_side"></td>
+                            <td>
+                                <strong data-format="side" class="<%= baseColor %>"><%= side %></strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-i18n="order_confirmation_order_type"></td>
+                            <td>
+                                <strong>
+                            <span data-i18n="oms.order_type_<%= order.type %>"></span>
+                            <% var tif = order.tif, extra_message = '' %>
+                            <% if (tif === 'gtd') { tif = 'gtd_pre'; extra_message = order['495'] } %>
+                            <span>(</span>
+                            <span class="<%= baseColor %>" data-i18n="oms.order_tif_<%= tif %>"></span>
+                            <span class="<%= baseColor %>"><%= extra_message %></span>
+                            <span>)</span>
+                        </strong>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+<% include ../../control/commNFees.ejs %>
+        <legend></legend>
+<% include ../../control/totalAmount.ejs %>
+<% include ../../control/confirmation_password.ejs %>
+        <% if(config.views.trade.order_confirmation.warningMessageConfirmation) { %>
+            <p class="help-block" data-i18n="order_confirmation_warning"></p>
+        <% } %>
+</form>

@@ -1,0 +1,30 @@
+<% if(order.commNFees && order.commNFees.length > 0) { %>
+	<table class='table table-condensed'>
+		<thead>
+            <tr>
+			<th class="col-md-3" data-i18n="order_confirmation_order_commNFees"></th>
+			<th class="col-md-3"></th>
+			<th class="col-md-3"></th>
+			<th class="col-md-3"></th>
+            </tr>
+		</thead>
+		<tbody>
+			<% for(var i = 0; i < order.commNFees.length; i=i+2) { %>
+				<tr>
+					<td data-i18n="<%= commNFees[i].i18n %>"></td>
+					<td>
+						<strong data-format="amount"><%= order.commNFees[i].value%></strong>
+						<strong>(<%= order.fee_currency %>)</strong>
+					</td>
+					<% if(i + 1 < order.commNFees.length) { %>
+						<td data-i18n="<%= order.commNFees[i + 1].i18n %>"></td>
+						<td>
+							<strong data-format="amount"><%= order.commNFees[i + 1].value %></strong>
+							<strong>(<%= order.fee_currency %>)</strong>
+						</td>
+					<% } %>
+				</tr>
+				<% } %>
+		</tbody>
+	</table>
+<% } %>

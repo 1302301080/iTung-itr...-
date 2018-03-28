@@ -1,0 +1,87 @@
+<% include ../../control/orderInfo.ejs %>
+
+
+<% var baseColor = order['11'] == '1' ? 'text-danger' : 'text-success' %>
+<form id="cancel-order-form" method="POST">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <table class='table table-condensed'>
+        <thead>
+            <th class="col-md-3" data-i18n="order_confirmation_order_information"></th>
+            <th class="col-md-9"></th>
+        </thead>
+        <tbody>
+            <tr>
+                <td data-i18n="order_confirmation_order_number"></td>
+                <td>
+                    <strong><%= order['6'] %></strong>
+                    <input type="hidden" name="orderNo" value="<%= order['6'] %>">
+                </td>
+            </tr>
+            <tr>
+                <td data-i18n="<%= symbolI18n %>"></td>
+                <td>
+                    <strong id="cancel-confirmation-symbol"><%= symbolCode %></strong>
+                </td>
+            </tr>
+            <tr>
+                <td data-i18n="<%= symbolNameI18n %>"></td>
+                <td>
+                    <strong title="<%= symbolName %>"><%= symbolName %></strong>
+                </td>
+            </tr>
+            <% if(side != 5 && side != 6) { %>
+            <tr>
+                <td data-i18n="<%= priceI18n %>"></td>
+                <td>
+                    <% if(productType == '1' || OTCFlag !='1') { %>
+                        <strong data-price="order"><%= price %></strong>
+                    <% } else { %>
+                        <strong data-format="<%= priceFormat %>"><%= price %></strong>
+                    <% } %>
+                    <% if(productType == '6' && OTCFlag == '1') { %>
+                        <strong>(<%= order.symbol_currency %>)</strong>
+                    <% } else { %>
+                        <strong>(<%= order.symbol_currency %>)</strong>
+                    <% } %>
+                </td>
+            </tr>
+            <% } %>
+            <% if(side != 4 && side != 6) { %>
+            <tr>
+                <td data-i18n="<%= quantityI18n %>"></td>
+                <td>
+                    <strong>
+                        <span data-format="<%= quantityFormat %>"><%= order['4'] %></span>
+                    </strong>
+                </td>
+            </tr>
+            <% } %>
+            <tr>
+                <td data-i18n="<%= sideI18n %>"></td>
+                <td>
+                    <strong data-format="side" class="<%= baseColor %>"><%= side %></strong>
+                </td>
+            </tr>
+            <tr>
+                <% if(productType == 1 || OTCFlag !='1') { %>
+                <td data-i18n="order_confirmation_order_type"></td>
+                <td>
+                    <strong>
+                            <span data-i18n="oms.order_type_<%= order.type %>"></span>
+                            <% var tif = order.tif, extra_message = '' %>
+                            <% if (tif === 'gtd') { tif = 'gtd_pre'; extra_message = order['495'] } %>
+                            <span>(</span>
+                            <span class="<%= baseColor %>" data-i18n="oms.order_tif_<%= tif %>"></span>
+                            <% if (extra_message) { %>
+                            <span class="<%= baseColor %>"><%= extra_message %></span>
+                            <% } %>
+                            <span>)</span>
+                        </strong>
+                </td>
+                <% } %>
+            </tr>
+            <% include ../../control/confirmation_transfee.ejs %>
+        </tbody>
+    </table>
+    <% include ../../control/confirmation_password.ejs %>
+</form>

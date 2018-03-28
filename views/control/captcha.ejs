@@ -1,0 +1,6 @@
+<% if(config.views.login.captcha) { %>
+    <div class="form-group captcha-group">
+        <input class="form-control" name="captcha" id="login-captcha" type="text" data-i18n="login_input_captcha" required>
+        <img src="/iTrader/security/captcha" class="captcha-img" data-i18n="login_captcha_click_refresh" width="100px" height="30px" onclick="this.src='/iTrader/security/captcha?temp=' + (new Date).getTime()">
+</div>
+<% } %>

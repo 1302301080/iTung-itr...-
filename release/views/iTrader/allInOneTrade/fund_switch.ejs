@@ -1,0 +1,17 @@
+<div class="col-sm-12 fund-switch-tableGroup" style="padding:7px 0; box-shadow: 0px 1px 11px #AAA inset;">
+    <div class="col-lg-12 col-md-12 col-sm-12" id="fund-switch-panel" style="height: 215px; overflow-x: hidden;">
+        <!-- <div id="fund-switch-holding-panel" class="col-lg-12">
+        </div> -->
+        <form id="fund-switch-form">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <input type="hidden" name="type" value="switch">
+            <small>
+                <table id="fund-switch-out-table" class="table table-condensed prevent-popup-detail table-red" style="margin:0 !important"></table>
+            </small>
+            <small>
+                <table id="fund-switch-in-table" class="table table-condensed prevent-popup-detail table-green" style="margin:0 !important"></table>
+            </small>
+        </form>
+    </div>
+</div>
+<button type="button" class="btn btn-sm btn-info pull-right" id="fund-select-submit" data-i18n="fund_submit"></button>

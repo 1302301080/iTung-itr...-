@@ -1,0 +1,47 @@
+<head>
+    <% include ../components/base.ejs %>
+</head>
+
+<body>
+    <div class="page-container">
+        <p class="f-20 text-success">iTrader.admin
+            <span class="f-30">
+                <%= version %>
+            </span>
+        </p>
+        <table class="table table-border table-bordered table-bg mt-20">
+            <thead>
+                <tr>
+                    <th colspan="2" scope="col">iTrader.admin Info</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th width="30%">Project Name</th>
+                    <td>
+                        <span id="lbServerName">
+                            <%= name %>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Version</td>
+                    <td>
+                        <%= version %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Node Version</td>
+                    <td>
+                        <%= node_version %>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <footer class="footer mt-20">
+        <div class="">
+            <p>Copyright c 2000 - 2017 eBroker Systems Ltd. All rights reserved.</p>
+        </div>
+    </footer>
+</body>

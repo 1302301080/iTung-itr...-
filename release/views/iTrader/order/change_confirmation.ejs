@@ -1,0 +1,155 @@
+<% include ../../control/orderInfo.ejs %>
+
+
+<% var baseColor = order['11'] == '1' ? 'text-danger' : 'text-success' %>
+<form id="change-order-form" method="POST">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <table class='table table-condensed'>
+        <thead>
+            <th class="col-md-3"><span data-i18n="order_confirmation_order_information"></span></th>
+            <th class="col-md-9"></th>
+        </thead>
+        <tbody>
+            <tr>
+                <td data-i18n="order_confirmation_order_number"></td>
+                <td>
+                    <strong><%= order['6'] %></strong>
+                    <input type="hidden" name="orderNo" value="<%= order['6'] %>">
+                </td>
+            </tr>
+            <tr>
+                <td data-i18n="<%= symbolI18n %>"></td>
+                <td>
+                    <strong id="change-confirmation-symbol" data-symbol="<%= order[0] %>"><%= symbolCode %></strong>
+                </td>
+            </tr>
+            <tr>
+                <td data-i18n="<%= symbolNameI18n %>"></td>
+                <td>
+                    <strong title="<%= symbolName %>"><%= symbolName %></strong>
+                </td>
+            </tr>
+            
+            <% if(side != 5) { %>
+            <tr>
+                <td data-i18n="<%= priceI18n %>"></td>
+                <td>
+                    <div class="row">
+                        <strong class="col-sm-4">
+                                <% if(productType == '1' || OTCFlag !='1') { %>
+                                    <span  data-price="order"><%= price %></span>
+                                <% } else { %>
+                                    <span  data-format="<%= priceFormat %>"><%= price %></span>
+                                    <% } %>
+                                    <% if(productType != '6' || OTCFlag != '1') { %>
+                                        <span>(<%= order.symbol_currency %>)</span>
+                                    <% }else { %>
+                                        <span>(<%= order.symbol_currency %>)</span>
+                                <% } %>
+                                </strong>
+                        <% if(price != '0') { %>
+                            <span class="col-sm-3" data-i18n="order_confirmation_change_to"></span>
+                            <div class="col-sm-5">
+                                <% if(productType == '1' || OTCFlag !='1') { %>
+                                <div class="input-group input-group-sm spinner price-spinner">
+                                    <input type="text" name="changePrice" class="form-control" data-price="order" data-i18n="ticket_input_price" value="<%= price %>">
+                                        <% include ../../control/spinner.ejs %>
+                                </div>
+                                <% } else { %>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" name="changePrice" class="form-control" data-price="order" data-i18n="ticket_input_price" data-format="<%= priceFormat %>" value="<%= price %>">
+                                </div>
+                                <% } %>
+                            </div>
+                            <% } %>
+                    </div>
+                </td>
+            </tr>
+            <% } %>
+
+            <% if(order.type === 'stopLimit') { %>
+                <tr>
+                    <td data-i18n="order_confirmation_stop_price"></td>
+                    <td>
+                        <div class="row">
+                            <strong class="col-sm-4">
+                                <span  data-price="market"><%= order['41'] %></span>
+                                <span>(<%= order.symbol_currency %>)</span>
+                                </strong>
+                            <span class="col-sm-3" data-i18n="order_confirmation_change_to"></span>
+                            <div class="col-sm-5">
+                                <div class="input-group input-group-sm spinner price-spinner">
+                                    <input type="text" name="changeStopPrice" class="form-control" data-price="order" data-i18n="ticket_stop_price" value="<%= order['41'] %>" required>
+                                    <% include ../../control/spinner.ejs %>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <% } %>
+
+                    <% if(side != 4) { %>
+                    <tr>
+                        <td data-i18n="<%= quantityI18n %>"></td>
+                        <td>
+                            <div class="row">
+                                <strong class="col-sm-4">
+                                    <span data-format="<%= quantityFormat %>"><%= order['4'] %></span>
+                                </strong>
+                                <span class="col-sm-3" data-i18n="order_confirmation_change_to"></span>
+                                <div class="col-sm-5">
+                                    <% if(productType == '1' || OTCFlag !='1') { %>
+                                    <div class="input-group input-group-sm spinner quantity-spinner">
+                                        <input type="text" name="changeQuantity" class="form-control" data-i18n="ticket_input_quantity" value="<%= order['4'] %>" required>
+                                            <% include ../../control/spinner.ejs %>
+                                    </div>
+                                    <% } else { %>
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" name="changeQuantity" class="form-control" data-format="<%= quantityFormat %>" data-i18n="ticket_input_quantity"  value="<%= order['4'] %>" required>
+                                    </div>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <% } %>
+
+                    <tr>
+                        <td data-i18n="<%= sideI18n %>"></td>
+                        <td>
+                            <strong data-format="side" class="<%= baseColor %>"><%= side %></strong>
+                        </td>
+                    </tr>
+
+                    <% if(productType == 1 || OTCFlag !='1') { %>
+                    <tr>
+                        <td data-i18n="order_confirmation_order_type"></td>
+                        <td>
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <strong>
+                            <span data-i18n="oms.order_type_<%= order.type %>"></span>
+                            <% var tif = order.tif, extra_message = '' %>
+                            <% if (tif === 'gtd') { tif = 'gtd_pre'; extra_message = order['495'] } %>
+                            <span>(</span>
+                            <span class="<%= baseColor %>" data-i18n="oms.order_tif_<%= tif %>"></span>
+                            <% if (extra_message) { %>
+                            <span class="<%= baseColor %>"><%= extra_message %></span>
+                            <% } %>
+                            <span>)</span>
+                        </strong>
+                                </div>
+                                <div class="col-sm-5">
+                                    <% if (order.tif === 'gtd') { %>
+                                        <input class="form-control input-sm" type="text" id="order-change-gtd" name="changeGTD" value="<%= order['495'] %>">
+                                        <% } %>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <% } %>
+            <% include ../../control/confirmation_transfee.ejs %>
+        </tbody>
+    </table>
+    <% include ../../control/confirmation_password.ejs %>
+</form>

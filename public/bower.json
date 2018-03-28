@@ -1,0 +1,42 @@
+{
+  "name": "ebs",
+  "authors": [
+    "DanielXian@ebrokernet.com"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-datepicker": "~1.5.0",
+    "bootswatch": "~3.3.5+4",
+    "datatables": "~1.10.9",
+    "font-awesome": "~4.4.0",
+    "jquery-spinner": "~0.2.0",
+    "jquery": "~2.1.4",
+    "js-cookie": "~2.0.4",
+    "socket.io-client": "~1.3.7",
+    "bootstrap3-dialog": "bootstrap-dialog#~1.34.7",
+    "jquery-validation": "~1.14.0",
+    "flag-icon-css": "~1.1.0",
+    "lodash": "~4.4.0",
+    "moment": "~2.11.2",
+    "jquery-selectric": "~1.9.5",
+    "echarts": "~3.1.2",
+    "teamdf/jquery-number": "jquery-number#~2.1.6",
+    "bootstrap-tokenfield": "~0.12.1",
+    "datatables.net-buttons": "~1.1.2",
+    "datatables.net-buttons-dt": "~1.1.2",
+    "layer": "*",
+    "js-shortcuts": "~1.0.1"
+  }
+}

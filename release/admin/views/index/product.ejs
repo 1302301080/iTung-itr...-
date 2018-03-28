@@ -1,0 +1,132 @@
+<head>
+    <link rel="stylesheet" href="/javascripts/H-ui/static/h-ui/css/H-ui.ie.css" />
+    <link rel="stylesheet" href="/javascripts/H-ui/static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" href="/javascripts/H-ui/static/h-ui/css/H-ui.reset.css" />
+    <link rel="stylesheet" href="/javascripts/H-ui/lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" href="../src/css/iTrader-CMS.css" />
+    <link rel="stylesheet" href="../src/css/style.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.4/css/select.dataTables.min.css" />
+
+
+
+    <!-- <script type="text/javascript" src="/javascripts/h-ui/lib/jquery/1.9.1/jquery.min.js"></script> -->
+    <!-- <script type="text/javascript" src="/javascripts/h-ui/static/h-ui/js/H-ui.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.2.4/js/dataTables.select.min.js"></script>
+</head>
+
+<body>
+    <nav class="breadcrumb">
+        <i class="Hui-iconfont"></i> Home
+        <span class="c-gray en">&gt;</span> Product
+        <span class="c-gray en">&gt;</span> 基金管理
+        <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);"
+            title="刷新">
+            <i class="Hui-iconfont"></i>
+        </a>
+    </nav>
+    <div class="page-container">
+        <table id="example" class="display" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Symbol</th>
+                    <th width="40%">OfferingDocLink1</th>
+                    <th width="40%">OfferingDocLink2</th>
+                    <th>Office</th>
+                </tr>
+            </thead>
+        </table>
+        <div class="col-12 text-r">
+            <input class="btn btn-primary size-M radius btn-save" type="button" value="保存">
+        </div>
+    </div>
+</body>
+<script>
+    $(document).ready(function () {
+        $.get('/admin/product/funddata', {}, function (data) {
+            var operat = $('<div>', { class: 'f-14 product-brand-manage text-c' })
+            operat.append('<a title="编辑"><i class="Hui-iconfont editor">&#xe6df;</i></a><a class="ml-10" title="删除"><i class="Hui-iconfont delete">&#xe6e2;</i></a>')
+            $('#example').DataTable({
+                order: [[1, 'asc']],
+                data: fundTable(data),
+                columns: [
+                    {
+                        data: null,
+                        defaultContent: '',
+                        className: 'select-checkbox',
+                        orderable: false
+                    },
+                    { data: "symbol", className: 'symbol' },
+                    { data: "doclink1", className: 'doclink link1' },
+                    { data: "doclink2", className: 'doclink link2' },
+                    {
+                        data: null,
+                        className: 'text-c',
+                        defaultContent: operat.html(),
+                    }
+                ],
+                select: {
+                    style: 'os',
+                    selector: 'td:first-child'
+                }
+            });
+        })
+        function fundTable(data) {
+            var csvData = []
+            if (data) {
+                var obj = {}
+                for (var p in data) {
+                    if (p == 'Product Code') continue
+                    if (data[p].offeringDocLink[1]) {
+                        csvData.push({ 'symbol': p, 'doclink1': data[p].offeringDocLink[0], 'doclink2': data[p].offeringDocLink[1] })
+                    } else {
+                        csvData.push({ 'symbol': p, 'doclink1': data[p].offeringDocLink[0], 'doclink2': '' })
+                    }
+                }
+            }
+            return csvData
+        }
+        $('#example').on('click', 'td.doclink', function (e) {
+            var inp = $(this).find('.table-inp')
+            if (inp.length > 0) {
+                inp.focus()
+                inp.blur(function () {
+                    $(this).html($('.table-inp').val())
+                })
+            } else {
+                var cont = e.target.innerText
+                var td = $(this).html('<input class="table-inp input-text radius size-S" type="text" value=' + cont + '>')
+            }
+        });
+        $('.btn-save').click(function () {
+            var csvObj = {}
+            var td = $('#example td.doclink')
+            td.each(function () {
+                var inp = $(this).find('.table-inp')
+                if (inp.length > 0) {
+                    var value = $(this).find('.table-inp').val()
+                    $(this).html(value)
+                }
+            })
+            var tr = $('#example tr')
+            tr.each(function () {
+                var obj = {}
+                var symbol = $(this).find('td.symbol').html()
+                obj.symbol = symbol
+                obj.doclink1 = $(this).find('td.doclink.link1').html()
+                obj.doclink2 = $(this).find('td.doclink.link2').html()
+                csvObj[symbol] = obj
+            })
+            console.log(csvObj)
+            $.post('/admin/product/funddata', csvObj, function (data) {
+            }.bind(this))
+        })
+
+
+    });
+</script>

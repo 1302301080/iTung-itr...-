@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="<%= userOptions.lang %>">
+
+<head>
+    <% include ../control/header.ejs %>
+
+    <link rel="stylesheet" href="/stylesheets/bootswatch/<%= userOptions.theme %>/bootstrap.min.css" />
+    <link rel="stylesheet" href="/stylesheets/iTrader/css/<%= userOptions.theme %>/iTrader.style.css" />
+
+    <style rel="stylesheet">
+        body {
+            font-size: 16px;
+        }
+        
+        .pad-top {
+            padding-top: 80px;
+            padding-bottom: 200px;
+        }
+        
+        h1 {
+            font-size: 80px;
+            padding-bottom: 20px;
+            font-weight: 900;
+        }
+        
+        h3 {
+            padding-bottom: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="row pad-top text-center">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h1><strong>Oops, 404 ! </strong></h1>
+                <h3>Resource Not Found</h3>
+                <a href="/" class="text-muted"> <strong> BACK TO HOME </strong></a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
