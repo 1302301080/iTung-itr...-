@@ -110,7 +110,7 @@ var iTrader = {
         // isPricing: for pricing license, default true.
         // { key: 'SEHK', icon: 'flag-icon-hk', type: 'LO,AO,ELO,SLO', tif: 'FAK,FOK,GTC,GTD', isDayTrade: true, isPriceQuote: false, isPricing: true },
         exchanges: [
-            { key: 'SEHK', icon: 'flag-icon-hk', isDayTrade: true, isPricing: false, isAShare: true },
+            { key: 'SEHK', icon: 'flag-icon-hk', isDayTrade: true, isPricing: false},
             { key: 'US', icon: 'flag-icon-us' },
             { key: 'SHSE', icon: 'flag-icon-cn', isDayTrade: false, isAShare: true },
             { key: 'SZSE', icon: 'flag-icon-cn', isDayTrade: false, isAShare: true },

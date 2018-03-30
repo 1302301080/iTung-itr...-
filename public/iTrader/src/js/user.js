@@ -604,7 +604,6 @@ function SelectHandle() {
     options.sessionID = sessionObj.sessionID//sessionObj[0]
     options.cmd = 'regtoken'
     options.sessionObj = sessionObj
-    console.log(options)
     seajs.use('cregistrationFA', function (chgist) {
         chgist.register2FA(options)
     })
